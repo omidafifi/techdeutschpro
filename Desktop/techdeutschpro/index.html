@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tech Deutsch Pro</title>
+  <link rel="icon" type="image/x-icon" href="Foto/favicon.ico" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 font-sans">
+
+  <header class="flex flex-col sm:flex-row items-center justify-between p-4 bg-gradient-to-r from-black via-red-700 to-yellow-500 shadow-md">
+    
+    <h1 class="text-2xl font-extrabold mb-4 sm:mb-0">
+      <span class="text-white">Tech </span>
+      <span class="text-red-600">Deutsch </span>
+      <span class="text-yellow-400">Pro</span>
+    </h1>
+
+    <button id="menu-toggle" class="sm:hidden text-white text-2xl mb-4">☰</button>
+
+    <div class="flex items-center space-x-6">
+      <nav>   
+        <ul class="hidden sm:flex space-x-4 text-lg">
+          <li><a href="#" class="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-indigo-500 hover:underline">
+            Linkedin
+          </a></li>
+          <li><a href="#" class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-cyan-500 hover:underline">
+            WhatsApp
+          </a> </li>
+          <li><a href="#" class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-blue-600 hover:underline">
+            Telegram
+          </a></li>
+        </ul>
+      </nav>
+
+      <a href="https://www.instagram.com/techdeutschpro" target="_blank" class="block w-12 h-12 rounded-full overflow-hidden shadow-lg ml-6">
+        <img src="/IMG_7649.jpg" alt="Techdeutschpro" class="object-cover w-full h-full" />
+      </a>
+    </div>
+
+    <div id="mobile-menu" class="hidden sm:hidden flex flex-col space-y-2 mt-4">
+      <a href="#" class="text-gray-300 hover:text-green-500">WhatsApp</a>
+      <a href="#" class="text-gray-300 hover:text-sky-600">Telegram</a>
+      <a href="#" class="text-gray-300 hover:text-blue-700">Linkedin</a>
+    </div>
+  </header>
+  <main class="flex items-center justify-center min-h-[70vh] px-4">
+    <section class="bg-gray-900 rounded-xl shadow-xl p-6 max-w-xl w-full text-right">
+      <h2 class="text-xl font-bold text-yellow-400 mb-3">درباره ما</h2>
+      <p class="text-gray-300 leading-relaxed font-light">
+        پروژه حوزه فناوری ایجاد شده <strong>
+          <span class="text-white">Tech </span>
+          <span class="text-red-600">Deutsch </span>
+          <span class="text-yellow-400">Pro</span>
+        </strong>با هدف آموزش زبان آلمانی در است.
+        ما تلاش می‌کنیم تا با ارائه محتوای آموزشی با کیفیت، یادگیری زبان آلمانی را برای علاقه‌مندان به فناوری آسان‌تر کنیم.
+      </p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
