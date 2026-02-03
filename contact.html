@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>تماس با ما - Tech Deutsch Pro</title>
+  <link rel="icon" type="image/x-icon" href="Foto/favicon.ico" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap');
+    
+    * {
+      font-family: 'Vazirmatn', sans-serif;
+    }
+    
+    .gradient-german {
+      background: linear-gradient(135deg, #000000 0%, #DD0000 50%, #FFCE00 100%);
+    }
+    
+    .hover-scale {
+      transition: transform 0.3s ease;
+    }
+    
+    .hover-scale:hover {
+      transform: scale(1.05);
+    }
+
+    .dots-pattern {
+      background-image: radial-gradient(circle, #DD0000 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 font-sans">
+
+  <!-- Header -->
+  <header class="flex flex-col sm:flex-row items-center justify-between p-4 gradient-german shadow-lg sticky top-0 z-50">
+    
+    <!-- Logo -->
+    <div class="mb-4 sm:mb-0">
+      <a href="index.html">
+        <img src="IMG_7649.jpg" alt="Tech Deutsch Pro" class="h-16 sm:h-20" />
+      </a>
+    </div>
+
+    <button id="menu-toggle" class="sm:hidden text-white text-2xl mb-4">☰</button>
+
+    <nav class="flex-1 flex justify-center">   
+      <ul class="hidden sm:flex space-x-6 space-x-reverse text-lg">
+        <li><a href="index.html" class="text-white hover:text-yellow-300 transition">خانه</a></li>
+        <li><a href="index.html#courses" class="text-white hover:text-yellow-300 transition">دوره‌ها</a></li>
+        <li><a href="about.html" class="text-white hover:text-yellow-300 transition">درباره ما</a></li>
+        <li><a href="index.html#features" class="text-white hover:text-yellow-300 transition">ویژگی‌ها</a></li>
+        <li><a href="index.html#testimonials" class="text-white hover:text-yellow-300 transition">نظرات</a></li>
+        <li><a href="index.html#blog" class="text-white hover:text-yellow-300 transition">وبلاگ</a></li>
+        <li><a href="contact.html" class="text-yellow-300 font-bold">تماس با ما</a></li>
+      </ul>
+    </nav>
+
+    <div id="mobile-menu" class="hidden sm:hidden flex flex-col space-y-2 mt-4 w-full">
+      <a href="index.html" class="text-white hover:text-yellow-300 transition p-2">خانه</a>
+      <a href="index.html#courses" class="text-white hover:text-yellow-300 transition p-2">دوره‌ها</a>
+      <a href="about.html" class="text-white hover:text-yellow-300 transition p-2">درباره ما</a>
+      <a href="index.html#features" class="text-white hover:text-yellow-300 transition p-2">ویژگی‌ها</a>
+      <a href="index.html#testimonials" class="text-white hover:text-yellow-300 transition p-2">نظرات</a>
+      <a href="index.html#blog" class="text-white hover:text-yellow-300 transition p-2">وبلاگ</a>
+      <a href="contact.html" class="text-yellow-300 font-bold p-2">تماس با ما</a>
+    </div>
+  </header>
+
+  <!-- Breadcrumb -->
+  <section class="bg-gradient-to-b from-purple-50 to-white py-8">
+    <div class="container mx-auto px-4">
+      <div class="text-center">
+        <h1 class="text-4xl font-bold text-gray-800 mb-2">تماس با ما</h1>
+        <p class="text-gray-600">
+          <a href="index.html" class="hover:text-red-600 transition">خانه</a> 
+          <span class="mx-2">›</span> 
+          <span>تماس با ما</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="py-20 bg-white">
+    <div class="container mx-auto px-4 max-w-7xl">
+      <div class="grid md:grid-cols-2 gap-8 items-start">
+        
+        <!-- Google Map -->
+        <div class="bg-blue-100 rounded-2xl overflow-hidden shadow-xl h-[600px] border-4 border-blue-500">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d207429.9073909457!2d51.18916305!3d35.6892523!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f8e00491ff3dcd9%3A0xf0b3697c567024bc!2sTehran%2C%20Tehran%20Province%2C%20Iran!5e0!3m2!1sen!2s!4v1234567890123!5m2!1sen!2s" 
+            width="100%" 
+            height="100%" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy">
+          </iframe>
+        </div>
+
+        <!-- Contact Form Box -->
+        <div class="bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-2xl p-6 shadow-xl min-h-[600px] flex flex-col overflow-hidden">
+          
+          <!-- Contact Info Cards -->
+          <div class="grid grid-cols-3 gap-3 mb-6">
+            <div class="bg-blue-600 rounded-xl p-3 text-center text-white hover-scale cursor-pointer">
+              <div class="text-2xl mb-1">📧</div>
+              <div class="text-xs font-bold">info@site.com</div>
+              <div class="text-xs mt-1 opacity-80">manager@site</div>
+            </div>
+            
+            <div class="bg-blue-600 rounded-xl p-3 text-center text-white hover-scale cursor-pointer">
+              <div class="text-2xl mb-1">📞</div>
+              <div class="text-xs font-bold">09394962091</div>
+              <div class="text-xs mt-1 opacity-80">09334962091</div>
+            </div>
+            
+            <div class="bg-blue-600 rounded-xl p-3 text-center text-white hover-scale cursor-pointer">
+              <div class="text-2xl mb-1">🏠</div>
+              <div class="text-xs font-bold">تهران، آزادی</div>
+              <div class="text-xs mt-1 opacity-80">پلاک ۱۲۳</div>
+            </div>
+          </div>
+
+          <!-- Form Title -->
+          <div class="text-center mb-6">
+            <div class="flex items-center justify-center gap-2 mb-2">
+              <span class="text-3xl">🎧</span>
+              <h2 class="text-2xl font-bold text-gray-900">با ما در تماس باشید</h2>
+            </div>
+            <p class="text-sm text-gray-800">سوالات خود را از ما بپرسید</p>
+          </div>
+
+          <!-- Contact Form -->
+          <form id="contactForm" class="space-y-2 flex-1 flex flex-col">
+
+            <div class="flex-1 overflow-auto space-y-3">
+              <div>
+                <label class="block text-sm font-bold text-gray-900 mb-2">نام شما</label>
+                <input 
+                  type="text" 
+                  placeholder="نام و نام خانوادگی"
+                  class="w-full px-3 py-2 rounded-lg bg-white border-2 border-blue-600 focus:border-blue-800 focus:outline-none text-gray-900 text-sm"
+                  required
+                />
+              </div>
+
+              <div>
+                <label class="block text-sm font-bold text-gray-900 mb-2">ایمیل یا شماره تلفن</label>
+                <input 
+                  type="text" 
+                  placeholder="example@email.com"
+                  class="w-full px-3 py-2 rounded-lg bg-white border-2 border-blue-600 focus:border-blue-800 focus:outline-none text-gray-900 text-sm"
+                  required
+                />
+              </div>
+
+              <div class="flex flex-col">
+                <label class="block text-sm font-bold text-gray-900 mb-2">پیام شما</label>
+                <textarea 
+                  rows="4"
+                  placeholder="پیام خود را بنویسید..."
+                  class="w-full px-3 py-2 rounded-lg bg-white border-2 border-blue-600 focus:border-blue-800 focus:outline-none text-gray-900 resize-none text-sm"
+                  required
+                ></textarea>
+              </div>
+            </div>
+
+            <div class="mt-3">
+              <button 
+                type="submit"
+                class="w-full bg-blue-700 hover:bg-blue-800 text-white font-bold py-3 rounded-lg transition hover-scale shadow-lg text-sm"
+              >
+                ارسال
+              </button>
+            </div>
+
+          </form>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 bg-gradient-to-b from-gray-50 to-white">
+    <div class="container mx-auto px-4 max-w-6xl">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        
+        <!-- Professional Image -->
+        <div class="order-2 lg:order-1">
+          <img 
+            src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800" 
+            alt="تیم حرفه‌ای"
+            class="rounded-2xl shadow-2xl w-full"
+          />
+        </div>
+
+        <!-- FAQ -->
+        <div class="order-1 lg:order-2">
+          <div class="text-right mb-8">
+            <div class="flex items-center justify-end gap-3 mb-4">
+              <h2 class="text-3xl font-bold text-blue-700">سوالات متداول</h2>
+              <span class="text-4xl">❓</span>
+            </div>
+            <p class="text-gray-600">سوالات پرتکرار کاربران</p>
+          </div>
+
+          <div class="space-y-3">
+            
+            <details class="bg-blue-600 text-white rounded-xl overflow-hidden group">
+              <summary class="p-4 cursor-pointer font-bold flex items-center justify-between hover:bg-blue-700 transition">
+                <span>آیا برای خرید دوره ها باید در سایت ثبت نام کنم؟</span>
+                <span class="text-2xl group-open:rotate-180 transition-transform">⌄</span>
+              </summary>
+              <div class="px-4 pb-4 text-sm leading-relaxed bg-blue-500">
+                بله، برای خرید دوره باید ابتدا در سایت ثبت نام کنید و پروفایل خود را تکمیل نمایید.
+              </div>
+            </details>
+
+            <details class="bg-blue-600 text-white rounded-xl overflow-hidden group">
+              <summary class="p-4 cursor-pointer font-bold flex items-center justify-between hover:bg-blue-700 transition">
+                <span>قالب استاددیار سایز کد دارم سیستم دانلود است؟</span>
+                <span class="text-2xl group-open:rotate-180 transition-transform">⌄</span>
+              </summary>
+              <div class="px-4 pb-4 text-sm leading-relaxed bg-blue-500">
+                برای پرداخت، هزینه دوره ها می توان از طریق اینترنتی، اقدام کرد.
+              </div>
+            </details>
+
+            <details class="bg-blue-600 text-white rounded-xl overflow-hidden group">
+              <summary class="p-4 cursor-pointer font-bold flex items-center justify-between hover:bg-blue-700 transition">
+                <span>برای پرداخت، هزینه دوره ها چه طرزی انجام کشور؟ اقدام کنم؟</span>
+                <span class="text-2xl group-open:rotate-180 transition-transform">⌄</span>
+              </summary>
+              <div class="px-4 pb-4 text-sm leading-relaxed bg-blue-500">
+                شما می‌توانید از طریق درگاه پرداخت آنلاین اقدام به پرداخت هزینه دوره کنید.
+              </div>
+            </details>
+
+            <details class="bg-blue-600 text-white rounded-xl overflow-hidden group">
+              <summary class="p-4 cursor-pointer font-bold flex items-center justify-between hover:bg-blue-700 transition">
+                <span>چجوری دسترسی به گام های دوره پیدا به چه صورت است؟</span>
+                <span class="text-2xl group-open:rotate-180 transition-transform">⌄</span>
+              </summary>
+              <div class="px-4 pb-4 text-sm leading-relaxed bg-blue-500">
+                پس از خرید دوره، از طریق پنل کاربری خود می‌توانید به تمام جلسات و منابع دوره دسترسی داشته باشید.
+              </div>
+            </details>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid md:grid-cols-4 gap-8 mb-8">
+        
+        <div>
+          <h3 class="text-2xl font-bold mb-4">
+            <span class="text-white">Tech </span>
+            <span class="text-red-600">Deutsch </span>
+            <span class="text-yellow-400">Pro</span>
+          </h3>
+          <p class="text-gray-400 leading-relaxed">
+            ما متعهد به ارائه بهترین آموزش زبان آلمانی با تمرکز بر حوزه فناوری و تکنولوژی هستیم.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="text-lg font-bold mb-4 text-yellow-400">دسترسی سریع</h4>
+          <ul class="space-y-2">
+            <li><a href="index.html" class="text-gray-400 hover:text-white transition">خانه</a></li>
+            <li><a href="index.html#courses" class="text-gray-400 hover:text-white transition">دوره‌ها</a></li>
+            <li><a href="about.html" class="text-gray-400 hover:text-white transition">درباره ما</a></li>
+            <li><a href="index.html#testimonials" class="text-gray-400 hover:text-white transition">نظرات</a></li>
+            <li><a href="index.html#blog" class="text-gray-400 hover:text-white transition">وبلاگ</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-lg font-bold mb-4 text-yellow-400">دوره‌ها</h4>
+          <ul class="space-y-2">
+            <li><a href="index.html#courses" class="text-gray-400 hover:text-white transition">دوره A1</a></li>
+            <li><a href="index.html#courses" class="text-gray-400 hover:text-white transition">دوره A2</a></li>
+            <li><a href="index.html#courses" class="text-gray-400 hover:text-white transition">دوره B1</a></li>
+            <li><a href="index.html#courses" class="text-gray-400 hover:text-white transition">دوره B2</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-lg font-bold mb-4 text-yellow-400">تماس با ما</h4>
+          <ul class="space-y-3">
+            <li class="flex items-center gap-2 text-gray-400">
+              <span>📧</span>
+              <span>info@techdeutschpro.com</span>
+            </li>
+            <li class="flex items-center gap-2 text-gray-400">
+              <span>📱</span>
+              <span>09394962091</span>
+            </li>
+            <li class="flex gap-3 mt-4">
+              <a href="#" class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition">L</a>
+              <a href="#" class="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center hover:bg-green-700 transition">W</a>
+              <a href="#" class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center hover:bg-blue-600 transition">T</a>
+              <a href="https://www.instagram.com/techdeutschpro" target="_blank" class="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center hover:opacity-80 transition">I</a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
+        <p>&copy; 2025 Tech Deutsch Pro. تمامی حقوق محفوظ است.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    const form = document.getElementById('contactForm');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('پیام شما با موفقیت ارسال شد! به زودی با شما تماس می‌گیریم.');
+      form.reset();
+    });
+  </script>
+
+</body>
+</html>
