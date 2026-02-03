@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>وبلاگ - Tech Deutsch Pro</title>
+  <link rel="icon" type="image/x-icon" href="Foto/favicon.ico" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap');
+    
+    * {
+      font-family: 'Vazirmatn', sans-serif;
+    }
+    
+    .gradient-german {
+      background: linear-gradient(135deg, #000000 0%, #DD0000 50%, #FFCE00 100%);
+    }
+    
+    .hover-scale {
+      transition: transform 0.3s ease;
+    }
+    
+    .hover-scale:hover {
+      transform: scale(1.05);
+    }
+
+    .dots-pattern {
+      background-image: radial-gradient(circle, #DD0000 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+
+  <!-- Header (copied from index for consistency) -->
+  <header class="flex flex-col sm:flex-row items-center justify-between p-4 gradient-german shadow-lg sticky top-0 z-50">
+    <div class="mb-4 sm:mb-0">
+      <img src="./Foto/IMG_7649.jpg" alt="Tech Deutsch Pro" class="h-16 sm:h-20 rounded-full overflow-hidden" />
+    </div>
+    <button id="menu-toggle" class="sm:hidden text-white text-2xl mb-4">☰</button>
+    <nav class="flex-1 flex justify-center">   
+      <ul class="hidden sm:flex space-x-6 space-x-reverse text-lg">
+        <li><a href="index.html#courses" class="text-white hover:text-yellow-300 transition">دوره‌ها</a></li>
+        <li><a href="about.html" class="text-white hover:text-yellow-300 transition">درباره ما</a></li>
+        <li><a href="index.html#features" class="text-white hover:text-yellow-300 transition">ویژگی‌ها</a></li>
+        <li><a href="index.html#testimonials" class="text-white hover:text-yellow-300 transition">نظرات</a></li>
+        <li><a href="blog.html" class="text-white hover:text-yellow-300 transition">وبلاگ</a></li>
+        <li><a href="index.html#faq" class="text-white hover:text-yellow-300 transition">تماس با ما</a></li>
+      </ul>
+    </nav>
+    <div id="mobile-menu" class="hidden sm:hidden flex flex-col space-y-2 mt-4 w-full">
+      <a href="index.html#courses" class="text-white hover:text-yellow-300 transition p-2">دوره‌ها</a>
+      <a href="about.html" class="text-white hover:text-yellow-300 transition p-2">درباره ما</a>
+      <a href="index.html#features" class="text-white hover:text-yellow-300 transition p-2">ویژگی‌ها</a>
+      <a href="index.html#testimonials" class="text-white hover:text-yellow-300 transition p-2">نظرات</a>
+      <a href="blog.html" class="text-white hover:text-yellow-300 transition p-2">وبلاگ</a>
+      <a href="index.html#faq" class="text-white hover:text-yellow-300 transition p-2">تماس با ما</a>
+    </div>
+  </header>
+
+  <!-- Blog Hero -->
+  <section class="py-16 bg-gradient-to-r from-gray-100 to-white">
+    <div class="container mx-auto px-4 text-right">
+      <h1 class="text-4xl font-bold text-gray-800">وبلاگ</h1>
+      <p class="text-gray-600 mt-2">جدیدترین مقالات، آموزش‌ها و اخبار درباره یادگیری زبان</p>
+    </div>
+  </section>
+
+  <!-- Main content -->
+  <main class="py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid lg:grid-cols-3 gap-8">
+
+        <!-- Sidebar -->
+        <aside class="space-y-6">
+          <div class="bg-white rounded-2xl shadow p-6">
+            <form>
+              <label class="relative block">
+                <input class="w-full border border-gray-200 rounded-lg py-3 pr-10 pl-4 text-gray-700" placeholder="جستجو در سایت ..." />
+                <span class="absolute left-3 top-3 text-gray-400">🔍</span>
+              </label>
+            </form>
+          </div>
+
+          <div class="bg-white rounded-2xl shadow p-6">
+            <h4 class="font-bold text-gray-800 mb-4">دسته‌ها</h4>
+            <ul class="space-y-3 text-gray-600">
+              <li>آموزش</li>
+              <li>آنلاین</li>
+              <li>طراحی</li>
+              <li>عکاسی</li>
+              <li>مقاله</li>
+              <li>وردپرس</li>
+            </ul>
+          </div>
+
+          <div class="bg-white rounded-2xl shadow p-6">
+            <h4 class="font-bold text-gray-800 mb-4">آخرین دیدگاه‌ها</h4>
+            <ul class="text-gray-600 space-y-3 text-sm">
+              <li>استادیار پلاس در آموزش زبان روسی</li>
+              <li>استادیار پلاس در آموزش زبان روسی</li>
+              <li>استادیار پلاس در آموزش زبان روسی</li>
+            </ul>
+          </div>
+        </aside>
+
+        <!-- Posts -->
+        <section class="lg:col-span-2">
+          <div class="grid sm:grid-cols-2 gap-8">
+
+            <!-- Post Card -->
+            <article class="bg-gradient-to-br from-red-500 to-red-700 rounded-2xl overflow-hidden shadow-xl hover-scale">
+              <div class="relative h-48">
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800" alt="مکالمه زبان انگلیسی" class="w-full h-full object-cover" />
+                <span class="absolute top-4 left-4 bg-yellow-400 text-gray-900 px-3 py-1 rounded-full text-sm font-bold">مقاله</span>
+              </div>
+              <div class="p-6 text-white">
+                <p class="text-sm text-red-100 mb-2">عکاسی مقاله</p>
+                <h3 class="text-xl font-bold mb-3">مکالمه زبان انگلیسی</h3>
+                <p class="text-red-100 text-sm leading-relaxed">CSS این یک بازیکر وب طراحی شده است. با استفاده از رنگ های مختلف، تنظیمات، گزینه های طرح بندی و قابلیت های پاسخگو را تایپ کنید...</p>
+                <div class="flex items-center justify-between mt-4 text-red-100 text-sm">
+                  <div class="flex items-center gap-2">
+                    <span>📅</span>
+                    <span>20 اسفند 1402</span>
+                  </div>
+                  <a href="#" class="text-yellow-300 font-bold">مطالعه بیشتر →</a>
+                </div>
+              </div>
+            </article>
+
+            <!-- Post Card 2 -->
+            <article class="bg-gradient-to-br from-black to-gray-900 rounded-2xl overflow-hidden shadow-xl hover-scale">
+              <div class="relative h-48">
+                <img src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=800" alt="آمادگی آزمون" class="w-full h-full object-cover" />
+                <span class="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold">نکات</span>
+              </div>
+              <div class="p-6 text-white">
+                <p class="text-sm text-gray-300 mb-2">آنلاین طراحی</p>
+                <h3 class="text-xl font-bold mb-3">آمادگی آزمون تافل</h3>
+                <p class="text-gray-300 text-sm leading-relaxed">این CSS یک نمونه است که برای نمایش کارت‌های مقاله استفاده می‌شود. خلاصه‌ای کوتاه از محتوا در این بخش قرار می‌گیرد...</p>
+                <div class="flex items-center justify-between mt-4 text-gray-300 text-sm">
+                  <div class="flex items-center gap-2">
+                    <span>📅</span>
+                    <span>20 اسفند 1402</span>
+                  </div>
+                  <a href="#" class="text-yellow-300 font-bold">مطالعه بیشتر →</a>
+                </div>
+              </div>
+            </article>
+
+            <!-- Post Card 3 -->
+            <article class="bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-2xl overflow-hidden shadow-xl hover-scale">
+              <div class="relative h-48">
+                <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=800" alt="فرهنگ آلمان" class="w-full h-full object-cover" />
+                <span class="absolute top-4 left-4 bg-black text-white px-3 py-1 rounded-full text-sm font-bold">فرهنگ</span>
+              </div>
+              <div class="p-6 text-gray-900">
+                <p class="text-sm text-gray-700 mb-2">مطالب فرهنگی</p>
+                <h3 class="text-xl font-bold mb-3">آشنایی با فرهنگ آلمان</h3>
+                <p class="text-gray-700 text-sm leading-relaxed">درک فرهنگ برای یادگیری بهتر زبان ضروری است. در این مقاله به نکات مهم فرهنگ آلمان پرداخته‌ایم...</p>
+                <div class="flex items-center justify-between mt-4 text-gray-500 text-sm">
+                  <div class="flex items-center gap-2">
+                    <span>📅</span>
+                    <span>20 اسفند 1402</span>
+                  </div>
+                  <a href="#" class="text-red-700 font-bold">مطالعه بیشتر →</a>
+                </div>
+              </div>
+            </article>
+
+            <!-- Post Card 4 -->
+            <article class="bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl overflow-hidden shadow-xl hover-scale">
+              <div class="relative h-48">
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800" alt="آموزش زبان روسی" class="w-full h-full object-cover" />
+                <span class="absolute top-4 left-4 bg-white text-blue-600 px-3 py-1 rounded-full text-sm font-bold">آموزش</span>
+              </div>
+              <div class="p-6 text-white">
+                <p class="text-sm text-blue-100 mb-2">آموزش</p>
+                <h3 class="text-xl font-bold mb-3">آموزش زبان روسی</h3>
+                <p class="text-blue-100 text-sm leading-relaxed">یک معرفی کوتاه به منابع و روش‌های موثر در یادگیری زبان روسی برای فارسی‌زبانان.</p>
+                <div class="flex items-center justify-between mt-4 text-blue-100 text-sm">
+                  <div class="flex items-center gap-2">
+                    <span>📅</span>
+                    <span>20 اسفند 1402</span>
+                  </div>
+                  <a href="#" class="text-yellow-300 font-bold">مطالعه بیشتر →</a>
+                </div>
+              </div>
+            </article>
+
+          </div>
+
+          <!-- Pagination -->
+          <div class="mt-8 flex justify-center">
+            <nav class="inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
+              <a href="#" class="px-4 py-2 bg-white border border-gray-200 text-gray-700">«</a>
+              <a href="#" class="px-4 py-2 bg-white border border-gray-200 text-gray-700">1</a>
+              <a href="#" class="px-4 py-2 bg-white border border-gray-200 text-gray-700">2</a>
+              <a href="#" class="px-4 py-2 bg-white border border-gray-200 text-gray-700">3</a>
+              <a href="#" class="px-4 py-2 bg-white border border-gray-200 text-gray-700">»</a>
+            </nav>
+          </div>
+
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer (copied from index) -->
+  <footer class="bg-gray-900 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid md:grid-cols-4 gap-8 mb-8">
+        <div>
+          <h3 class="text-2xl font-bold mb-4">
+            <span class="text-white">Tech </span>
+            <span class="text-red-600">Deutsch </span>
+            <span class="text-yellow-400">Pro</span>
+          </h3>
+          <p class="text-gray-400 leading-relaxed">ما متعهد به ارائه بهترین آموزش زبان آلمانی با تمرکز بر حوزه فناوری و تکنولوژی هستیم.</p>
+        </div>
+        <div>
+          <h4 class="text-lg font-bold mb-4 text-yellow-400">دسترسی سریع</h4>
+          <ul class="space-y-2">
+            <li><a href="index.html#courses" class="text-gray-400 hover:text-white transition">دوره‌های آموزشی</a></li>
+            <li><a href="about.html" class="text-gray-400 hover:text-white transition">درباره ما</a></li>
+            <li><a href="index.html#features" class="text-gray-400 hover:text-white transition">ویژگی‌ها</a></li>
+            <li><a href="index.html#testimonials" class="text-gray-400 hover:text-white transition">نظرات دانشجویان</a></li>
+            <li><a href="blog.html" class="text-gray-400 hover:text-white transition">وبلاگ</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-lg font-bold mb-4 text-yellow-400">دوره‌ها</h4>
+          <ul class="space-y-2">
+            <li><a href="index.html#courses" class="text-gray-400 hover:text-white transition">دوره A1</a></li>
+            <li><a href="index.html#courses" class="text-gray-400 hover:text-white transition">دوره A2</a></li>
+            <li><a href="index.html#courses" class="text-gray-400 hover:text-white transition">دوره B1</a></li>
+            <li><a href="index.html#courses" class="text-gray-400 hover:text-white transition">دوره B2</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-lg font-bold mb-4 text-yellow-400">تماس با ما</h4>
+          <ul class="space-y-3">
+            <li class="flex items-center gap-2 text-gray-400">📧 <span>info@techdeutschpro.com</span></li>
+            <li class="flex items-center gap-2 text-gray-400">📱 <span>09394962091</span></li>
+            <li class="flex items-center gap-2 text-gray-400">🏠 <span>شیراز، بلوار جمهوری</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
+        <p>&copy; 2025 Tech Deutsch Pro. تمامی حقوق محفوظ است.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (menuToggle) menuToggle.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+  </script>
+</body>
+</html>
