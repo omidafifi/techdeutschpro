@@ -25,6 +25,16 @@
       transform: scale(1.05);
     }
 
+    /* make post cards clickable */
+    .post-card { cursor: pointer; }
+    .post-card:focus { outline: 2px solid rgba(221,0,0,0.18); }
+    .post-card a { color: inherit; text-decoration: none; }
+
+    .dots-pattern {
+      background-image: radial-gradient(circle, #DD0000 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+
     .dots-pattern {
       background-image: radial-gradient(circle, #DD0000 1px, transparent 1px);
       background-size: 20px 20px;
@@ -35,25 +45,54 @@
       position: relative;
       overflow: visible;
     }
-    .sidebar-accent::after {
+    /* sidebar pill: small decorative pill in top-right (German flag gradient) */
+    .sidebar-pill {
+      position: relative;
+      overflow: hidden;
+      border-radius: 1rem;
+      background-clip: padding-box;
+      box-shadow: 0 6px 20px rgba(16,24,40,0.04);
+    }
+
+    .sidebar-pill::before {
       content: '';
       position: absolute;
+      /* move pill outside to the right so it doesn't overlap the heading */
       top: 12px;
-      bottom: 12px;
-      right: -8px;
-      width: 12px;
-      /* German flag gradient: black -> red -> gold */
-      background: linear-gradient(180deg, #000000 0%, #DD0000 50%, #FFCE00 100%);
-      border-radius: 14px;
-      /* subtle shadow to lift the stripe */
-      box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+      right: -14px; /* placed outside with negative offset */
+      width: 14px;
+      height: 44px;
+      background: linear-gradient(180deg, #000000 0%, #DD0000 55%, #FFCE00 100%);
+      border-radius: 999px;
+      opacity: 1;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.08), 0 0 12px rgba(221,0,0,0.05);
+      transform: translateZ(0);
+      transition: transform 180ms ease, opacity 180ms ease, box-shadow 180ms ease;
       pointer-events: none;
+      z-index: 0;
+    }
+
+    .sidebar-pill:hover::before {
+      transform: translateY(-4px);
+      opacity: 1;
+      box-shadow: 0 10px 26px rgba(0,0,0,0.12);
+    }
+
+    @media (max-width: 640px) {
+      .sidebar-pill::before {
+        right: -10px;
+        top: 8px;
+        width: 10px;
+        height: 30px;
+        box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+      }
+      .sidebar-pill h4 { padding-right: 28px !important; }
     }
   </style>
 </head>
 <body class="bg-gray-50">
 
-  <!-- Header (copied from index for consistency) -->
+  <!-- Header -->
   <header class="flex flex-col sm:flex-row items-center justify-between p-4 gradient-german shadow-lg sticky top-0 z-50">
     <div class="mb-4 sm:mb-0">
       <a href="index.html" class="block hover:scale-105 transition-transform" title="خانه — Tech Deutsch Pro" aria-label="خانه">
@@ -63,21 +102,23 @@
     <button id="menu-toggle" class="sm:hidden text-white text-2xl mb-4">☰</button>
     <nav class="flex-1 flex justify-center">   
       <ul class="hidden sm:flex space-x-6 space-x-reverse text-lg">
-        <li><a href="index.html#courses" class="text-white hover:text-yellow-300 transition">دوره‌ها</a></li>
+        <li><a href="index.html" class="text-white hover:text-yellow-300 transition">خانه</a></li>
+        <li><a href="#courses" class="text-white hover:text-yellow-300 transition">دوره‌ها</a></li>
         <li><a href="about.html" class="text-white hover:text-yellow-300 transition">درباره ما</a></li>
-        <li><a href="index.html#features" class="text-white hover:text-yellow-300 transition">ویژگی‌ها</a></li>
-        <li><a href="index.html#testimonials" class="text-white hover:text-yellow-300 transition">نظرات</a></li>
+        <li><a href="#features" class="text-white hover:text-yellow-300 transition">ویژگی‌ها</a></li>
+        <li><a href="#testimonials" class="text-white hover:text-yellow-300 transition">نظرات</a></li>
         <li><a href="blog.html" class="text-white hover:text-yellow-300 transition">وبلاگ</a></li>
-        <li><a href="index.html#faq" class="text-white hover:text-yellow-300 transition">تماس با ما</a></li>
+        <li><a href="#faq" class="text-white hover:text-yellow-300 transition">تماس با ما</a></li>
       </ul>
     </nav>
     <div id="mobile-menu" class="hidden sm:hidden flex flex-col space-y-2 mt-4 w-full">
-      <a href="index.html#courses" class="text-white hover:text-yellow-300 transition p-2">دوره‌ها</a>
+      <a href="index.html" class="text-white hover:text-yellow-300 transition p-2">خانه</a>
+      <a href="#courses" class="text-white hover:text-yellow-300 transition p-2">دوره‌ها</a>
       <a href="about.html" class="text-white hover:text-yellow-300 transition p-2">درباره ما</a>
-      <a href="index.html#features" class="text-white hover:text-yellow-300 transition p-2">ویژگی‌ها</a>
-      <a href="index.html#testimonials" class="text-white hover:text-yellow-300 transition p-2">نظرات</a>
+      <a href="#features" class="text-white hover:text-yellow-300 transition p-2">ویژگی‌ها</a>
+      <a href="#testimonials" class="text-white hover:text-yellow-300 transition p-2">نظرات</a>
       <a href="blog.html" class="text-white hover:text-yellow-300 transition p-2">وبلاگ</a>
-      <a href="index.html#faq" class="text-white hover:text-yellow-300 transition p-2">تماس با ما</a>
+      <a href="#faq" class="text-white hover:text-yellow-300 transition p-2">تماس با ما</a>
     </div>
   </header>
 
@@ -105,26 +146,25 @@
             </form>
           </div>
 
-          <div class="bg-white rounded-2xl shadow p-6 sidebar-accent border-r-4 border-black">
-            <h4 class="text-2xl font-extrabold text-gray-700 mb-4">دسته‌ها</h4>
+          <div class="bg-white rounded-2xl shadow-lg p-6 sidebar-pill">
+            <h4 class="text-2xl font-extrabold text-gray-700 mb-4" style="padding-right:40px; position:relative; z-index:10;">دسته‌ها</h4>
             <div class="border-t border-gray-100 mb-4"></div>
             <ul class="space-y-4 text-gray-600 text-lg font-medium">
-              <li class="pl-2">آموزش</li>
-              <li class="pl-2">آنلاین</li>
-              <li class="pl-2">طراحی</li>
-              <li class="pl-2">عکاسی</li>
-              <li class="pl-2">مقاله</li>
-              <li class="pl-2">وردپرس</li>
+              <li class="pl-2">آموزش زبان آلمانی</li>
+              <li class="pl-2">دوره‌ها</li>
+              <li class="pl-2">فرهنگ آلمان</li>
+              <li class="pl-2">منابع</li>
+              <li class="pl-2">مقالات</li>
+              <li class="pl-2">اخبار</li>
             </ul>
           </div>
 
-          <div class="bg-white rounded-2xl shadow p-6 sidebar-accent border-r-4 border-black">
-            <h4 class="text-2xl font-extrabold text-gray-700 mb-4">آخرین دیدگاه‌ها</h4>
+          <div class="bg-white rounded-2xl shadow-lg p-6 sidebar-pill">
+            <h4 class="text-2xl font-extrabold text-gray-700 mb-4" style="padding-right:40px; position:relative; z-index:10;">آخرین دیدگاه‌ها</h4>
             <div class="border-t border-gray-100 mb-4"></div>
             <ul class="text-gray-700 space-y-4 text-base">
-              <li class="pl-2">استادیار پلاس در آموزش زبان روسی</li>
-              <li class="pl-2">استادیار پلاس در آموزش زبان روسی</li>
-              <li class="pl-2">استادیار پلاس در آموزش زبان روسی</li>
+              <li class="pl-2">مدرس سایت: تنها مدرس دوره‌های آلمانی</li>
+              <li class="pl-2">فقط آموزش زبان آلمانی — طراحی/عکاسی/وردپرس ارائه نمی‌شود</li>
             </ul>
           </div>
         </aside>
@@ -134,47 +174,47 @@
           <div class="grid sm:grid-cols-2 gap-8">
 
             <!-- Post Card -->
-            <article class="bg-gradient-to-br from-red-500 to-red-700 rounded-2xl overflow-hidden shadow-xl hover-scale">
+            <article data-page="1" data-link="posts/conversation.html" class="post-card bg-gradient-to-br from-red-500 to-red-700 rounded-2xl overflow-hidden shadow-xl hover-scale">
               <div class="relative h-48">
-                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800" alt="مکالمه زبان انگلیسی" class="w-full h-full object-cover" />
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800" alt="مکالمه زبان آلمانی" class="w-full h-full object-cover" />
                 <span class="absolute top-4 left-4 bg-yellow-400 text-gray-900 px-3 py-1 rounded-full text-sm font-bold">مقاله</span>
               </div>
               <div class="p-6 text-white">
-                <p class="text-sm text-red-100 mb-2">عکاسی مقاله</p>
-                <h3 class="text-xl font-bold mb-3">مکالمه زبان انگلیسی</h3>
-                <p class="text-red-100 text-sm leading-relaxed">CSS این یک بازیکر وب طراحی شده است. با استفاده از رنگ های مختلف، تنظیمات، گزینه های طرح بندی و قابلیت های پاسخگو را تایپ کنید...</p>
+                <p class="text-sm text-red-100 mb-2">درس آلمانی</p>
+                <h3 class="text-xl font-bold mb-3">مکالمه زبان آلمانی — تمرینات روزمره</h3>
+                <p class="text-red-100 text-sm leading-relaxed">من به‌عنوان تنها مدرس این سایت، روش‌های ساده و کاربردی برای تقویت مهارت مکالمه آلمانی را آموزش می‌دهم.</p>
                 <div class="flex items-center justify-between mt-4 text-red-100 text-sm">
                   <div class="flex items-center gap-2">
                     <span>📅</span>
                     <span>20 اسفند 1402</span>
                   </div>
-                  <a href="#" class="text-yellow-300 font-bold">مطالعه بیشتر →</a>
+                  <a href="posts/conversation.html" class="text-yellow-300 font-bold">مطالعه بیشتر →</a>
                 </div>
               </div>
             </article>
 
             <!-- Post Card 2 -->
-            <article class="bg-gradient-to-br from-black to-gray-900 rounded-2xl overflow-hidden shadow-xl hover-scale">
+            <article data-page="1" data-link="posts/goethe.html" class="post-card bg-gradient-to-br from-black to-gray-900 rounded-2xl overflow-hidden shadow-xl hover-scale">
               <div class="relative h-48">
                 <img src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=800" alt="آمادگی آزمون" class="w-full h-full object-cover" />
                 <span class="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold">نکات</span>
               </div>
               <div class="p-6 text-white">
-                <p class="text-sm text-gray-300 mb-2">آنلاین طراحی</p>
-                <h3 class="text-xl font-bold mb-3">آمادگی آزمون تافل</h3>
-                <p class="text-gray-300 text-sm leading-relaxed">این CSS یک نمونه است که برای نمایش کارت‌های مقاله استفاده می‌شود. خلاصه‌ای کوتاه از محتوا در این بخش قرار می‌گیرد...</p>
+                <p class="text-sm text-gray-300 mb-2">آمادگی آزمون</p>
+                <h3 class="text-xl font-bold mb-3">آمادگی برای آزمون Goethe</h3>
+                <p class="text-gray-300 text-sm leading-relaxed">راهنمای گام‌به‌گام برای موفقیت در آزمون‌های زبان آلمانی (Goethe, TestDaF) با تمرکز بر نکات عملی و تمرینات مؤثر.</p>
                 <div class="flex items-center justify-between mt-4 text-gray-300 text-sm">
                   <div class="flex items-center gap-2">
                     <span>📅</span>
                     <span>20 اسفند 1402</span>
                   </div>
-                  <a href="#" class="text-yellow-300 font-bold">مطالعه بیشتر →</a>
+                  <a href="posts/goethe.html" class="text-yellow-300 font-bold">مطالعه بیشتر →</a>
                 </div>
               </div>
             </article>
 
             <!-- Post Card 3 -->
-            <article class="bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-2xl overflow-hidden shadow-xl hover-scale">
+            <article data-page="2" data-link="posts/culture.html" class="post-card bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-2xl overflow-hidden shadow-xl hover-scale">
               <div class="relative h-48">
                 <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=800" alt="فرهنگ آلمان" class="w-full h-full object-cover" />
                 <span class="absolute top-4 left-4 bg-black text-white px-3 py-1 rounded-full text-sm font-bold">فرهنگ</span>
@@ -182,33 +222,33 @@
               <div class="p-6 text-gray-900">
                 <p class="text-sm text-gray-700 mb-2">مطالب فرهنگی</p>
                 <h3 class="text-xl font-bold mb-3">آشنایی با فرهنگ آلمان</h3>
-                <p class="text-gray-700 text-sm leading-relaxed">درک فرهنگ برای یادگیری بهتر زبان ضروری است. در این مقاله به نکات مهم فرهنگ آلمان پرداخته‌ایم...</p>
+                <p class="text-gray-700 text-sm leading-relaxed">درک فرهنگ آلمان برای یادگیری مؤثر زبان ضروری است. همه مطالب توسط مدرس سایت تولید شده و مرتبط با آموزش آلمانی هستند.</p>
                 <div class="flex items-center justify-between mt-4 text-gray-500 text-sm">
                   <div class="flex items-center gap-2">
                     <span>📅</span>
                     <span>20 اسفند 1402</span>
                   </div>
-                  <a href="#" class="text-red-700 font-bold">مطالعه بیشتر →</a>
+                  <a href="posts/culture.html" class="text-red-700 font-bold">مطالعه بیشتر →</a>
                 </div>
               </div>
             </article>
 
             <!-- Post Card 4 -->
-            <article class="bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl overflow-hidden shadow-xl hover-scale">
+            <article data-page="2" data-link="posts/grammar.html" class="post-card bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl overflow-hidden shadow-xl hover-scale">
               <div class="relative h-48">
-                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800" alt="آموزش زبان روسی" class="w-full h-full object-cover" />
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800" alt="گرامر زبان آلمانی" class="w-full h-full object-cover" />
                 <span class="absolute top-4 left-4 bg-white text-blue-600 px-3 py-1 rounded-full text-sm font-bold">آموزش</span>
               </div>
               <div class="p-6 text-white">
                 <p class="text-sm text-blue-100 mb-2">آموزش</p>
-                <h3 class="text-xl font-bold mb-3">آموزش زبان روسی</h3>
-                <p class="text-blue-100 text-sm leading-relaxed">یک معرفی کوتاه به منابع و روش‌های موثر در یادگیری زبان روسی برای فارسی‌زبانان.</p>
+                <h3 class="text-xl font-bold mb-3">نکات گرامری آلمانی برای مبتدیان</h3>
+                <p class="text-blue-100 text-sm leading-relaxed">نکات کلیدی گرامر آلمانی برای شروع. توجه: سایت تنها دوره‌های زبان آلمانی ارائه می‌دهد و هیچ همکاری‌ای با استادیار پلاس در آموزش زبان روسی یا خدمات طراحی/وردپرس/عکاسی ندارد.</p>
                 <div class="flex items-center justify-between mt-4 text-blue-100 text-sm">
                   <div class="flex items-center gap-2">
                     <span>📅</span>
                     <span>20 اسفند 1402</span>
                   </div>
-                  <a href="#" class="text-yellow-300 font-bold">مطالعه بیشتر →</a>
+                  <a href="posts/grammar.html" class="text-yellow-300 font-bold">مطالعه بیشتر →</a>
                 </div>
               </div>
             </article>
@@ -217,12 +257,10 @@
 
           <!-- Pagination -->
           <div class="mt-8 flex justify-center">
-            <nav class="inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
-              <a href="#" class="px-4 py-2 bg-white border border-gray-200 text-gray-700">«</a>
-              <a href="#" class="px-4 py-2 bg-white border border-gray-200 text-gray-700">1</a>
-              <a href="#" class="px-4 py-2 bg-white border border-gray-200 text-gray-700">2</a>
-              <a href="#" class="px-4 py-2 bg-white border border-gray-200 text-gray-700">3</a>
-              <a href="#" class="px-4 py-2 bg-white border border-gray-200 text-gray-700">»</a>
+            <nav id="pagination" class="inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination" dir="ltr">
+              <button type="button" data-action="prev" class="px-4 py-2 bg-white border border-gray-200 text-gray-700">«</button>
+              <!-- numbered page buttons are injected here by JS based on available posts -->
+              <button type="button" data-action="next" class="px-4 py-2 bg-white border border-gray-200 text-gray-700">»</button>
             </nav>
           </div>
 
@@ -265,9 +303,18 @@
         <div>
           <h4 class="text-lg font-bold mb-4 text-yellow-400">تماس با ما</h4>
           <ul class="space-y-3">
-            <li class="flex items-center gap-2 text-gray-400">📧 <span>info@techdeutschpro.com</span></li>
-            <li class="flex items-center gap-2 text-gray-400">📱 <span>09394962091</span></li>
-            <li class="flex items-center gap-2 text-gray-400">🏠 <span>شیراز، بلوار جمهوری</span></li>
+            <li class="flex items-center gap-2 text-gray-400">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8.5v7A2.5 2.5 0 0 0 5.5 18h13A2.5 2.5 0 0 0 21 15.5v-7A2.5 2.5 0 0 0 18.5 6h-13A2.5 2.5 0 0 0 3 8.5z"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 8l-9 6-9-6"/></svg>
+              <a href="mailto:info@techdeutschpro.com" class="hover:text-white transition">info@techdeutschpro.com</a>
+            </li>
+            <li class="flex items-center gap-2 text-gray-400">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5.5A2.5 2.5 0 0 1 5.5 3h1A2.5 2.5 0 0 1 9 5.5V7a2 2 0 0 1-2 2H5v3a9 9 0 0 0 9 9h3v-2a2 2 0 0 1 2-2h1.5A2.5 2.5 0 0 1 23 19.5V15"/></svg>
+              <a href="tel:09394962091" class="hover:text-white transition">09394962091</a>
+            </li>
+            <li class="flex items-center gap-2 text-gray-400">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M17 21v-5a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v5"/><path stroke-linecap="round" stroke-linejoin="round" d="M7 10l5-5 5 5"/></svg>
+              <span>شیراز، بلوار جمهوری</span>
+            </li>
           </ul>
         </div>
       </div>
@@ -281,6 +328,64 @@
     const menuToggle = document.getElementById('menu-toggle');
     const mobileMenu = document.getElementById('mobile-menu');
     if (menuToggle) menuToggle.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+    // Simple client-side pagination for blog posts 🚀
+    (function(){
+      const posts = Array.from(document.querySelectorAll('article[data-page]'));
+      const pages = Array.from(new Set(posts.map(p => p.getAttribute('data-page')))).sort((a,b)=>a-b);
+      if (pages.length === 0) return;
+      let currentPage = pages[0];
+
+      function showPage(page){
+        currentPage = String(page);
+        posts.forEach(p => p.style.display = (p.getAttribute('data-page') === currentPage) ? '' : 'none');
+        document.querySelectorAll('#pagination [data-page-btn]').forEach(btn=>{
+          btn.classList.toggle('bg-gray-200', btn.getAttribute('data-page') === currentPage);
+          if (btn.getAttribute('data-page') === currentPage) btn.setAttribute('aria-current','page'); else btn.removeAttribute('aria-current');
+        });
+      }
+
+      const nav = document.getElementById('pagination');
+      if (!nav) { showPage(currentPage); return; }
+
+      const prevBtn = nav.querySelector('[data-action="prev"]');
+      const nextBtn = nav.querySelector('[data-action="next"]');
+
+      // remove any existing numbered buttons (safety)
+      nav.querySelectorAll('[data-page-btn]').forEach(b => b.remove());
+
+      pages.forEach(p=>{
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.setAttribute('data-page-btn','');
+        b.setAttribute('data-page',p);
+        b.className = 'px-4 py-2 bg-white border border-gray-200 text-gray-700';
+        b.textContent = p;
+        b.addEventListener('click', () => showPage(p));
+        nav.insertBefore(b, nextBtn);
+      });
+
+      if (prevBtn) prevBtn.addEventListener('click', ()=> {
+        const idx = pages.indexOf(currentPage);
+        if (idx > 0) showPage(pages[idx-1]);
+      });
+      if (nextBtn) nextBtn.addEventListener('click', ()=> {
+        const idx = pages.indexOf(currentPage);
+        if (idx < pages.length -1) showPage(pages[idx+1]);
+      });
+
+      showPage(currentPage);
+    })();
+
+    // Make whole post cards clickable (but ignore internal links/buttons)
+    document.addEventListener('click', function(e){
+      const card = e.target.closest('.post-card');
+      if (!card) return;
+      // if a link or button inside was clicked, let it handle navigation
+      if (e.target.closest('a') || e.target.closest('button')) return;
+      const url = card.getAttribute('data-link');
+      if (url) window.location.href = url;
+    });
   </script>
 </body>
 </html>
