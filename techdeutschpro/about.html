@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>درباره ما - Tech Deutsch Pro</title>
+  <link rel="icon" type="image/x-icon" href="Foto/favicon.ico" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap');
+    
+    * {
+      font-family: 'Vazirmatn', sans-serif;
+    }
+    
+    .gradient-german {
+      background: linear-gradient(135deg, #000000 0%, #DD0000 50%, #FFCE00 100%);
+    }
+    
+    .hover-scale {
+      transition: transform 0.3s ease;
+    }
+    
+    .hover-scale:hover {
+      transform: scale(1.05);
+    }
+
+    .dots-pattern {
+      background-image: radial-gradient(circle, #DD0000 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+
+    .circle-border {
+      border: 3px dashed #FFCE00;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 font-sans">
+
+  <!-- Header - مطابق با index.html -->
+  <header class="flex flex-col sm:flex-row items-center justify-between p-4 gradient-german shadow-lg sticky top-0 z-50">
+    
+    <!-- Logo - سمت راست -->
+    <div class="mb-4 sm:mb-0">
+      <a href="index.html">
+        <img src="./techdeutschpro/Foto/" alt="Tech Deutsch Pro" class="h-16 sm:h-20" />
+      </a>
+    </div>
+
+    <!-- Mobile Menu Toggle -->
+    <button id="menu-toggle" class="sm:hidden text-white text-2xl mb-4">☰</button>
+
+    <!-- Navigation - وسط -->
+    <nav class="flex-1 flex justify-center">   
+      <ul class="hidden sm:flex space-x-6 space-x-reverse text-lg">
+        <li><a href="index.html" class="text-white hover:text-yellow-300 transition">خانه</a></li>
+        <li><a href="index.html#courses" class="text-white hover:text-yellow-300 transition">دوره‌ها</a></li>
+        <li><a href="about.html" class="text-yellow-300 font-bold">درباره ما</a></li>
+        <li><a href="index.html#features" class="text-white hover:text-yellow-300 transition">ویژگی‌ها</a></li>
+        <li><a href="index.html#testimonials" class="text-white hover:text-yellow-300 transition">نظرات</a></li>
+        <li><a href="index.html#blog" class="text-white hover:text-yellow-300 transition">وبلاگ</a></li>
+        <li><a href="index.html#faq" class="text-white hover:text-yellow-300 transition">تماس با ما</a></li>
+      </ul>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden sm:hidden flex flex-col space-y-2 mt-4 w-full">
+      <a href="index.html" class="text-white hover:text-yellow-300 transition p-2">خانه</a>
+      <a href="index.html#courses" class="text-white hover:text-yellow-300 transition p-2">دوره‌ها</a>
+      <a href="about.html" class="text-yellow-300 font-bold p-2">درباره ما</a>
+      <a href="index.html#features" class="text-white hover:text-yellow-300 transition p-2">ویژگی‌ها</a>
+      <a href="index.html#testimonials" class="text-white hover:text-yellow-300 transition p-2">نظرات</a>
+      <a href="index.html#blog" class="text-white hover:text-yellow-300 transition p-2">وبلاگ</a>
+      <a href="index.html#faq" class="text-white hover:text-yellow-300 transition p-2">تماس با ما</a>
+    </div>
+  </header>
+
+  <!-- Breadcrumb -->
+  <section class="bg-gradient-to-b from-yellow-50 to-white py-8">
+    <div class="container mx-auto px-4">
+      <div class="text-center">
+        <h1 class="text-4xl font-bold text-gray-800 mb-2">درباره ما</h1>
+        <p class="text-gray-600">
+          <a href="index.html" class="hover:text-red-600 transition">خانه</a> 
+          <span class="mx-2">›</span> 
+          <span>درباره ما</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main About Section -->
+  <section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        
+        <!-- Image Section -->
+        <div class="relative order-2 md:order-1">
+          <div class="absolute top-0 left-0 w-20 h-20 bg-yellow-400 rounded-full opacity-50"></div>
+          <div class="absolute bottom-0 right-0 w-16 h-16 bg-red-600 rounded-full opacity-50"></div>
+          <div class="absolute top-1/2 left-1/4 w-12 h-12 bg-yellow-500 rounded-full"></div>
+          
+          <div class="relative z-10 w-80 h-80 mx-auto circle-border rounded-full overflow-hidden bg-gradient-to-br from-yellow-400 to-yellow-500 p-2">
+            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400" 
+                 alt="Tech Deutsch Pro" 
+                 class="w-full h-full object-cover rounded-full" />
+          </div>
+        </div>
+
+        <!-- Content Section -->
+        <div class="space-y-6 order-1 md:order-2">
+          <div>
+            <div class="inline-block bg-yellow-400 text-gray-900 px-4 py-2 rounded-full font-bold mb-4">
+              معرفی Tech Deutsch Pro
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+              آموزشگاه تخصصی زبان آلمانی
+            </h2>
+          </div>
+
+          <p class="text-gray-600 leading-relaxed text-lg">
+            <strong class="text-red-600">Tech Deutsch Pro</strong> یک پلتفرم آموزشی تخصصی برای یادگیری زبان آلمانی با تمرکز بر حوزه فناوری و تکنولوژی است. ما با ارائه دوره‌های استاندارد از سطح A1 تا B2، به شما کمک می‌کنیم تا زبان آلمانی را به صورت حرفه‌ای فرا بگیرید.
+          </p>
+
+          <!-- Features List -->
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                <span class="text-white text-xl">✓</span>
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-800 text-lg">آموزش کاربردی و تخصصی</h3>
+                <p class="text-gray-600">تمرکز بر واژگان و اصطلاحات فنی مورد نیاز در زبان آلمانی </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                <span class="text-white text-xl">✓</span>
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-800 text-lg">منابع آموزشی غنی</h3>
+                <p class="text-gray-600">دسترسی به ویدیوها، تمرین‌ها و منابع تکمیلی متنوع</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                <span class="text-white text-xl">✓</span>
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-800 text-lg">پشتیبانی 24/7</h3>
+                <p class="text-gray-600">همراهی مستمر در مسیر یادگیری شما</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                <span class="text-white text-xl">✓</span>
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-800 text-lg">یادگیری انعطاف‌پذیر</h3>
+                <p class="text-gray-600">آموزش آنلاین با امکان دسترسی از هر مکان و زمان</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                <span class="text-white text-xl">✓</span>
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-800 text-lg">به‌روزرسانی مستمر</h3>
+                <p class="text-gray-600">محتوای آموزشی همیشه به‌روز و مطابق با استانداردهای روز</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission & Vision Section -->
+  <section class="py-20 bg-gradient-to-b from-gray-50 to-white">
+    <div class="container mx-auto px-4">
+      
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold text-gray-800 mb-4">
+          مأموریت و چشم‌انداز ما
+        </h2>
+        <p class="text-gray-600 text-lg max-w-3xl mx-auto">
+          ما در Tech Deutsch Pro با هدف ارتقای سطح دانش زبان آلمانی در میان علاقه‌مندان به فناوری فعالیت می‌کنیم
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        
+        <!-- Mission 1 -->
+        <div class="bg-gradient-to-br from-yellow-100 to-yellow-50 rounded-2xl p-8 hover-scale shadow-lg text-center">
+          <div class="w-24 h-24 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-2xl flex items-center justify-center mx-auto mb-6 text-5xl">
+            🎯
+          </div>
+          <h3 class="text-2xl font-bold text-gray-800 mb-4">مأموریت ما</h3>
+          <p class="text-gray-600 leading-relaxed">
+            ارائه بهترین آموزش زبان آلمانی با تمرکز بر نیازهای واقعی حوزه فناوری و ایجاد فرصت‌های شغلی بهتر برای دانشجویان
+          </p>
+        </div>
+
+        <!-- Vision 2 -->
+        <div class="bg-gradient-to-br from-red-100 to-red-50 rounded-2xl p-8 hover-scale shadow-lg text-center">
+          <div class="w-24 h-24 bg-gradient-to-br from-red-400 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-6 text-5xl">
+            👁️
+          </div>
+          <h3 class="text-2xl font-bold text-gray-800 mb-4">چشم‌انداز ما</h3>
+          <p class="text-gray-600 leading-relaxed">
+            تبدیل شدن به پیشروترین پلتفرم آموزش زبان آلمانی برای حوزه فناوری در ایران و منطقه
+          </p>
+        </div>
+
+        <!-- Values 3 -->
+        <div class="bg-gradient-to-br from-black/5 to-gray-100 rounded-2xl p-8 hover-scale shadow-lg text-center">
+          <div class="w-24 h-24 bg-gradient-to-br from-gray-700 to-gray-900 rounded-2xl flex items-center justify-center mx-auto mb-6 text-5xl">
+            💎
+          </div>
+          <h3 class="text-2xl font-bold text-gray-800 mb-4">ارزش‌های ما</h3>
+          <p class="text-gray-600 leading-relaxed">
+            کیفیت، تخصص، نوآوری و تعهد به موفقیت هر دانشجو از اصول اساسی کار ما هستند
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="py-16 gradient-german">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center text-white">
+        
+        <div class="space-y-2">
+          <div class="text-5xl md:text-6xl font-extrabold text-yellow-400">+2,300</div>
+          <div class="text-lg md:text-xl">دانشجو</div>
+        </div>
+
+        <div class="space-y-2">
+          <div class="text-5xl md:text-6xl font-extrabold text-yellow-400">1,400</div>
+          <div class="text-lg md:text-xl">دوره برگزار شده</div>
+        </div>
+
+        <div class="space-y-2">
+          <div class="text-5xl md:text-6xl font-extrabold text-yellow-400">100%</div>
+          <div class="text-lg md:text-xl">رضایت</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us Section -->
+  <section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold text-gray-800 mb-4">چرا Tech Deutsch Pro؟</h2>
+        <p class="text-gray-600 text-lg">مزایای منحصر به فرد ما در آموزش زبان آلمانی</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <div class="bg-gradient-to-br from-yellow-50 to-white rounded-xl p-6 shadow-lg hover-scale border-2 border-yellow-200">
+          <div class="w-16 h-16 bg-yellow-400 rounded-xl flex items-center justify-center mb-4 text-3xl">
+            🎯
+          </div>
+          <h3 class="text-xl font-bold text-gray-800 mb-3">تمرکز روی تکنولوژی</h3>
+          <p class="text-gray-600">
+            آموزش زبان آلمانی با تمرکز خاص بر اصطلاحات و واژگان حوزه فناوری
+          </p>
+        </div>
+
+        <div class="bg-gradient-to-br from-red-50 to-white rounded-xl p-6 shadow-lg hover-scale border-2 border-red-200">
+          <div class="w-16 h-16 bg-red-600 rounded-xl flex items-center justify-center mb-4 text-3xl">
+            💻
+          </div>
+          <h3 class="text-xl font-bold text-gray-800 mb-3">پلتفرم مدرن</h3>
+          <p class="text-gray-600">
+            استفاده از جدیدترین تکنولوژی‌های آموزشی برای تجربه یادگیری بهتر
+          </p>
+        </div>
+
+        <div class="bg-gradient-to-br from-gray-50 to-white rounded-xl p-6 shadow-lg hover-scale border-2 border-gray-200">
+          <div class="w-16 h-16 bg-gray-900 rounded-xl flex items-center justify-center mb-4 text-3xl">
+            📚
+          </div>
+          <h3 class="text-xl font-bold text-gray-800 mb-3">منابع غنی</h3>
+          <p class="text-gray-600">
+            دسترسی به کتاب‌ها، ویدیوها، و منابع تکمیلی متنوع
+          </p>
+        </div>
+
+        <div class="bg-gradient-to-br from-blue-50 to-white rounded-xl p-6 shadow-lg hover-scale border-2 border-blue-200">
+          <div class="w-16 h-16 bg-blue-600 rounded-xl flex items-center justify-center mb-4 text-3xl">
+            🎓
+          </div>
+          <h3 class="text-xl font-bold text-gray-800 mb-3">استانداردهای بین‌المللی</h3>
+          <p class="text-gray-600">
+            آموزش مطابق با استانداردهای CEFR و آمادگی برای آزمون‌های معتبر
+          </p>
+        </div>
+
+        <div class="bg-gradient-to-br from-green-50 to-white rounded-xl p-6 shadow-lg hover-scale border-2 border-green-200">
+          <div class="w-16 h-16 bg-green-600 rounded-xl flex items-center justify-center mb-4 text-3xl">
+            💬
+          </div>
+          <h3 class="text-xl font-bold text-gray-800 mb-3">تمرین مکالمه</h3>
+          <p class="text-gray-600">
+            جلسات مکالمه منظم برای بهبود مهارت گفتاری و اعتماد به نفس
+          </p>
+        </div>
+
+        <div class="bg-gradient-to-br from-purple-50 to-white rounded-xl p-6 shadow-lg hover-scale border-2 border-purple-200">
+          <div class="w-16 h-16 bg-purple-600 rounded-xl flex items-center justify-center mb-4 text-3xl">
+            🌐
+          </div>
+          <h3 class="text-xl font-bold text-gray-800 mb-3">یادگیری از هر کجا</h3>
+          <p class="text-gray-600">
+            امکان یادگیری از هر نقطه جهان با کیفیت بالا
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 gradient-german text-white relative overflow-hidden">
+    <div class="absolute inset-0 dots-pattern opacity-10"></div>
+    <div class="container mx-auto px-4 text-center relative z-10">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">
+          آماده شروع یادگیری هستید؟
+        </h2>
+        <p class="text-xl mb-8 text-yellow-100">
+          همین امروز به خانواده بزرگ Tech Deutsch Pro بپیوندید و مسیر موفقیت خود را آغاز کنید
+        </p>
+        <div class="flex gap-4 justify-center flex-wrap">
+          <a href="index.html#courses" class="inline-block px-10 py-4 bg-yellow-400 text-gray-900 rounded-xl font-bold text-lg hover:bg-yellow-500 transition hover-scale shadow-2xl">
+            مشاهده دوره‌ها
+          </a>
+          <a href="index.html#faq" class="inline-block px-10 py-4 bg-white text-gray-900 rounded-xl font-bold text-lg hover:bg-gray-100 transition hover-scale shadow-2xl">
+            تماس با ما
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid md:grid-cols-4 gap-8 mb-8">
+        
+        <!-- About -->
+        <div>
+          <h3 class="text-2xl font-bold mb-4">
+            <span class="text-white">Tech </span>
+            <span class="text-red-600">Deutsch </span>
+            <span class="text-yellow-400">Pro</span>
+          </h3>
+          <p class="text-gray-400 leading-relaxed">
+            ما متعهد به ارائه بهترین آموزش زبان آلمانی با تمرکز بر حوزه فناوری و تکنولوژی هستیم.
+          </p>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h4 class="text-lg font-bold mb-4 text-yellow-400">دسترسی سریع</h4>
+          <ul class="space-y-2">
+            <li><a href="index.html" class="text-gray-400 hover:text-white transition">خانه</a></li>
+            <li><a href="index.html#courses" class="text-gray-400 hover:text-white transition">دوره‌های آموزشی</a></li>
+            <li><a href="about.html" class="text-gray-400 hover:text-white transition">درباره ما</a></li>
+            <li><a href="index.html#testimonials" class="text-gray-400 hover:text-white transition">نظرات دانشجویان</a></li>
+            <li><a href="index.html#blog" class="text-gray-400 hover:text-white transition">وبلاگ</a></li>
+          </ul>
+        </div>
+
+        <!-- Courses -->
+        <div>
+          <h4 class="text-lg font-bold mb-4 text-yellow-400">دوره‌ها</h4>
+          <ul class="space-y-2">
+            <li><a href="index.html#courses" class="text-gray-400 hover:text-white transition">دوره A1</a></li>
+            <li><a href="index.html#courses" class="text-gray-400 hover:text-white transition">دوره A2</a></li>
+            <li><a href="index.html#courses" class="text-gray-400 hover:text-white transition">دوره B1</a></li>
+            <li><a href="index.html#courses" class="text-gray-400 hover:text-white transition">دوره B2</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <h4 class="text-lg font-bold mb-4 text-yellow-400">تماس با ما</h4>
+          <ul class="space-y-3">
+            <li class="flex items-center gap-2 text-gray-400">
+              <span>📧</span>
+              <span>info@techdeutschpro.com</span>
+            </li>
+            <li class="flex items-center gap-2 text-gray-400">
+              <span>📱</span>
+              <span>09394962091</span>
+            </li>
+            <li class="flex gap-3 mt-4">
+              <a href="#" class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition">
+                L
+              </a>
+              <a href="#" class="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center hover:bg-green-700 transition">
+                W
+              </a>
+              <a href="#" class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center hover:bg-blue-600 transition">
+                T
+              </a>
+              <a href="https://www.instagram.com/techdeutschpro" target="_blank" class="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center hover:opacity-80 transition">
+                I
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
+        <p>&copy; 2025 Tech Deutsch Pro. تمامی حقوق محفوظ است.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

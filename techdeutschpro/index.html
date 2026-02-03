@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tech Deutsch Pro - آموزش زبان آلمانی</title>
+  <link rel="icon" type="image/x-icon" href="Foto/favicon.ico" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap');
+    
+    * {
+      font-family: 'Vazirmatn', sans-serif;
+    }
+    
+    .gradient-german {
+      background: linear-gradient(135deg, #000000 0%, #DD0000 50%, #FFCE00 100%);
+    }
+    
+    .hover-scale {
+      transition: transform 0.3s ease;
+    }
+    
+    .hover-scale:hover {
+      transform: scale(1.05);
+    }
+
+    .dots-pattern {
+      background-image: radial-gradient(circle, #DD0000 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 font-sans">
+
+ <!-- Header -->
+  <header class="flex flex-col sm:flex-row items-center justify-between p-4 gradient-german shadow-lg sticky top-0 z-50">
+    
+    <!-- Logo - اول -->
+    <div class="mb-4 sm:mb-0">
+      <img src="./Foto/IMG_7649.jpg" alt="Tech Deutsch Pro" class="h-16 sm:h-20" />
+    </div>
+
+    <!-- Button -->
+    <button id="menu-toggle" class="sm:hidden text-white text-2xl mb-4">☰</button>
+
+    <!-- Navigation -->
+    <nav class="flex-1 flex justify-center">   
+      <ul class="hidden sm:flex space-x-6 space-x-reverse text-lg">
+        <li><a href="#courses" class="text-white hover:text-yellow-300 transition">دوره‌ها</a></li>
+        <li><a href="about.html" class="text-white hover:text-yellow-300 transition">درباره ما</a></li>
+        <li><a href="#features" class="text-white hover:text-yellow-300 transition">ویژگی‌ها</a></li>
+        <li><a href="#testimonials" class="text-white hover:text-yellow-300 transition">نظرات</a></li>
+        <li><a href="#blog" class="text-white hover:text-yellow-300 transition">وبلاگ</a></li>
+        <li><a href="#faq" class="text-white hover:text-yellow-300 transition">تماس با ما</a></li>
+      </ul>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden sm:hidden flex flex-col space-y-2 mt-4 w-full">
+      <a href="#courses" class="text-white hover:text-yellow-300 transition p-2">دوره‌ها</a>
+      <a href="about.html" class="text-white hover:text-yellow-300 transition p-2">درباره ما</a>
+      <a href="#features" class="text-white hover:text-yellow-300 transition p-2">ویژگی‌ها</a>
+      <a href="#testimonials" class="text-white hover:text-yellow-300 transition p-2">نظرات</a>
+      <a href="#blog" class="text-white hover:text-yellow-300 transition p-2">وبلاگ</a>
+      <a href="#faq" class="text-white hover:text-yellow-300 transition p-2">تماس با ما</a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative bg-gradient-to-br from-gray-100 via-gray-50 to-yellow-50 min-h-[600px] flex items-center overflow-hidden">
+    <div class="absolute inset-0 dots-pattern opacity-10"></div>
+    
+    <div class="container mx-auto px-4 grid md:grid-cols-2 gap-8 items-center relative z-10">
+      <!-- Text Content -->
+      <div class="text-right space-y-6">
+        <h2 class="text-4xl md:text-5xl font-extrabold leading-tight">
+          <span class="text-gray-800">دوره‌های آنلاین</span><br/>
+          <span class="gradient-german bg-clip-text text-transparent">زبان آلمانی استاندارد</span><br/>
+          <span class="text-gray-700">را با ما شروع کنید</span>
+        </h2>
+        
+        <p class="text-gray-600 text-lg leading-relaxed">
+          یادگیری زبان آلمانی با تمرکز بر حوزه فناوری و تکنولوژی
+        </p>
+        
+        <div class="flex gap-4 justify-end">
+          <a href="#courses" class="px-8 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg font-bold hover:shadow-xl transition hover-scale">
+            مشاهده دوره‌ها
+          </a>
+          <a href="#faq" class="px-8 py-3 bg-yellow-500 text-gray-900 rounded-lg font-bold hover:shadow-xl transition hover-scale">
+            تماس با ما
+          </a>
+        </div>
+      </div>
+      
+      <!-- Hero Image -->
+      <div class="relative">
+        <div class="absolute top-0 left-0 w-32 h-32 bg-yellow-400 rounded-full opacity-20 blur-3xl"></div>
+        <div class="absolute bottom-0 right-0 w-40 h-40 bg-red-600 rounded-full opacity-20 blur-3xl"></div>
+        
+        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600" 
+             alt="Learning German" 
+             class="rounded-2xl shadow-2xl relative z-10" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Courses Section -->
+  <section id="courses" class="py-20 bg-gradient-to-b from-gray-50 to-gray-100">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold text-gray-800 mb-4">سطوح آموزشی زبان آلمانی</h2>
+        <p class="text-gray-600 text-lg">از مبتدی تا پیشرفته - مسیر یادگیری خود را انتخاب کنید</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- A1 Course -->
+        <div class="bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl shadow-xl p-6 text-white hover-scale relative overflow-hidden group">
+          <div class="absolute top-0 right-0 bg-red-600 text-white px-4 py-1 rounded-bl-2xl text-sm font-bold">
+            پرطرفدار
+          </div>
+          <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition"></div>
+          
+          <div class="mb-4">
+            <div class="w-16 h-16 bg-white rounded-xl flex items-center justify-center mb-4">
+              <span class="text-3xl font-bold text-blue-600">A1</span>
+            </div>
+            <h3 class="text-2xl font-bold mb-2">دوره مقدماتی</h3>
+            <p class="text-blue-100 text-sm mb-4">شروع یادگیری از پایه</p>
+          </div>
+
+          <ul class="space-y-2 mb-6 text-sm">
+            <li class="flex items-center gap-2">
+              <span class="text-yellow-300">✓</span>
+              <span>آموزش الفبا و تلفظ</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="text-yellow-300">✓</span>
+              <span>مکالمات روزمره</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="text-yellow-300">✓</span>
+              <span>گرامر پایه</span>
+            </li>
+          </ul>
+
+          <div class="mb-4">
+            <span class="text-3xl font-bold">2,500,000</span>
+            <span class="text-sm">تومان</span>
+          </div>
+
+          <button class="w-full bg-white text-blue-600 py-3 rounded-lg font-bold hover:bg-yellow-400 hover:text-gray-900 transition">
+            ثبت نام دوره
+          </button>
+        </div>
+
+        <!-- A2 Course -->
+        <div class="bg-gradient-to-br from-green-500 to-green-700 rounded-2xl shadow-xl p-6 text-white hover-scale relative overflow-hidden group">
+          <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition"></div>
+          
+          <div class="mb-4">
+            <div class="w-16 h-16 bg-white rounded-xl flex items-center justify-center mb-4">
+              <span class="text-3xl font-bold text-green-600">A2</span>
+            </div>
+            <h3 class="text-2xl font-bold mb-2">دوره ابتدایی</h3>
+            <p class="text-green-100 text-sm mb-4">تقویت مهارت‌های اولیه</p>
+          </div>
+
+          <ul class="space-y-2 mb-6 text-sm">
+            <li class="flex items-center gap-2">
+              <span class="text-yellow-300">✓</span>
+              <span>توسعه واژگان</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="text-yellow-300">✓</span>
+              <span>مکالمه در موقعیت‌های مختلف</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="text-yellow-300">✓</span>
+              <span>گرامر متوسط</span>
+            </li>
+          </ul>
+
+          <div class="mb-4">
+            <span class="text-3xl font-bold">3,200,000</span>
+            <span class="text-sm">تومان</span>
+          </div>
+
+          <button class="w-full bg-white text-green-600 py-3 rounded-lg font-bold hover:bg-yellow-400 hover:text-gray-900 transition">
+            ثبت نام دوره
+          </button>
+        </div>
+
+        <!-- B1 Course -->
+        <div class="bg-gradient-to-br from-orange-500 to-orange-700 rounded-2xl shadow-xl p-6 text-white hover-scale relative overflow-hidden group">
+          <div class="absolute top-0 right-0 bg-yellow-400 text-gray-900 px-4 py-1 rounded-bl-2xl text-sm font-bold">
+            محبوب
+          </div>
+          <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition"></div>
+          
+          <div class="mb-4">
+            <div class="w-16 h-16 bg-white rounded-xl flex items-center justify-center mb-4">
+              <span class="text-3xl font-bold text-orange-600">B1</span>
+            </div>
+            <h3 class="text-2xl font-bold mb-2">دوره متوسط</h3>
+            <p class="text-orange-100 text-sm mb-4">آماده برای ارتباط مستقل</p>
+          </div>
+
+          <ul class="space-y-2 mb-6 text-sm">
+            <li class="flex items-center gap-2">
+              <span class="text-yellow-300">✓</span>
+              <span>مکالمه روان</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="text-yellow-300">✓</span>
+              <span>نوشتن متن‌های ساده</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="text-yellow-300">✓</span>
+              <span>درک متون پیچیده</span>
+            </li>
+          </ul>
+
+          <div class="mb-4">
+            <span class="text-3xl font-bold">4,000,000</span>
+            <span class="text-sm">تومان</span>
+          </div>
+
+          <button class="w-full bg-white text-orange-600 py-3 rounded-lg font-bold hover:bg-yellow-400 hover:text-gray-900 transition">
+            ثبت نام دوره
+          </button>
+        </div>
+
+        <!-- B2 Course -->
+        <div class="bg-gradient-to-br from-purple-500 to-purple-700 rounded-2xl shadow-xl p-6 text-white hover-scale relative overflow-hidden group">
+          <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition"></div>
+          
+          <div class="mb-4">
+            <div class="w-16 h-16 bg-white rounded-xl flex items-center justify-center mb-4">
+              <span class="text-3xl font-bold text-purple-600">B2</span>
+            </div>
+            <h3 class="text-2xl font-bold mb-2">دوره پیشرفته</h3>
+            <p class="text-purple-100 text-sm mb-4">مسلط به زبان آلمانی</p>
+          </div>
+
+          <ul class="space-y-2 mb-6 text-sm">
+            <li class="flex items-center gap-2">
+              <span class="text-yellow-300">✓</span>
+              <span>تسلط کامل بر گرامر</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="text-yellow-300">✓</span>
+              <span>ارائه و سخنرانی</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="text-yellow-300">✓</span>
+              <span>نوشتن حرفه‌ای</span>
+            </li>
+          </ul>
+
+          <div class="mb-4">
+            <span class="text-3xl font-bold">5,500,000</span>
+            <span class="text-sm">تومان</span>
+          </div>
+
+          <button class="w-full bg-white text-purple-600 py-3 rounded-lg font-bold hover:bg-yellow-400 hover:text-gray-900 transition">
+            ثبت نام دوره
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="py-16 gradient-german">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center text-white">
+        
+        <div class="space-y-2">
+          <div class="text-5xl md:text-6xl font-extrabold text-yellow-400">+2,300</div>
+          <div class="text-lg md:text-xl">دانشجو</div>
+        </div>
+
+        <div class="space-y-2">
+          <div class="text-5xl md:text-6xl font-extrabold text-yellow-400">1,400</div>
+          <div class="text-lg md:text-xl">دوره برگزار شده</div>
+        </div>
+
+        <div class="space-y-2">
+          <div class="text-5xl md:text-6xl font-extrabold text-yellow-400">100%</div>
+          <div class="text-lg md:text-xl">رضایت</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold text-gray-800 mb-4">چرا Tech Deutsch Pro؟</h2>
+        <p class="text-gray-600 text-lg">ویژگی‌های منحصر به فرد ما</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        
+        <!-- Feature 1 -->
+        <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-xl p-6 hover-scale shadow-lg">
+          <div class="w-16 h-16 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center mb-4 text-3xl">
+            ⚡
+          </div>
+          <h3 class="text-xl font-bold text-gray-800 mb-2">آموزش تعاملی</h3>
+          <p class="text-gray-600">با روش‌های مدرن و تعاملی زبان آلمانی را به سرعت یاد بگیرید</p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 hover-scale shadow-lg">
+          <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl flex items-center justify-center mb-4 text-3xl">
+            💻
+          </div>
+          <h3 class="text-xl font-bold text-gray-800 mb-2">پلتفرم آنلاین</h3>
+          <p class="text-gray-600">دسترسی 24/7 به محتوای آموزشی و کلاس‌های ضبط شده</p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-6 hover-scale shadow-lg">
+          <div class="w-16 h-16 bg-gradient-to-br from-green-400 to-green-600 rounded-xl flex items-center justify-center mb-4 text-3xl">
+            🎯
+          </div>
+          <h3 class="text-xl font-bold text-gray-800 mb-2">پشتیبانی مداوم</h3>
+          <p class="text-gray-600">پشتیبانی و راهنمایی در تمام مراحل یادگیری</p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 hover-scale shadow-lg">
+          <div class="w-16 h-16 bg-gradient-to-br from-purple-400 to-purple-600 rounded-xl flex items-center justify-center mb-4 text-3xl">
+            🌍
+          </div>
+          <h3 class="text-xl font-bold text-gray-800 mb-2">تمرکز روی فناوری</h3>
+          <p class="text-gray-600">آموزش زبان آلمانی با تمرکز بر حوزه تکنولوژی و فناوری</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section id="testimonials" class="py-20 bg-gradient-to-b from-gray-50 to-gray-100">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold text-gray-800 mb-4">نظرات دانشجویان ما</h2>
+        <p class="text-gray-600 text-lg">تجربه واقعی دانشجویان از Tech Deutsch Pro</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        
+        <!-- Testimonial 1 -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 hover-scale">
+          <div class="flex items-center gap-4 mb-4">
+            <img src="https://ui-avatars.com/api/?name=Ali+Rezaei&background=DD0000&color=fff&size=60" 
+                 alt="علی رضایی" 
+                 class="w-14 h-14 rounded-full" />
+            <div>
+              <h4 class="font-bold text-gray-800">علی رضایی</h4>
+              <p class="text-sm text-gray-500">دانشجوی دوره B1</p>
+            </div>
+          </div>
+          <div class="flex gap-1 mb-4 text-yellow-400">
+            ⭐⭐⭐⭐⭐
+          </div>
+          <p class="text-gray-600 leading-relaxed">
+            "بهترین دوره‌ای که تا به حال شرکت کردم. محتوای عالی و آموزش دقیق. الان می‌تونم به راحتی به آلمانی صحبت کنم."
+          </p>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 hover-scale">
+          <div class="flex items-center gap-4 mb-4">
+            <img src="https://ui-avatars.com/api/?name=Sara+Mohammadi&background=FFCE00&color=000&size=60" 
+                 alt="سارا محمدی" 
+                 class="w-14 h-14 rounded-full" />
+            <div>
+              <h4 class="font-bold text-gray-800">سارا محمدی</h4>
+              <p class="text-sm text-gray-500">دانشجوی دوره A2</p>
+            </div>
+          </div>
+          <div class="flex gap-1 mb-4 text-yellow-400">
+            ⭐⭐⭐⭐⭐
+          </div>
+          <p class="text-gray-600 leading-relaxed">
+            "پلتفرم فوق‌العاده‌ای دارن. می‌تونم هر زمان که خواستم به ویدیوها دسترسی داشته باشم و تمرین کنم."
+          </p>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 hover-scale">
+          <div class="flex items-center gap-4 mb-4">
+            <img src="https://ui-avatars.com/api/?name=Reza+Karimi&background=000000&color=fff&size=60" 
+                 alt="رضا کریمی" 
+                 class="w-14 h-14 rounded-full" />
+            <div>
+              <h4 class="font-bold text-gray-800">رضا کریمی</h4>
+              <p class="text-sm text-gray-500">دانشجوی دوره B2</p>
+            </div>
+          </div>
+          <div class="flex gap-1 mb-4 text-yellow-400">
+            ⭐⭐⭐⭐⭐
+          </div>
+          <p class="text-gray-600 leading-relaxed">
+            "تمرکز روی زبان تخصصی فناوری خیلی به من کمک کرد. الان می‌تونم در شرکت آلمانی کار کنم."
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Section -->
+  <section id="blog" class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold text-gray-800 mb-4">جدیدترین مقالات و اخبار</h2>
+        <p class="text-gray-600 text-lg">آخرین نکات و ترفندهای یادگیری زبان آلمانی</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        
+        <!-- Blog 1 -->
+        <div class="bg-gradient-to-br from-red-500 to-red-700 rounded-2xl overflow-hidden shadow-xl hover-scale">
+          <div class="relative h-48">
+            <img src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=400" 
+                 alt="German Grammar" 
+                 class="w-full h-full object-cover" />
+            <div class="absolute top-4 right-4 bg-yellow-400 text-gray-900 px-3 py-1 rounded-full text-sm font-bold">
+              گرامر
+            </div>
+          </div>
+          <div class="p-6 text-white">
+            <h3 class="text-xl font-bold mb-2">راهنمای کامل گرامر آلمانی</h3>
+            <p class="text-red-100 text-sm mb-4">نکات کلیدی برای یادگیری گرامر آلمانی به زبان ساده</p>
+            <button class="text-yellow-300 font-bold hover:text-yellow-400 transition">
+              مطالعه بیشتر ←
+            </button>
+          </div>
+        </div>
+
+        <!-- Blog 2 -->
+        <div class="bg-gradient-to-br from-black to-gray-900 rounded-2xl overflow-hidden shadow-xl hover-scale">
+          <div class="relative h-48">
+            <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400" 
+                 alt="Learning Tips" 
+                 class="w-full h-full object-cover" />
+            <div class="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold">
+              نکات
+            </div>
+          </div>
+          <div class="p-6 text-white">
+            <h3 class="text-xl font-bold mb-2">۵ ترفند برای یادگیری سریع‌تر</h3>
+            <p class="text-gray-300 text-sm mb-4">چطور می‌توانید سریع‌تر زبان آلمانی یاد بگیرید</p>
+            <button class="text-yellow-300 font-bold hover:text-yellow-400 transition">
+              مطالعه بیشتر ←
+            </button>
+          </div>
+        </div>
+
+        <!-- Blog 3 -->
+        <div class="bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-2xl overflow-hidden shadow-xl hover-scale">
+          <div class="relative h-48">
+            <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=400" 
+                 alt="German Culture" 
+                 class="w-full h-full object-cover" />
+            <div class="absolute top-4 right-4 bg-black text-white px-3 py-1 rounded-full text-sm font-bold">
+              فرهنگ
+            </div>
+          </div>
+          <div class="p-6 text-gray-900">
+            <h3 class="text-xl font-bold mb-2">آشنایی با فرهنگ آلمان</h3>
+            <p class="text-gray-700 text-sm mb-4">درک فرهنگ برای یادگیری بهتر زبان ضروری است</p>
+            <button class="text-red-700 font-bold hover:text-red-800 transition">
+              مطالعه بیشتر ←
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" class="py-20 bg-gradient-to-b from-gray-50 to-white">
+    <div class="container mx-auto px-4 max-w-4xl">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold text-gray-800 mb-4">سوالات متداول</h2>
+        <p class="text-gray-600 text-lg">پاسخ به سوالات رایج درباره دوره‌ها</p>
+      </div>
+
+      <div class="space-y-4">
+        
+        <!-- FAQ 1 -->
+        <div class="bg-white rounded-xl shadow-lg p-6 border-r-4 border-red-600">
+          <h3 class="text-lg font-bold text-gray-800 mb-2">مدت زمان هر دوره چقدر است؟</h3>
+          <p class="text-gray-600">
+            هر دوره به طور متوسط ۳ ماه طول می‌کشد و شامل ۴۸ جلسه آموزشی است که هر جلسه ۹۰ دقیقه می‌باشد.
+          </p>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="bg-white rounded-xl shadow-lg p-6 border-r-4 border-black">
+          <h3 class="text-lg font-bold text-gray-800 mb-2">آیا می‌توانم بعد از ثبت‌نام وقت کلاس را تغییر دهم؟</h3>
+          <p class="text-gray-600">
+            بله، شما می‌توانید تا ۴۸ ساعت قبل از شروع کلاس، زمان خود را تغییر دهید یا به کلاس‌های ضبط شده دسترسی داشته باشید.
+          </p>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="bg-white rounded-xl shadow-lg p-6 border-r-4 border-yellow-500">
+          <h3 class="text-lg font-bold text-gray-800 mb-2">چه پیش‌نیازی برای شروع دوره A1 لازم است؟</h3>
+          <p class="text-gray-600">
+            هیچ پیش‌نیازی لازم نیست. دوره A1 از صفر شروع می‌شود و برای کسانی که هیچ آشنایی با زبان آلمانی ندارند مناسب است.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 gradient-german text-white relative overflow-hidden">
+    <div class="absolute inset-0 dots-pattern opacity-10"></div>
+    <div class="container mx-auto px-4 text-center relative z-10">
+      <h2 class="text-4xl font-bold mb-4">همین حالا یادگیری را شروع کنید!</h2>
+      <p class="text-xl mb-8 text-yellow-100">با Tech Deutsch Pro به استاد زبان آلمانی تبدیل شوید</p>
+      <div class="flex gap-4 justify-center flex-wrap">
+        <a href="#courses" class="px-8 py-4 bg-white text-gray-900 rounded-lg font-bold text-lg hover:bg-yellow-400 transition hover-scale shadow-xl">
+          مشاهده دوره‌ها
+        </a>
+        <a href="#faq" class="px-8 py-4 bg-yellow-500 text-gray-900 rounded-lg font-bold text-lg hover:bg-yellow-400 transition hover-scale shadow-xl">
+          مشاوره رایگان
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid md:grid-cols-4 gap-8 mb-8">
+        
+        <!-- About -->
+        <div>
+          <h3 class="text-2xl font-bold mb-4">
+            <span class="text-white">Tech </span>
+            <span class="text-red-600">Deutsch </span>
+            <span class="text-yellow-400">Pro</span>
+          </h3>
+          <p class="text-gray-400 leading-relaxed">
+            ما متعهد به ارائه بهترین آموزش زبان آلمانی با تمرکز بر حوزه فناوری و تکنولوژی هستیم.
+          </p>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h4 class="text-lg font-bold mb-4 text-yellow-400">دسترسی سریع</h4>
+          <ul class="space-y-2">
+            <li><a href="#courses" class="text-gray-400 hover:text-white transition">دوره‌های آموزشی</a></li>
+            <li><a href="about.html" class="text-gray-400 hover:text-white transition">درباره ما</a></li>
+            <li><a href="#features" class="text-gray-400 hover:text-white transition">ویژگی‌ها</a></li>
+            <li><a href="#testimonials" class="text-gray-400 hover:text-white transition">نظرات دانشجویان</a></li>
+            <li><a href="#blog" class="text-gray-400 hover:text-white transition">وبلاگ</a></li>
+          </ul>
+        </div>
+
+        <!-- Courses -->
+        <div>
+          <h4 class="text-lg font-bold mb-4 text-yellow-400">دوره‌ها</h4>
+          <ul class="space-y-2">
+            <li><a href="#courses" class="text-gray-400 hover:text-white transition">دوره A1</a></li>
+            <li><a href="#courses" class="text-gray-400 hover:text-white transition">دوره A2</a></li>
+            <li><a href="#courses" class="text-gray-400 hover:text-white transition">دوره B1</a></li>
+            <li><a href="#courses" class="text-gray-400 hover:text-white transition">دوره B2</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <h4 class="text-lg font-bold mb-4 text-yellow-400">تماس با ما</h4>
+          <ul class="space-y-3">
+            <li class="flex items-center gap-2 text-gray-400">
+              <span>📧</span>
+              <span>info@techdeutschpro.com</span>
+            </li>
+            <li class="flex items-center gap-2 text-gray-400">
+              <span>📱</span>
+              <span>09394962091</span>
+            </li>
+            <li class="flex gap-3 mt-4">
+              <a href="#" class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition">
+                L
+              </a>
+              <a href="#" class="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center hover:bg-green-700 transition">
+                W
+              </a>
+              <a href="#" class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center hover:bg-blue-600 transition">
+                T
+              </a>
+              <a href="https://www.instagram.com/techdeutschpro" target="_blank" class="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center hover:opacity-80 transition">
+                I
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
+        <p>&copy; 2025 Tech Deutsch Pro. تمامی حقوق محفوظ است.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
