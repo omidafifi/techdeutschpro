@@ -225,26 +225,57 @@
 
       <!-- Left Side: Actions -->
       <div class="flex items-center gap-3">
-        <button
+        <!-- Search Button -->
+        <button id="search-btn"
           class="w-10 h-10 text-gray-500 hover:bg-gray-100 rounded-full flex items-center justify-center transition">
           <i class="fas fa-search"></i>
         </button>
-        <div class="relative">
-          <button
+
+        <!-- Cart Button -->
+        <div class="relative group">
+          <button id="cart-btn"
             class="w-10 h-10 text-gray-500 hover:bg-gray-100 rounded-full flex items-center justify-center transition">
             <i class="fas fa-shopping-cart text-lg"></i>
           </button>
           <span
             class="absolute top-1 right-1 bg-yellow-400 text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">۰</span>
         </div>
-        <button
-          class="w-10 h-10 text-gray-500 hover:bg-gray-100 rounded-full flex items-center justify-center transition">
-          <i class="fas fa-bell"></i>
-        </button>
-        <a href="index.html#login"
+
+        <!-- Notifications -->
+        <div class="relative group/noti">
+          <button id="noti-btn"
+            class="w-10 h-10 text-gray-500 hover:bg-gray-100 rounded-full flex items-center justify-center transition focus:bg-gray-100">
+            <i class="fas fa-bell"></i>
+          </button>
+          <span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
+
+          <!-- Notifications Dropdown -->
+          <div id="noti-dropdown"
+            class="absolute top-full left-0 mt-2 w-80 bg-white rounded-2xl shadow-2xl border border-gray-100 opacity-0 invisible translate-y-2 group-hover/noti:opacity-100 group-hover/noti:visible group-hover/noti:translate-y-0 transition-all duration-300 z-50 overflow-hidden">
+            <div class="p-4 border-b flex justify-between items-center text-right">
+              <span class="font-bold text-gray-800">اعلان‌ها</span>
+              <button class="text-xs text-blue-600 hover:underline">پاک کردن همه</button>
+            </div>
+            <div class="max-h-64 overflow-y-auto text-right">
+              <div class="p-4 hover:bg-gray-50 transition border-b border-gray-50 flex gap-3 text-right">
+                <div
+                  class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
+                  <i class="fas fa-gift"></i>
+                </div>
+                <div>
+                  <p class="text-sm font-bold text-gray-800">تخفیف ویژه دوره B1</p>
+                  <span class="text-[10px] text-gray-400 mt-2 block italic">۱۰ دقیقه پیش</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Login / Start Button -->
+        <button id="login-btn"
           class="bg-yellow-400 hover:bg-yellow-500 text-gray-900 px-6 py-2.5 rounded-xl font-bold transition shadow-sm hover:shadow-md flex items-center gap-2">
           شروع کنید <i class="fas fa-user-plus"></i>
-        </a>
+        </button>
       </div>
     </div>
   </header>
@@ -571,6 +602,30 @@
       </div>
     </div>
   </footer>
+
+  <div id="search-modal" class="fixed inset-0 z-[200] hidden items-center justify-center p-4">
+    <div id="search-overlay" class="absolute inset-0 bg-black/60 backdrop-blur-sm opacity-0 transition-opacity"></div>
+    <div id="search-content"
+      class="relative bg-white w-full max-w-2xl rounded-3xl shadow-2xl p-6 transform scale-95 opacity-0 transition-all text-right">
+      <input type="text" placeholder="جستجو..." class="w-full bg-gray-50 p-4 rounded-xl text-right outline-none">
+    </div>
+  </div>
+
+  <div id="cart-overlay" class="fixed inset-0 bg-black/50 z-[150] hidden backdrop-blur-sm opacity-0 transition-opacity">
+  </div>
+  <aside id="cart-drawer"
+    class="fixed top-0 left-0 h-full w-80 bg-white z-[151] transform -translate-x-full transition-transform p-6 text-right">
+    <h3 class="text-xl font-black mb-4">سبد خرید</h3>
+  </aside>
+
+  <div id="auth-modal" class="fixed inset-0 z-[200] hidden items-center justify-center p-4">
+    <div id="auth-overlay" class="absolute inset-0 bg-black/60 backdrop-blur-sm opacity-0 transition-opacity"></div>
+    <div id="auth-content"
+      class="relative bg-white w-full max-w-md rounded-3xl shadow-2xl p-8 transform scale-95 opacity-0 transition-all text-right">
+      <button id="auth-close" class="absolute top-4 left-4 text-gray-400"><i class="fas fa-times"></i></button>
+      <h3 class="text-2xl font-black">ورود</h3>
+    </div>
+  </div>
 
   <script src="script.js"></script>
   <script>
