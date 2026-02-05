@@ -188,6 +188,7 @@
       </div>
 
       <!-- Center: Navigation (Desktop) -->
+      <!-- Center: Navigation (Desktop) -->
       <nav class="hidden lg:block">
         <ul class="flex items-center gap-8 text-gray-700 font-medium">
           <li><a href="index.html" class="hover:text-blue-600 transition flex items-center gap-2">
@@ -446,14 +447,13 @@
           <div class="grid sm:grid-cols-2 gap-8">
 
             <!-- Post Card -->
-            <article
-              class="bg-gradient-to-br from-red-500 to-red-700 rounded-2xl overflow-hidden shadow-xl hover-scale">
-              <a href="category-articles.html" class="block relative h-48 group">
+            <article data-page="1"
+              class="post-card bg-gradient-to-br from-red-500 to-red-700 rounded-2xl overflow-hidden shadow-xl hover-scale">
+              <a href="category-education.html" class="block relative h-48 group">
                 <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800" alt="مکالمه زبان آلمانی"
                   class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                <div class="absolute top-4 left-4 bg-yellow-400 text-gray-900 px-3 py-1 rounded-full text-sm font-bold">
-                  مقاله
-                </div>
+                <span
+                  class="absolute top-4 left-4 bg-yellow-400 text-gray-900 px-3 py-1 rounded-full text-sm font-bold">آموزش</span>
                 <div
                   class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <i class="fas fa-eye text-white text-3xl"></i>
@@ -462,27 +462,26 @@
               <div class="p-6 text-white">
                 <p class="text-sm text-red-100 mb-2">درس آلمانی</p>
                 <h3 class="text-xl font-bold mb-3">مکالمه زبان آلمانی — تمرینات روزمره</h3>
-                <p class="text-red-100 text-sm leading-relaxed">من به‌عنوان تنها مدرس این سایت، روش‌های ساده و کاربردی
-                  برای تقویت مهارت مکالمه آلمانی را آموزش می‌دهم.</p>
+                <p class="text-red-100 text-sm leading-relaxed">روش‌های ساده و کاربردی برای تقویت مهارت مکالمه آلمانی در
+                  محیط‌های واقعی و کاری.</p>
                 <div class="flex items-center justify-between mt-4 text-red-100 text-sm">
                   <div class="flex items-center gap-2">
                     <span>📅</span>
                     <span>20 اسفند 1402</span>
                   </div>
-                  <a href="category-articles.html"
-                    class="text-yellow-300 font-bold hover:text-yellow-400 transition">مطالعه بیشتر →</a>
+                  <a href="category-education.html" class="text-yellow-300 font-bold hover:underline">مطالعه بیشتر →</a>
                 </div>
               </div>
             </article>
 
             <!-- Post Card 2 -->
-            <article class="bg-gradient-to-br from-black to-gray-900 rounded-2xl overflow-hidden shadow-xl hover-scale">
-              <a href="category-education.html" class="block relative h-48 group">
+            <article data-page="1"
+              class="post-card bg-gradient-to-br from-black to-gray-900 rounded-2xl overflow-hidden shadow-xl hover-scale">
+              <a href="category-articles.html" class="block relative h-48 group">
                 <img src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=800" alt="آمادگی آزمون"
                   class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                <div class="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold">
-                  نکات
-                </div>
+                <span
+                  class="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-bold">نکات</span>
                 <div
                   class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <i class="fas fa-eye text-white text-3xl"></i>
@@ -492,27 +491,25 @@
                 <p class="text-sm text-gray-300 mb-2">آمادگی آزمون</p>
                 <h3 class="text-xl font-bold mb-3">آمادگی برای آزمون Goethe</h3>
                 <p class="text-gray-300 text-sm leading-relaxed">راهنمای گام‌به‌گام برای موفقیت در آزمون‌های زبان آلمانی
-                  با تمرکز بر نکات عملی.</p>
+                  (Goethe, TestDaF) با تمرکز بر نکات عملی.</p>
                 <div class="flex items-center justify-between mt-4 text-gray-300 text-sm">
                   <div class="flex items-center gap-2">
                     <span>📅</span>
                     <span>20 اسفند 1402</span>
                   </div>
-                  <a href="category-education.html"
-                    class="text-yellow-300 font-bold hover:text-yellow-400 transition">مطالعه بیشتر →</a>
+                  <a href="category-articles.html" class="text-yellow-300 font-bold hover:underline">مطالعه بیشتر →</a>
                 </div>
               </div>
             </article>
 
             <!-- Post Card 3 -->
-            <article
-              class="bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-2xl overflow-hidden shadow-xl hover-scale">
+            <article data-page="2"
+              class="post-card bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-2xl overflow-hidden shadow-xl hover-scale">
               <a href="category-culture.html" class="block relative h-48 group">
                 <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=800" alt="فرهنگ آلمان"
                   class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                <div class="absolute top-4 left-4 bg-black text-white px-3 py-1 rounded-full text-sm font-bold">
-                  فرهنگ
-                </div>
+                <span
+                  class="absolute top-4 left-4 bg-black text-white px-3 py-1 rounded-full text-sm font-bold">فرهنگ</span>
                 <div
                   class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <i class="fas fa-eye text-white text-3xl"></i>
@@ -521,28 +518,26 @@
               <div class="p-6 text-gray-900">
                 <p class="text-sm text-gray-700 mb-2">مطالب فرهنگی</p>
                 <h3 class="text-xl font-bold mb-3">آشنایی با فرهنگ آلمان</h3>
-                <p class="text-gray-700 text-sm leading-relaxed">درک فرهنگ آلمان برای یادگیری مؤثر زبان ضروری است. همه
-                  مطالب تولید شده مرتبط با آموزش آلمانی هستند.</p>
+                <p class="text-gray-700 text-sm leading-relaxed">درک فرهنگ آلمان برای یادگیری مؤثر زبان ضروری است.
+                  آشنایی با محیط‌های کاری در آلمان.</p>
                 <div class="flex items-center justify-between mt-4 text-gray-500 text-sm">
                   <div class="flex items-center gap-2">
                     <span>📅</span>
                     <span>20 اسفند 1402</span>
                   </div>
-                  <a href="category-culture.html"
-                    class="text-red-700 font-bold hover:text-red-900 transition font-black">مطالعه بیشتر →</a>
+                  <a href="category-culture.html" class="text-red-700 font-bold hover:underline">مطالعه بیشتر →</a>
                 </div>
               </div>
             </article>
 
             <!-- Post Card 4 -->
-            <article
-              class="bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl overflow-hidden shadow-xl hover-scale">
+            <article data-page="2"
+              class="post-card bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl overflow-hidden shadow-xl hover-scale">
               <a href="category-education.html" class="block relative h-48 group">
                 <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800" alt="گرامر زبان آلمانی"
                   class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                <div class="absolute top-4 left-4 bg-white text-blue-600 px-3 py-1 rounded-full text-sm font-bold">
-                  آموزش
-                </div>
+                <span
+                  class="absolute top-4 left-4 bg-white text-blue-600 px-3 py-1 rounded-full text-sm font-bold">آموزش</span>
                 <div
                   class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <i class="fas fa-eye text-white text-3xl"></i>
@@ -551,19 +546,17 @@
               <div class="p-6 text-white">
                 <p class="text-sm text-blue-100 mb-2">آموزش</p>
                 <h3 class="text-xl font-bold mb-3">نکات گرامری آلمانی برای مبتدیان</h3>
-                <p class="text-blue-100 text-sm leading-relaxed">نکات کلیدی گرامر آلمانی برای شروع یادگیری موثر این زبان
-                  پیچیده اما جذاب.</p>
+                <p class="text-blue-100 text-sm leading-relaxed">نکات کلیدی گرامر آلمانی برای شروع. روش‌های مدرن یادگیری
+                  گرامر به دور از شیوه های سنتی.</p>
                 <div class="flex items-center justify-between mt-4 text-blue-100 text-sm">
                   <div class="flex items-center gap-2">
                     <span>📅</span>
                     <span>20 اسفند 1402</span>
                   </div>
-                  <a href="category-education.html"
-                    class="text-yellow-300 font-bold hover:text-yellow-400 transition">مطالعه بیشتر →</a>
+                  <a href="category-education.html" class="text-yellow-300 font-bold hover:underline">مطالعه بیشتر →</a>
                 </div>
               </div>
             </article>
-
 
           </div>
 
