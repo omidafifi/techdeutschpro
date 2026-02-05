@@ -191,26 +191,45 @@ window.addEventListener('scroll', () => {
 
 // Back to Top Logic
 const backToTopBtn = document.createElement('button');
-backToTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
-backToTopBtn.className = 'fixed bottom-8 right-8 w-12 h-12 bg-blue-600 text-white rounded-full shadow-2xl items-center justify-center cursor-pointer transition-all duration-300 translate-y-20 opacity-0 z-[100] hover:bg-blue-700 hover:-translate-y-1 flex';
+backToTopBtn.id = 'back-to-top';
+backToTopBtn.setAttribute('aria-label', 'بازگشت به بالا');
+// Premium blue gradient with glowing shadow
+backToTopBtn.className = 'fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-br from-blue-600 to-blue-400 text-white rounded-full shadow-[0_10px_25px_rgba(37,99,235,0.4)] items-center justify-center cursor-pointer transition-all duration-500 translate-y-20 opacity-0 z-[100] hover:shadow-[0_15px_35px_rgba(37,99,235,0.6)] hover:-translate-y-2 hover:scale-110 flex group active:scale-90 border-2 border-white/20';
+backToTopBtn.innerHTML = `
+  <div class="absolute inset-0 rounded-full bg-blue-500 opacity-0 group-hover:animate-ping"></div>
+  <i class="fas fa-chevron-up text-xl relative z-10 transition-transform duration-300 group-hover:-translate-y-1"></i>
+  <svg class="absolute inset-0 w-full h-full -rotate-90 pointer-events-none" viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="48" stroke="currentColor" stroke-width="4" fill="transparent" class="text-white/20" />
+    <circle id="back-to-top-progress" cx="50" cy="50" r="48" stroke="currentColor" stroke-width="4" fill="transparent" stroke-dasharray="301.6" stroke-dashoffset="301.6" class="text-white drop-shadow-md transition-all duration-100" />
+  </svg>
+`;
 document.body.appendChild(backToTopBtn);
 
 const progressBar = document.getElementById('scroll-progress');
+const progressCircle = document.getElementById('back-to-top-progress');
 
 window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const scrolled = (scrollY / height) * 100;
+
   // Back to top visibility
-  if (window.scrollY > 500) {
+  if (scrollY > 400) {
     backToTopBtn.classList.remove('translate-y-20', 'opacity-0');
   } else {
     backToTopBtn.classList.add('translate-y-20', 'opacity-0');
   }
 
-  // Progress Bar calculation
+  // Linear Progress Bar (Top of page)
   if (progressBar) {
-    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const scrolled = (winScroll / height) * 100;
     progressBar.style.width = scrolled + "%";
+  }
+
+  // Circular Progress (On the button)
+  if (progressCircle) {
+    const totalLength = 301.6; // 2 * PI * r (r=48)
+    const offset = totalLength - (scrolled / 100) * totalLength;
+    progressCircle.style.strokeDashoffset = offset;
   }
 });
 
