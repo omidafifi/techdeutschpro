@@ -1,46 +1,495 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>دسته: اخبار — Tech Deutsch Pro</title>
   <link rel="icon" type="image/x-icon" href="Foto/favicon.ico" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap');*{font-family:'Vazirmatn',sans-serif}.gradient-german{background:linear-gradient(135deg,#000,#DD0000,#FFCE00)}.hover-scale{transition:transform .3s}.hover-scale:hover{transform:scale(1.05)}.sidebar-pill{position:relative;overflow:hidden}.sidebar-pill::before{content:'';position:absolute;top:12px;right:-14px;width:14px;height:44px;background:linear-gradient(180deg,#000 0%,#DD0000 55%,#FFCE00 100%);border-radius:999px;box-shadow:0 10px 24px rgba(0,0,0,0.08)}</style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap');
+
+    * {
+      font-family: 'Vazirmatn', sans-serif;
+    }
+
+    .gradient-german {
+      background: linear-gradient(135deg, #000000 0%, #DD0000 50%, #FFCE00 100%);
+    }
+
+    .banner-gradient {
+      background: linear-gradient(90deg, #FDE047 0%, #FBBF24 100%);
+    }
+
+    .hover-scale {
+      transition: transform 0.3s ease;
+    }
+
+    .hover-scale:hover {
+      transform: scale(1.05);
+    }
+
+    /* Side Menu Transition */
+    #mobile-drawer {
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .drawer-open #mobile-drawer {
+      transform: translateX(0);
+    }
+
+    .drawer-closed #mobile-drawer {
+      transform: translateX(100%);
+    }
+
+    .glass-header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+    }
+
+    .sidebar-pill {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sidebar-pill::before {
+      content: '';
+      position: absolute;
+      top: 12px;
+      right: -14px;
+      width: 14px;
+      height: 44px;
+      background: linear-gradient(180deg, #000, #DD0000 55%, #FFCE00 100%);
+      border-radius: 999px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+    }
+  </style>
 </head>
+
 <body class="bg-gray-50">
-  <header class="flex flex-col sm:flex-row items-center justify-between p-4 gradient-german shadow-lg sticky top-0 z-50">
-    <div class="mb-4 sm:mb-0"><a href="index.html" class="block hover:scale-105 transition-transform"><img src="./Foto/IMG_7649.jpg" alt="Tech Deutsch Pro" class="h-16 sm:h-20 rounded-full"/></a></div>
-    <button id="menu-toggle" class="sm:hidden text-white text-2xl mb-4">☰</button>
-    <nav class="flex-1 flex justify-center"><ul class="hidden sm:flex space-x-6 space-x-reverse text-lg"><li><a href="index.html" class="text-white hover:text-yellow-300 transition">خانه</a></li><li><a href="index.html#courses" class="text-white hover:text-yellow-300 transition">دوره‌ها</a></li><li><a href="about.html" class="text-white hover:text-yellow-300 transition">درباره ما</a></li><li><a href="index.html#features" class="text-white hover:text-yellow-300 transition">ویژگی‌ها</a></li><li><a href="index.html#testimonials" class="text-white hover:text-yellow-300 transition">نظرات</a></li><li><a href="blog.html" class="text-white hover:text-yellow-300 transition">وبلاگ</a></li><li><a href="contact.html" class="text-white hover:text-yellow-300 transition">تماس با ما</a></li></ul></nav>
-    <div id="mobile-menu" class="hidden sm:hidden flex flex-col space-y-2 mt-4 w-full"><a href="index.html" class="text-white hover:text-yellow-300 transition p-2">خانه</a><a href="index.html#courses" class="text-white hover:text-yellow-300 transition p-2">دوره‌ها</a><a href="about.html" class="text-white hover:text-yellow-300 transition p-2">درباره ما</a><a href="index.html#features" class="text-white hover:text-yellow-300 transition p-2">ویژگی‌ها</a><a href="index.html#testimonials" class="text-white hover:text-yellow-300 transition p-2">نظرات</a><a href="blog.html" class="text-white hover:text-yellow-300 transition p-2">وبلاگ</a><a href="contact.html" class="text-white hover:text-yellow-300 transition p-2">تماس با ما</a></div>
+  <!-- Top Announcement Bar -->
+  <div
+    class="banner-gradient py-2 px-4 flex flex-col sm:flex-row items-center justify-between text-gray-900 text-sm font-bold relative z-[60]">
+    <div class="flex items-center gap-4 mb-2 sm:mb-0">
+      <span class="bg-white/20 px-3 py-1 rounded-full">ویژه تابستان!</span>
+      <span>فرصت تکرار نشدنی ثبت نام با ۲۰٪ تخفیف!</span>
+    </div>
+    <div class="flex items-center gap-4">
+      <div class="flex gap-2">
+        <div class="bg-white/30 w-10 h-10 rounded flex flex-col items-center justify-center">
+          <span id="hours">07</span>
+          <span class="text-[8px]">ساعت</span>
+        </div>
+        <div class="bg-white/30 w-10 h-10 rounded flex flex-col items-center justify-center">
+          <span id="minutes">19</span>
+          <span class="text-[8px]">دقیقه</span>
+        </div>
+        <div class="bg-white/30 w-10 h-10 rounded flex flex-col items-center justify-center">
+          <span id="seconds">27</span>
+          <span class="text-[8px]">ثانیه</span>
+        </div>
+      </div>
+      <a href="index.html#courses"
+        class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition flex items-center gap-2">
+        مشاهده دوره‌ها <i class="fas fa-chevron-left text-xs"></i>
+      </a>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="glass-header shadow-sm sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+
+      <!-- Right Side: Hamburger + Logo -->
+      <div class="flex items-center gap-4">
+        <!-- Hamburger Button (matches image) -->
+        <button id="drawer-toggle"
+          class="w-12 h-12 bg-white shadow-md rounded-full flex flex-col items-center justify-center gap-1 group transition-all hover:bg-gray-50 border border-gray-100">
+          <span class="w-6 h-0.5 bg-gray-800 rounded-full transition-all group-hover:w-4"></span>
+          <span class="w-6 h-0.5 bg-gray-800 rounded-full transition-all"></span>
+          <span class="w-6 h-0.5 bg-gray-800 rounded-full transition-all group-hover:w-4"></span>
+        </button>
+
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center gap-2 hover-scale">
+          <img src="./Foto/IMG_7649.jpg" alt="Tech Deutsch Pro"
+            class="h-12 w-12 rounded-full border-2 border-yellow-400" />
+          <div class="hidden md:block">
+            <h1 class="text-xl font-black leading-none">
+              <span class="text-gray-900">Tech </span><span class="text-red-600">Deutsch</span>
+            </h1>
+            <span class="text-xs font-bold text-gray-500">آموزشگاه زبان کد</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Center: Navigation (Desktop) -->
+      <nav class="hidden lg:block">
+        <ul class="flex items-center gap-8 text-gray-700 font-medium">
+          <li><a href="index.html" class="hover:text-blue-600 transition flex items-center gap-2">
+              <i class="fas fa-home"></i> خانه</a>
+          </li>
+          <li class="relative group">
+            <a href="about.html" class="hover:text-blue-600 transition flex items-center gap-2">
+              <i class="fas fa-info-circle"></i> درباره ما
+              <span
+                class="absolute -top-3 -right-2 bg-green-500 text-white text-[10px] px-1.5 py-0.5 rounded-full">جدید</span>
+            </a>
+          </li>
+          <li class="relative group">
+            <button class="hover:text-blue-600 transition flex items-center gap-2 py-4">
+              <i class="fas fa-graduation-cap"></i> دوره‌های آموزشی <i
+                class="fas fa-chevron-down text-[10px] transition-transform group-hover:rotate-180"></i>
+            </button>
+            <!-- Dropdown Menu -->
+            <div
+              class="absolute top-full right-0 w-72 bg-white shadow-xl rounded-2xl border border-gray-100 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 z-50 overflow-hidden">
+              <div class="p-2 text-right">
+                <!-- Submenu: Categories -->
+                <div class="relative group/sub">
+                  <button
+                    class="w-full flex items-center justify-between p-3 hover:bg-red-50 hover:text-red-600 rounded-xl transition text-gray-700 font-medium">
+                    <div class="flex items-center gap-3">
+                      <i class="fas fa-list-ul text-gray-400 group-hover/sub:text-red-500 w-5 transition-colors"></i>
+                      <span>دسته‌بندی‌ها</span>
+                    </div>
+                    <i
+                      class="fas fa-chevron-left text-[10px] text-gray-300 group-hover/sub:text-red-500 transition-colors"></i>
+                  </button>
+                  <!-- Nested Side Menu -->
+                  <div
+                    class="absolute top-0 right-full mr-2 w-56 bg-white shadow-2xl rounded-2xl border border-gray-100 opacity-0 invisible translate-x-4 group-hover/sub:opacity-100 group-hover/sub:visible group-hover/sub:translate-x-0 transition-all duration-300 overflow-hidden">
+                    <div class="p-2">
+                      <a href="category-education.html"
+                        class="flex items-center gap-3 p-3 hover:bg-gray-50 rounded-xl transition text-gray-700 text-sm">
+                        <i class="fas fa-book-open text-gray-400 w-5"></i> آموزش آلمانی
+                      </a>
+                      <a href="category-resources.html"
+                        class="flex items-center gap-3 p-3 hover:bg-gray-50 rounded-xl transition text-gray-700 text-sm">
+                        <i class="fas fa-folder-open text-gray-400 w-5"></i> منابع دیجیتال
+                      </a>
+                      <a href="category-articles.html"
+                        class="flex items-center gap-3 p-3 hover:bg-gray-50 rounded-xl transition text-gray-700 text-sm">
+                        <i class="fas fa-newspaper text-gray-400 w-5"></i> مقالات تخصصی
+                      </a>
+                      <a href="category-news.html"
+                        class="flex items-center gap-3 p-3 hover:bg-gray-50 rounded-xl transition text-gray-700 text-sm">
+                        <i class="fas fa-globe-europe text-gray-400 w-5"></i> اخبار مهاجرت
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <a href="index.html#free"
+                  class="flex items-center gap-3 p-3 hover:bg-gray-50 rounded-xl transition text-gray-700 font-medium">
+                  <i class="fas fa-bolt text-gray-400 w-5"></i>
+                  <span>دوره رایگان</span>
+                </a>
+                <a href="index.html#discount"
+                  class="flex items-center gap-3 p-3 hover:bg-gray-50 rounded-xl transition text-gray-700 font-medium">
+                  <i class="fas fa-percentage text-gray-400 w-5"></i>
+                  <span>دوره با تخفیف</span>
+                </a>
+
+                <div class="border-t my-2 border-gray-50"></div>
+
+                <!-- Submenu: Course Plans -->
+                <div class="relative group/sub">
+                  <button
+                    class="w-full flex items-center justify-between p-3 hover:bg-yellow-50 hover:text-yellow-600 rounded-xl transition text-gray-700 font-medium">
+                    <div class="flex items-center gap-3">
+                      <i
+                        class="fas fa-th-large text-gray-400 group-hover/sub:text-yellow-500 w-5 transition-colors"></i>
+                      <span>طرح‌های نمایش دوره</span>
+                    </div>
+                    <i
+                      class="fas fa-chevron-left text-[10px] text-gray-300 group-hover/sub:text-yellow-500 transition-colors"></i>
+                  </button>
+                  <!-- Nested Side Menu -->
+                  <div
+                    class="absolute top-0 right-full mr-2 w-56 bg-white shadow-2xl rounded-2xl border border-gray-100 opacity-0 invisible translate-x-4 group-hover/sub:opacity-100 group-hover/sub:visible group-hover/sub:translate-x-0 transition-all duration-300 overflow-hidden">
+                    <div class="p-2">
+                      <a href="category-courses.html"
+                        class="flex items-center gap-3 p-3 hover:bg-gray-50 rounded-xl transition text-gray-700 text-sm">
+                        <i class="fas fa-list text-gray-400 w-5"></i> طرح لیستی
+                      </a>
+                      <a href="category-courses.html"
+                        class="flex items-center gap-3 p-3 hover:bg-gray-50 rounded-xl transition text-gray-700 text-sm">
+                        <i class="fas fa-th text-gray-400 w-5"></i> طرح شبکه‌ای
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li><a href="blog.html" class="hover:text-blue-600 transition flex items-center gap-2 text-blue-600">
+              <i class="fas fa-blog"></i> وبلاگ</a>
+          </li>
+          <li><a href="contact.html" class="hover:text-blue-600 transition flex items-center gap-2 text-gray-500">
+              <i class="fas fa-headset"></i> تماس با ما</a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Left Side: Actions -->
+      <div class="flex items-center gap-3">
+        <button
+          class="w-10 h-10 text-gray-500 hover:bg-gray-100 rounded-full flex items-center justify-center transition">
+          <i class="fas fa-search"></i>
+        </button>
+        <div class="relative">
+          <button
+            class="w-10 h-10 text-gray-500 hover:bg-gray-100 rounded-full flex items-center justify-center transition">
+            <i class="fas fa-shopping-cart text-lg"></i>
+          </button>
+          <span
+            class="absolute top-1 right-1 bg-yellow-400 text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">۰</span>
+        </div>
+        <button
+          class="w-10 h-10 text-gray-500 hover:bg-gray-100 rounded-full flex items-center justify-center transition">
+          <i class="fas fa-bell"></i>
+        </button>
+        <a href="index.html#login"
+          class="bg-yellow-400 hover:bg-yellow-500 text-gray-900 px-6 py-2.5 rounded-xl font-bold transition shadow-sm hover:shadow-md flex items-center gap-2">
+          شروع کنید <i class="fas fa-user-plus"></i>
+        </a>
+      </div>
+    </div>
   </header>
 
-  <section class="py-12 bg-gradient-to-r from-gray-100 to-white"><div class="container mx-auto px-4 text-right"><h1 class="text-4xl font-bold text-gray-800">اخبار</h1><p class="text-gray-600 mt-2">جدیدترین اخبار و اطلاعیه‌ها درباره دوره‌ها و آموزش</p></div></section>
-
-  <main class="py-12"><div class="container mx-auto px-4 grid lg:grid-cols-3 gap-8">
-    <aside class="space-y-6">
-      <div class="bg-white rounded-2xl shadow-lg p-6 sidebar-pill">
-        <h4 class="text-2xl font-extrabold text-gray-700 mb-4" style="padding-right:40px;">دسته‌ها</h4>
-        <div class="border-t border-gray-100 mb-4"></div>
-        <ul class="space-y-4 text-gray-600 text-lg font-medium">
-          <li class="pl-2"><a href="category-education.html" class="hover:text-gray-900 transition">آموزش زبان آلمانی</a></li>
-          <li class="pl-2"><a href="category-courses.html" class="hover:text-gray-900 transition">دوره‌ها</a></li>
-          <li class="pl-2"><a href="category-culture.html" class="hover:text-gray-900 transition">فرهنگ آلمان</a></li>
-          <li class="pl-2"><a href="category-resources.html" class="hover:text-gray-900 transition">منابع</a></li>
-          <li class="pl-2"><a href="category-articles.html" class="hover:text-gray-900 transition">مقالات</a></li>
-          <li class="pl-2"><a href="category-news.html" class="hover:text-gray-900 transition">اخبار</a></li>
-        </ul>
+  <!-- Side Menu Drawer (Hamburger Menu) -->
+  <div id="drawer-overlay"
+    class="fixed inset-0 bg-black/50 z-[100] hidden backdrop-blur-sm transition-opacity opacity-0"></div>
+  <aside id="mobile-drawer"
+    class="fixed top-0 right-0 h-full w-80 bg-white z-[101] shadow-2xl transform translate-x-full transition-transform duration-300">
+    <div class="p-6 flex flex-col h-full">
+      <div class="flex items-center justify-between mb-8">
+        <div class="flex items-center gap-2">
+          <img src="./Foto/IMG_7649.jpg" alt="Logo" class="h-10 w-10 rounded-full" />
+          <span class="font-black text-lg">Tech Deutsch</span>
+        </div>
+        <button id="drawer-close"
+          class="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-full transition">
+          <i class="fas fa-times text-xl"></i>
+        </button>
       </div>
-    </aside>
 
-    <section class="lg:col-span-2 grid gap-6">
-      <article class="bg-white p-6 rounded-2xl shadow hover-scale"><h3 class="font-bold text-xl mb-2">محتوای دسته اخبار</h3><p class="text-sm text-gray-600 mb-4">به زودی مقالات بیشتری در این دسته منتشر خواهد شد.</p><a href="blog.html" class="text-red-600 font-bold">بازگشت به وبلاگ →</a></article>
-    </section>
-  </div></main>
+      <nav class="flex-1">
+        <ul class="space-y-2">
+          <li><a href="index.html"
+              class="flex items-center gap-4 p-4 text-gray-700 hover:bg-gray-50 rounded-xl transition">
+              <i class="fas fa-home w-5"></i> خانه</a>
+          </li>
+          <li><a href="about.html"
+              class="flex items-center gap-4 p-4 text-gray-700 hover:bg-gray-50 rounded-xl transition">
+              <i class="fas fa-info-circle w-5"></i> درباره ما</a>
+          </li>
+          <li><a href="index.html#courses"
+              class="flex items-center gap-4 p-4 text-gray-700 hover:bg-gray-50 rounded-xl transition">
+              <i class="fas fa-graduation-cap w-5"></i> دوره‌های آموزشی</a>
+          </li>
+          <li><a href="blog.html"
+              class="flex items-center gap-4 p-4 text-gray-700 hover:bg-gray-50 rounded-xl transition">
+              <i class="fas fa-blog w-5"></i> وبلاگ</a>
+          </li>
+          <li><a href="contact.html"
+              class="flex items-center gap-4 p-4 text-gray-700 hover:bg-gray-50 rounded-xl transition">
+              <i class="fas fa-headset w-5"></i> تماس با ما</a>
+          </li>
+        </ul>
+      </nav>
 
-  <footer class="bg-gray-900 text-white py-12"><div class="container mx-auto px-4"><div class="grid md:grid-cols-4 gap-8 mb-8"><div><h3 class="text-2xl font-bold mb-4"><span class="text-white">Tech </span><span class="text-red-600">Deutsch </span><span class="text-yellow-400">Pro</span></h3><p class="text-gray-400 leading-relaxed">ما متعهد به ارائه بهترین آموزش زبان آلمانی با تمرکز بر حوزه فناوری و تکنولوژی هستیم.</p></div><div><h4 class="text-lg font-bold mb-4 text-yellow-400">دسترسی سریع</h4><ul class="space-y-2"><li><a href="index.html" class="text-gray-400 hover:text-white transition">خانه</a></li><li><a href="index.html#courses" class="text-gray-400 hover:text-white transition">دوره‌ها</a></li><li><a href="about.html" class="text-gray-400 hover:text-white transition">درباره ما</a></li><li><a href="blog.html" class="text-gray-400 hover:text-white transition">وبلاگ</a></li></ul></div><div><h4 class="text-lg font-bold mb-4 text-yellow-400">دوره‌ها</h4><ul class="space-y-2"><li><a href="index.html#courses" class="text-gray-400 hover:text-white transition">دوره A1</a></li><li><a href="index.html#courses" class="text-gray-400 hover:text-white transition">دوره A2</a></li><li><a href="index.html#courses" class="text-gray-400 hover:text-white transition">دوره B1</a></li><li><a href="index.html#courses" class="text-gray-400 hover:text-white transition">دوره B2</a></li></ul></div><div><h4 class="text-lg font-bold mb-4 text-yellow-400">تماس با ما</h4><ul class="space-y-3"><li class="flex items-center gap-2 text-gray-400"><span>📧</span><a href="mailto:info@techdeutschpro.com" class="hover:text-white transition">info@techdeutschpro.com</a></li><li class="flex items-center gap-2 text-gray-400"><span>📱</span><a href="tel:09394962091" class="hover:text-white transition">09394962091</a></li></ul></div></div><div class="border-t border-gray-800 pt-8 text-center text-gray-400"><p>&copy; 2025 Tech Deutsch Pro. تمامی حقوق محفوظ است.</p></div></div></footer>
+      <div class="mt-auto pt-6 border-t">
+        <p class="text-xs text-center text-gray-400 mb-4 font-bold">ما را در شبکه‌های اجتماعی دنبال کنید</p>
+        <div class="flex justify-center gap-4">
+          <a href="https://linkedin.com" target="_blank"
+            class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white hover:bg-blue-700 transition shadow-sm hover:shadow-md">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="https://wa.me/09394962091" target="_blank"
+            class="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center text-white hover:bg-green-700 transition shadow-sm hover:shadow-md">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+          <a href="https://t.me/techdeutschpro" target="_blank"
+            class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white hover:bg-blue-600 transition shadow-sm hover:shadow-md">
+            <i class="fab fa-telegram-plane"></i>
+          </a>
+          <a href="https://www.instagram.com/techdeutschpro" target="_blank"
+            class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white hover:opacity-80 transition shadow-sm hover:shadow-md">
+            <i class="fab fa-instagram"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </aside>
 
-  <script>const menuToggle=document.getElementById('menu-toggle');const mobileMenu=document.getElementById('mobile-menu');if(menuToggle)menuToggle.addEventListener('click',()=>mobileMenu.classList.toggle('hidden'));</script>
+  <section class="py-12 bg-gradient-to-r from-gray-100 to-white">
+    <div class="container mx-auto px-4 text-right">
+      <nav class="text-sm text-gray-600 mb-4">
+        <a href="index.html" class="hover:text-red-600">خانه</a>
+        <span class="mx-2">›</span>
+        <a href="blog.html" class="hover:text-red-600">وبلاگ</a>
+        <span class="mx-2">›</span>
+        <span class="font-bold text-red-600">اخبار</span>
+      </nav>
+      <h1 class="text-4xl font-bold text-gray-800">اخبار و اطلاعیه‌ها</h1>
+      <p class="text-gray-600 mt-2">جدیدترین رویدادها، تغییرات دوره‌ها و خبرهای مهم آکادمی</p>
+    </div>
+  </section>
+
+  <main class="py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid lg:grid-cols-3 gap-8">
+
+        <!-- Sidebar -->
+        <aside class="space-y-6">
+          <div class="bg-white rounded-2xl shadow p-6">
+            <form action="blog.html" method="get">
+              <div class="relative">
+                <input name="q"
+                  class="w-full rounded-xl border border-gray-200 py-3 pr-12 pl-4 text-gray-600 placeholder-gray-400 shadow-sm focus:outline-none"
+                  placeholder="جستجو در اخبار..." />
+                <button type="submit" class="absolute left-4 top-3 text-red-600 text-lg">🔍</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="bg-white rounded-2xl shadow-lg p-6 sidebar-pill">
+            <h4 class="text-2xl font-extrabold text-gray-700 mb-4" style="padding-right:40px;">دسته‌ها</h4>
+            <div class="border-t border-gray-100 mb-4"></div>
+            <ul class="space-y-4 text-gray-600 text-lg font-medium">
+              <li class="pl-2"><a href="category-education.html" class="hover:text-gray-900 transition">آموزش زبان
+                  آلمانی</a>
+              </li>
+              <li class="pl-2"><a href="category-courses.html" class="hover:text-gray-900 transition">دوره‌ها</a></li>
+              <li class="pl-2"><a href="category-culture.html" class="hover:text-gray-900 transition">فرهنگ آلمان</a>
+              </li>
+              <li class="pl-2"><a href="category-resources.html" class="hover:text-gray-900 transition">منابع</a></li>
+              <li class="pl-2"><a href="category-articles.html" class="hover:text-gray-900 transition">مقالات</a></li>
+              <li class="pl-2"><a href="category-news.html" class="font-bold text-red-600">اخبار</a></li>
+            </ul>
+          </div>
+        </aside>
+
+        <!-- Post Grid -->
+        <section class="lg:col-span-2">
+          <div class="grid sm:grid-cols-2 gap-8">
+
+            <article class="bg-white border-r-4 border-red-600 rounded-2xl overflow-hidden shadow-xl hover-scale">
+              <div class="p-6 text-gray-900">
+                <div class="flex items-center gap-2 mb-3">
+                  <span class="bg-red-100 text-red-600 px-2 py-0.5 rounded text-xs font-bold uppercase">مهم</span>
+                  <span class="text-xs text-gray-500">20 اسفند 1402</span>
+                </div>
+                <h3 class="text-xl font-bold mb-3">آغاز ثبت‌نام دوره‌های فروردین ۱۴۰۳</h3>
+                <p class="text-gray-700 text-sm leading-relaxed mb-4">
+                  ثبت‌نام ترم جدید از هفته آینده آغاز خواهد شد. ظرفیت دوره‌های فشرده محدود است. زودتر اقدام کنید.
+                </p>
+                <a href="#" class="text-red-600 font-bold text-sm">ادامه خبر ←</a>
+              </div>
+            </article>
+
+            <article class="bg-white border-r-4 border-yellow-400 rounded-2xl overflow-hidden shadow-xl hover-scale">
+              <div class="p-6 text-gray-900">
+                <div class="flex items-center gap-2 mb-3">
+                  <span
+                    class="bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded text-xs font-bold uppercase">آپدیت</span>
+                  <span class="text-xs text-gray-500">15 اسفند 1402</span>
+                </div>
+                <h3 class="text-xl font-bold mb-3">بروزرسانی پنل کاربری دانشجویان</h3>
+                <p class="text-gray-700 text-sm leading-relaxed mb-4">
+                  امکانات جدیدی به بخش تمرینات و آزمون‌های آنلاین اضافه شد. از این پس می‌توانید نمرات خود را به صورت
+                  لحظه‌ای مشاهده کنید.
+                </p>
+                <a href="#" class="text-red-600 font-bold text-sm">ادامه خبر ←</a>
+              </div>
+            </article>
+
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-gray-900 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid md:grid-cols-4 gap-8 mb-8">
+        <div>
+          <h3 class="text-2xl font-bold mb-4">
+            <span class="text-white">Tech </span>
+            <span class="text-red-600">Deutsch </span>
+            <span class="text-yellow-400">Pro</span>
+          </h3>
+          <p class="text-gray-400 leading-relaxed">ما متعهد به ارائه بهترین آموزش زبان آلمانی با تمرکز بر حوزه فناوری و
+            تکنولوژی هستیم.</p>
+        </div>
+        <div>
+          <h4 class="text-lg font-bold mb-4 text-yellow-400">دسترسی سریع</h4>
+          <ul class="space-y-2">
+            <li><a href="index.html" class="text-gray-400 hover:text-white transition">خانه</a></li>
+            <li><a href="index.html#courses" class="text-gray-400 hover:text-white transition">دوره‌های آموزشی</a></li>
+            <li><a href="about.html" class="text-gray-400 hover:text-white transition">درباره ما</a></li>
+            <li><a href="index.html#testimonials" class="text-gray-400 hover:text-white transition">نظرات دانشجویان</a>
+            </li>
+            <li><a href="blog.html" class="text-gray-400 hover:text-white transition">وبلاگ</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-lg font-bold mb-4 text-yellow-400">دوره‌ها</h4>
+          <ul class="space-y-2">
+            <li><a href="index.html#courses" class="text-gray-400 hover:text-white transition">دوره A1</a></li>
+            <li><a href="index.html#courses" class="text-gray-400 hover:text-white transition">دوره A2</a></li>
+            <li><a href="index.html#courses" class="text-gray-400 hover:text-white transition">دوره B1</a></li>
+            <li><a href="index.html#courses" class="text-gray-400 hover:text-white transition">دوره B2</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-lg font-bold mb-4 text-yellow-400">تماس با ما</h4>
+          <ul class="space-y-3">
+            <li class="flex items-center gap-2 text-gray-400">
+              <i class="fas fa-envelope text-yellow-400"></i>
+              <a href="mailto:info@techdeutschpro.com" class="hover:text-white transition">info@techdeutschpro.com</a>
+            </li>
+            <li class="flex items-center gap-2 text-gray-400">
+              <i class="fas fa-phone text-yellow-400"></i>
+              <a href="tel:09394962091" class="hover:text-white transition text-left" dir="ltr">09394962091</a>
+            </li>
+            <li class="flex items-start gap-2 text-gray-400">
+              <i class="fas fa-map-marker-alt text-yellow-400 mt-1"></i>
+              <span>شیراز، بلوار جمهوری، ساختمان نوآوری دانشگاه شیراز</span>
+            </li>
+            <li class="flex gap-3 mt-4">
+              <a href="https://linkedin.com" target="_blank"
+                class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+              <a href="https://wa.me/09394962091" target="_blank"
+                class="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center hover:bg-green-700 transition">
+                <i class="fab fa-whatsapp"></i>
+              </a>
+              <a href="https://t.me/techdeutschpro" target="_blank"
+                class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center hover:bg-blue-600 transition">
+                <i class="fab fa-telegram-plane"></i>
+              </a>
+              <a href="https://www.instagram.com/techdeutschpro" target="_blank"
+                class="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center hover:opacity-80 transition">
+                <i class="fab fa-instagram"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
+        <p>&copy; 2025 Tech Deutsch Pro. تمامی حقوق محفوظ است.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
+
 </html>
