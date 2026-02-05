@@ -52,11 +52,30 @@
     .glass-header {
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+
+    .header-scrolled {
+      padding-top: 0.5rem !important;
+      padding-bottom: 0.5rem !important;
+      background: rgba(255, 255, 255, 0.98) !important;
+    }
+
+    #scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 4px;
+      background: linear-gradient(to left, #DD0000, #FFCE00);
+      z-index: 1000;
+      transition: width 0.1s ease-out;
     }
   </style>
 </head>
 
 <body class="bg-gray-50 font-sans">
+  <div id="scroll-progress"></div>
 
   <!-- Top Announcement Bar -->
   <div
@@ -924,20 +943,20 @@
             </li>
             <li class="flex gap-4 mt-6">
               <a href="https://linkedin.com" target="_blank"
-                class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition">
-                <i class="fab fa-linkedin-in"></i>
+                class="w-10 h-10 bg-[#0077b5] rounded-full flex items-center justify-center hover:scale-110 hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-300">
+                <i class="fab fa-linkedin-in text-white"></i>
               </a>
               <a href="https://wa.me/09394962091" target="_blank"
-                class="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center hover:bg-green-700 transition">
-                <i class="fab fa-whatsapp"></i>
+                class="w-10 h-10 bg-[#25D366] rounded-full flex items-center justify-center hover:scale-110 hover:shadow-lg hover:shadow-green-500/30 transition-all duration-300">
+                <i class="fab fa-whatsapp text-white"></i>
               </a>
               <a href="https://t.me/techdeutschpro" target="_blank"
-                class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center hover:bg-blue-600 transition">
-                <i class="fab fa-telegram-plane"></i>
+                class="w-10 h-10 bg-[#0088cc] rounded-full flex items-center justify-center hover:scale-110 hover:shadow-lg hover:shadow-blue-400/30 transition-all duration-300">
+                <i class="fab fa-telegram-plane text-white"></i>
               </a>
               <a href="https://www.instagram.com/techdeutschpro" target="_blank"
-                class="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center hover:opacity-80 transition">
-                <i class="fab fa-instagram"></i>
+                class="w-10 h-10 bg-gradient-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] rounded-full flex items-center justify-center hover:scale-110 hover:shadow-lg hover:shadow-purple-500/30 transition-all duration-300">
+                <i class="fab fa-instagram text-white"></i>
               </a>
             </li>
           </ul>

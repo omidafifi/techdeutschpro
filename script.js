@@ -157,9 +157,12 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     const href = this.getAttribute('href');
     if (href && href.startsWith('#')) {
-      e.preventDefault();
-      const target = document.querySelector(href);
+      const targetId = href.substring(1);
+      if (!targetId) return;
+
+      const target = document.getElementById(targetId);
       if (target) {
+        e.preventDefault();
         if (typeof closeDrawer === 'function') closeDrawer();
         if (typeof closeCart === 'function') closeCart();
         if (typeof closeSearch === 'function') closeSearch();
@@ -171,5 +174,49 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         });
       }
     }
+  });
+});
+
+// Header Scroll Effect
+const headerElement = document.querySelector('header');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 50) {
+    headerElement.classList.add('shadow-md', 'header-scrolled');
+    headerElement.classList.remove('shadow-sm');
+  } else {
+    headerElement.classList.remove('shadow-md', 'header-scrolled');
+    headerElement.classList.add('shadow-sm');
+  }
+});
+
+// Back to Top Logic
+const backToTopBtn = document.createElement('button');
+backToTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
+backToTopBtn.className = 'fixed bottom-8 right-8 w-12 h-12 bg-blue-600 text-white rounded-full shadow-2xl items-center justify-center cursor-pointer transition-all duration-300 translate-y-20 opacity-0 z-[100] hover:bg-blue-700 hover:-translate-y-1 flex';
+document.body.appendChild(backToTopBtn);
+
+const progressBar = document.getElementById('scroll-progress');
+
+window.addEventListener('scroll', () => {
+  // Back to top visibility
+  if (window.scrollY > 500) {
+    backToTopBtn.classList.remove('translate-y-20', 'opacity-0');
+  } else {
+    backToTopBtn.classList.add('translate-y-20', 'opacity-0');
+  }
+
+  // Progress Bar calculation
+  if (progressBar) {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    progressBar.style.width = scrolled + "%";
+  }
+});
+
+backToTopBtn.addEventListener('click', () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
   });
 });
