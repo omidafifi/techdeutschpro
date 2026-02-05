@@ -194,9 +194,9 @@ const backToTopBtn = document.createElement('button');
 backToTopBtn.id = 'back-to-top';
 backToTopBtn.setAttribute('aria-label', 'بازگشت به بالا');
 // Premium blue gradient with glowing shadow
-backToTopBtn.className = 'fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-br from-blue-600 to-blue-400 text-white rounded-full shadow-[0_10px_25px_rgba(37,99,235,0.4)] items-center justify-center cursor-pointer transition-all duration-500 translate-y-20 opacity-0 z-[100] hover:shadow-[0_15px_35px_rgba(37,99,235,0.6)] hover:-translate-y-2 hover:scale-110 flex group active:scale-90 border-2 border-white/20';
+backToTopBtn.className = 'fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-b from-black via-red-600 to-yellow-500 text-white rounded-full shadow-[0_10px_25px_rgba(234,179,8,0.4)] items-center justify-center cursor-pointer transition-all duration-500 translate-y-20 opacity-0 z-[100] hover:shadow-[0_15px_35px_rgba(234,179,8,0.6)] hover:-translate-y-2 hover:scale-110 flex group active:scale-90 border-2 border-white/20';
 backToTopBtn.innerHTML = `
-  <div class="absolute inset-0 rounded-full bg-blue-500 opacity-0 group-hover:animate-ping"></div>
+  <div class="absolute inset-0 rounded-full bg-red-600 opacity-0 group-hover:animate-ping"></div>
   <i class="fas fa-chevron-up text-xl relative z-10 transition-transform duration-300 group-hover:-translate-y-1"></i>
   <svg class="absolute inset-0 w-full h-full -rotate-90 pointer-events-none" viewBox="0 0 100 100">
     <circle cx="50" cy="50" r="48" stroke="currentColor" stroke-width="4" fill="transparent" class="text-white/20" />
