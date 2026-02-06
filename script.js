@@ -194,13 +194,21 @@ const backToTopBtn = document.createElement('button');
 backToTopBtn.id = 'back-to-top';
 backToTopBtn.setAttribute('aria-label', 'بازگشت به بالا');
 // Premium blue gradient with glowing shadow
-backToTopBtn.className = 'fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-b from-black via-red-600 to-yellow-500 text-white rounded-full shadow-[0_10px_25px_rgba(234,179,8,0.4)] items-center justify-center cursor-pointer transition-all duration-500 translate-y-20 opacity-0 z-[100] hover:shadow-[0_15px_35px_rgba(234,179,8,0.6)] hover:-translate-y-2 hover:scale-110 flex group active:scale-90 border-2 border-white/20';
+// Solid dark premium background
+backToTopBtn.className = 'fixed bottom-8 right-8 w-14 h-14 bg-gray-900 text-white rounded-full shadow-[0_10px_25px_rgba(0,0,0,0.5)] items-center justify-center cursor-pointer transition-all duration-500 translate-y-20 opacity-0 z-[100] hover:shadow-[0_15px_35px_rgba(220,38,38,0.4)] hover:-translate-y-2 hover:scale-110 flex group active:scale-90 border border-gray-700';
 backToTopBtn.innerHTML = `
-  <div class="absolute inset-0 rounded-full bg-red-600 opacity-0 group-hover:animate-ping"></div>
-  <i class="fas fa-chevron-up text-xl relative z-10 transition-transform duration-300 group-hover:-translate-y-1"></i>
+  <div class="absolute inset-0 rounded-full bg-gray-800 opacity-0 group-hover:animate-ping"></div>
+  <i class="fas fa-chevron-up text-xl relative z-10 transition-transform duration-300 group-hover:-translate-y-1 text-yellow-400"></i>
   <svg class="absolute inset-0 w-full h-full -rotate-90 pointer-events-none" viewBox="0 0 100 100">
-    <circle cx="50" cy="50" r="48" stroke="currentColor" stroke-width="4" fill="transparent" class="text-white/20" />
-    <circle id="back-to-top-progress" cx="50" cy="50" r="48" stroke="currentColor" stroke-width="4" fill="transparent" stroke-dasharray="301.6" stroke-dashoffset="301.6" class="text-white drop-shadow-md transition-all duration-100" />
+    <defs>
+      <linearGradient id="german-flag-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:black;stop-opacity:1" />
+        <stop offset="45%" style="stop-color:#DC2626;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#EAB308;stop-opacity:1" />
+      </linearGradient>
+    </defs>
+    <circle cx="50" cy="50" r="46" stroke="#374151" stroke-width="4" fill="transparent" class="opacity-30" />
+    <circle id="back-to-top-progress" cx="50" cy="50" r="46" stroke="url(#german-flag-gradient)" stroke-width="4" fill="transparent" stroke-dasharray="289" stroke-dashoffset="289" stroke-linecap="round" class="drop-shadow-md transition-all duration-100" />
   </svg>
 `;
 document.body.appendChild(backToTopBtn);
@@ -227,7 +235,7 @@ window.addEventListener('scroll', () => {
 
   // Circular Progress (On the button)
   if (progressCircle) {
-    const totalLength = 301.6; // 2 * PI * r (r=48)
+    const totalLength = 289; // 2 * PI * r (r=46)
     const offset = totalLength - (scrolled / 100) * totalLength;
     progressCircle.style.strokeDashoffset = offset;
   }
@@ -239,3 +247,58 @@ backToTopBtn.addEventListener('click', () => {
     behavior: 'smooth'
   });
 });
+// Chatbot Logic
+const chatbotBtn = document.getElementById('chatbot-btn');
+const chatWindow = document.getElementById('chat-window');
+const chatClose = document.getElementById('chat-close');
+
+if (chatbotBtn && chatWindow) {
+  // Toggle Chat
+  chatbotBtn.addEventListener('click', () => {
+    chatWindow.classList.toggle('invisible');
+    chatWindow.classList.toggle('opacity-0');
+    chatWindow.classList.toggle('translate-y-10');
+  });
+
+  // Close Chat
+  if (chatClose) {
+    chatClose.addEventListener('click', () => {
+      chatWindow.classList.add('invisible', 'opacity-0', 'translate-y-10');
+    });
+  }
+}
+
+// Number Counter Animation
+const statsSection = document.getElementById('stats-section');
+let animated = false;
+
+function animateValue(obj, start, end, duration) {
+  let startTimestamp = null;
+  const step = (timestamp) => {
+    if (!startTimestamp) startTimestamp = timestamp;
+    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+    obj.innerText = Math.floor(progress * (end - start) + start);
+    if (progress < 1) {
+      window.requestAnimationFrame(step);
+    }
+  };
+  window.requestAnimationFrame(step);
+}
+
+if (statsSection) {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !animated) {
+        const counters = document.querySelectorAll('.counter');
+        counters.forEach(counter => {
+          const target = +counter.getAttribute('data-target');
+          animateValue(counter, 0, target, 2500);
+        });
+        animated = true;
+        observer.unobserve(statsSection);
+      }
+    });
+  }, { threshold: 0.2 }); // Trigger when 20% visible
+
+  observer.observe(statsSection);
+}

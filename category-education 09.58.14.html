@@ -174,5 +174,75 @@
     const mobileMenu = document.getElementById('mobile-menu');
     if (menuToggle) menuToggle.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
   </script>
+  <!-- Chatbot Widget -->
+  <div id="chatbot-widget" class="fixed bottom-8 left-8 z-[150] font-vazir">
+    <!-- Chat Button -->
+    <button id="chatbot-btn"
+      class="w-16 h-16 bg-gray-900 text-white rounded-full shadow-[0_8px_30px_rgba(0,0,0,0.3)] flex items-center justify-center cursor-pointer hover:scale-110 transition-transform duration-300 group relative border-4 border-white">
+      <div class="absolute inset-0 rounded-full border-2 border-yellow-400 animate-pulse"></div>
+      <i class="fas fa-comment-dots text-2xl group-hover:hidden transition-all text-yellow-400"></i>
+      <i class="fas fa-times text-2xl hidden group-hover:block transition-all text-yellow-400"></i>
+      
+      <!-- Notification Badge -->
+      <span class="absolute -top-1 -right-1 flex h-4 w-4">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-4 w-4 bg-red-500"></span>
+      </span>
+    </button>
+
+    <!-- Chat Window -->
+    <div id="chat-window"
+      class="absolute bottom-20 left-0 w-[350px] md:w-[380px] bg-white rounded-2xl shadow-2xl overflow-hidden invisible opacity-0 translate-y-10 transition-all duration-300 origin-bottom-left border border-gray-100 flex flex-col max-h-[500px]">
+      
+      <!-- Chat Header -->
+      <div class="bg-gray-900 p-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="relative">
+            <div class="w-10 h-10 rounded-full border-2 border-yellow-400 bg-white p-0.5 overflow-hidden">
+               <img src="Foto/myPic.JPG" class="w-full h-full object-cover rounded-full">
+            </div>
+            <div class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-gray-900 rounded-full"></div>
+          </div>
+          <div>
+            <h5 class="text-white font-bold text-sm">پشتیبانی هوشمند</h5>
+            <p class="text-gray-400 text-xs flex items-center gap-1">
+              <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
+              آنلاین
+            </p>
+          </div>
+        </div>
+        <button id="chat-close" class="text-gray-400 hover:text-white transition">
+          <i class="fas fa-minus"></i>
+        </button>
+      </div>
+
+      <!-- Chat Messages (Scrollable) -->
+      <div id="chat-messages" class="flex-1 p-4 overflow-y-auto bg-gray-50 space-y-4 min-h-[300px]">
+        <!-- Agent Message -->
+        <div class="flex gap-3 items-end">
+          <div class="w-8 h-8 rounded-full bg-gray-200 overflow-hidden flex-shrink-0 border border-gray-300">
+            <img src="Foto/myPic.JPG" class="w-full h-full object-cover">
+          </div>
+          <div class="bg-white p-3 rounded-2xl rounded-br-none shadow-sm text-sm text-gray-700 max-w-[80%] border border-gray-100">
+            سلام! 👋<br>
+            من دستیار هوشمند Tech Deutsch هستم. چطور می‌تونم کمکتون کنم؟
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat Input -->
+      <div class="p-3 bg-white border-t border-gray-100">
+        <form class="flex gap-2 relative">
+          <input type="text" placeholder="پیام خود را بنویسید..."
+            class="w-full bg-gray-50 border border-gray-200 rounded-xl py-3 pr-4 pl-12 text-sm focus:outline-none focus:border-yellow-400 focus:bg-white transition-all text-right" disabled>
+          <button type="button" class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-gray-900 text-yellow-400 rounded-lg flex items-center justify-center hover:bg-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+            <i class="fas fa-paper-plane text-xs transform -rotate-90"></i>
+          </button>
+        </form>
+        <p class="text-[10px] text-center text-gray-400 mt-2">پشتیبانی شده توسط هوش مصنوعی</p>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>
