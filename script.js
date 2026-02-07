@@ -63,18 +63,91 @@ if (searchBtn) searchBtn.addEventListener('click', openSearch);
 if (searchClose) searchClose.addEventListener('click', closeSearch);
 if (searchOverlay) searchOverlay.addEventListener('click', closeSearch);
 
-// Cart Drawer Logic
+// Cart System Logic
 const cartBtn = document.getElementById('cart-btn');
 const cartClose = document.getElementById('cart-close');
 const cartOverlay = document.getElementById('cart-overlay');
 const cartDrawer = document.getElementById('cart-drawer');
+const cartItemsContainer = document.getElementById('cart-drawer-items');
+const cartTotalElement = document.getElementById('cart-drawer-total');
+const cartCountBadge = document.getElementById('cart-count');
+
+// Initialize Cart State
+let cart = JSON.parse(localStorage.getItem('techDeutschCart')) || [];
+
+function saveCart() {
+  localStorage.setItem('techDeutschCart', JSON.stringify(cart));
+  updateCartUI();
+}
+
+function updateCartUI() {
+  // Update Badge
+  if (cartCountBadge) {
+    cartCountBadge.textContent = cart.length;
+    // Animate badge
+    cartCountBadge.classList.add('scale-125');
+    setTimeout(() => cartCountBadge.classList.remove('scale-125'), 200);
+  }
+
+  // Update Drawer Items
+  if (cartItemsContainer) {
+    if (cart.length === 0) {
+      cartItemsContainer.innerHTML = '<div class="flex flex-col items-center justify-center h-48 text-gray-400 gap-4"><i class="fas fa-shopping-basket text-4xl opacity-20"></i><p class="italic font-medium">سبد خرید فعلاً خالی است.</p></div>';
+    } else {
+      cartItemsContainer.innerHTML = cart.map((item, index) => `
+        <div class="flex gap-4 p-3 bg-gray-50 rounded-2xl group relative overflow-hidden transition hover:bg-white hover:shadow-md border border-gray-100">
+            <div class="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 border border-gray-100">
+              <img src="${item.image}" class="w-full h-full object-cover">
+            </div>
+            <div class="flex-1 flex flex-col justify-between">
+              <div>
+                <h5 class="font-bold text-sm text-gray-800 line-clamp-1">${item.title}</h5>
+                <p class="text-[10px] text-gray-500 mt-1">${item.level || 'دوره آموزشی'}</p>
+              </div>
+              <div class="flex items-center justify-between mt-1">
+                <span class="text-red-600 font-black text-sm">${Number(item.price).toLocaleString()} <span class="text-[10px] font-normal">تومان</span></span>
+                <button onclick="window.removeFromCart(${index})" class="text-gray-400 hover:text-red-500 transition w-6 h-6 flex items-center justify-center rounded-full hover:bg-red-50"><i class="fas fa-trash-alt text-xs"></i></button>
+              </div>
+            </div>
+        </div>
+      `).join('');
+    }
+  }
+
+  // Update Total
+  if (cartTotalElement) {
+    const total = cart.reduce((sum, item) => sum + Number(item.price), 0);
+    cartTotalElement.textContent = total.toLocaleString() + ' تومان';
+  }
+}
+
+function addToCart(dataset) {
+  const item = {
+    id: dataset.id,
+    title: dataset.title,
+    price: parseInt(dataset.price),
+    level: dataset.level,
+    image: dataset.image
+  };
+  
+  cart.push(item);
+  saveCart();
+  openCart();
+}
+
+// Global Remove Function
+window.removeFromCart = function(index) {
+  cart.splice(index, 1);
+  saveCart();
+}
 
 function openCart() {
   if (!cartOverlay || !cartDrawer) return;
+  updateCartUI();
   cartOverlay.classList.remove('hidden');
   setTimeout(() => {
     cartOverlay.classList.remove('opacity-0');
-    cartDrawer.classList.remove('-translate-x-full'); // Slides in from left
+    cartDrawer.classList.remove('-translate-x-full');
   }, 10);
   document.body.style.overflow = 'hidden';
 }
@@ -92,6 +165,27 @@ function closeCart() {
 if (cartBtn) cartBtn.addEventListener('click', openCart);
 if (cartClose) cartClose.addEventListener('click', closeCart);
 if (cartOverlay) cartOverlay.addEventListener('click', closeCart);
+
+// Initialize Add to Cart Buttons
+document.addEventListener('DOMContentLoaded', () => {
+    updateCartUI(); // Initial check
+    
+    document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            // Animation
+            btn.innerHTML = '<i class="fas fa-check"></i> افزوده شد';
+            btn.classList.add('bg-green-600', 'text-white');
+            setTimeout(() => {
+                btn.innerHTML = 'افزودن به سبد خرید'; // Or original text
+                btn.classList.remove('bg-green-600', 'text-white');
+                // Restore original color if encoded manually, or just remove overrides
+            }, 1000);
+            
+            addToCart(btn.dataset);
+        });
+    });
+});
 
 // Auth Modal Logic
 const loginBtn = document.getElementById('login-btn');

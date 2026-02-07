@@ -133,7 +133,8 @@
           <img src="Foto/IMG_7649.jpg" alt="Tech Deutsch Pro Logo" class="h-12 w-auto drop-shadow-md" />
           <div class="hidden md:block">
             <h1 class="text-xl font-black leading-none">
-              <span class="text-gray-900">Tech </span><span class="text-red-600">Deutsch</span> <span class="text-yellow-500">Pro</span>
+              <span class="text-gray-900">Tech </span><span class="text-red-600">Deutsch</span> <span
+                class="text-yellow-500">Pro</span>
             </h1>
           </div>
         </a>
@@ -260,8 +261,8 @@
             class="w-10 h-10 text-gray-500 hover:bg-gray-100 rounded-full flex items-center justify-center transition">
             <i class="fas fa-shopping-cart text-lg"></i>
           </button>
-          <span
-            class="absolute top-1 right-1 bg-yellow-400 text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">۰</span>
+          <span id="cart-count"
+            class="absolute top-1 right-1 bg-yellow-400 text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
         </div>
 
         <!-- Notifications -->
@@ -298,8 +299,10 @@
     <div class="p-6 flex flex-col h-full">
       <div class="flex items-center justify-between mb-8">
         <div class="flex items-center gap-2">
-          <div class="w-10 h-10 bg-red-600 rounded-xl flex items-center justify-center text-white"><i class="fas fa-code"></i></div>
-          <span class="font-black text-lg"><span class="text-gray-900">Tech</span> <span class="text-red-600">Deutsch</span> <span class="text-yellow-500">Pro</span></span>
+          <div class="w-10 h-10 bg-red-600 rounded-xl flex items-center justify-center text-white"><i
+              class="fas fa-code"></i></div>
+          <span class="font-black text-lg"><span class="text-gray-900">Tech</span> <span
+              class="text-red-600">Deutsch</span> <span class="text-yellow-500">Pro</span></span>
         </div>
         <button id="drawer-close"
           class="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-full transition">
@@ -425,8 +428,10 @@
                 </p>
                 <div class="flex items-center justify-between border-t border-white/20 pt-4">
                   <span class="text-xl font-bold">۲,۵۰۰,۰۰۰ تومان</span>
-                  <a href="index.html#courses" class="bg-white text-blue-600 px-4 py-2 rounded-lg font-bold text-sm">ثبت
-                    نام</a>
+                  <button class="add-to-cart-btn bg-white text-blue-600 px-4 py-2 rounded-lg font-bold text-sm"
+                    data-id="course-a1" data-title="دوره A1" data-price="2500000" data-level="سطح A1"
+                    data-image="https://ui-avatars.com/api/?name=A+1&background=2563EB&color=fff&size=128">افزودن به سبد
+                    خرید</button>
                 </div>
               </div>
             </article>
@@ -445,8 +450,10 @@
                 </p>
                 <div class="flex items-center justify-between border-t border-white/20 pt-4">
                   <span class="text-xl font-bold">۳,۲۰۰,۰۰۰ تومان</span>
-                  <a href="index.html#courses"
-                    class="bg-white text-green-600 px-4 py-2 rounded-lg font-bold text-sm">ثبت نام</a>
+                  <button class="add-to-cart-btn bg-white text-green-600 px-4 py-2 rounded-lg font-bold text-sm"
+                    data-id="course-a2" data-title="دوره A2" data-price="3200000" data-level="سطح A2"
+                    data-image="https://ui-avatars.com/api/?name=A+2&background=16A34A&color=fff&size=128">افزودن به سبد
+                    خرید</button>
                 </div>
               </div>
             </article>
@@ -465,8 +472,10 @@
                 </p>
                 <div class="flex items-center justify-between border-t border-white/20 pt-4">
                   <span class="text-xl font-bold">۴,۰۰۰,۰۰۰ تومان</span>
-                  <a href="index.html#courses"
-                    class="bg-white text-orange-600 px-4 py-2 rounded-lg font-bold text-sm">ثبت نام</a>
+                  <button class="add-to-cart-btn bg-white text-orange-600 px-4 py-2 rounded-lg font-bold text-sm"
+                    data-id="course-b1" data-title="دوره B1" data-price="4000000" data-level="سطح B1"
+                    data-image="https://ui-avatars.com/api/?name=B+1&background=EA580C&color=fff&size=128">افزودن به سبد
+                    خرید</button>
                 </div>
               </div>
             </article>
@@ -485,8 +494,10 @@
                 </p>
                 <div class="flex items-center justify-between border-t border-white/20 pt-4">
                   <span class="text-xl font-bold">۵,۵۰۰,۰۰۰ تومان</span>
-                  <a href="index.html#courses"
-                    class="bg-white text-purple-600 px-4 py-2 rounded-lg font-bold text-sm">ثبت نام</a>
+                  <button class="add-to-cart-btn bg-white text-purple-600 px-4 py-2 rounded-lg font-bold text-sm"
+                    data-id="course-b2" data-title="دوره B2" data-price="5500000" data-level="سطح B2"
+                    data-image="https://ui-avatars.com/api/?name=B+2&background=9333EA&color=fff&size=128">افزودن به سبد
+                    خرید</button>
                 </div>
               </div>
             </article>
@@ -601,10 +612,25 @@
           class="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-full transition">
           <i class="fas fa-times text-xl"></i>
         </button>
-        <span class="font-black text-lg">سبد خرید</span>
+        <div class="flex items-center gap-2">
+          <span class="font-black text-lg">سبد خرید</span>
+          <i class="fas fa-shopping-basket text-yellow-500"></i>
+        </div>
       </div>
-      <div class="flex-1 overflow-y-auto">
-        <p class="text-center text-gray-500 italic mt-10">سبد خرید فعلاً خالی است.</p>
+
+      <div id="cart-drawer-items" class="flex-1 overflow-y-auto space-y-4">
+        <!-- Items injected by JS -->
+        <div class="text-center text-gray-400 mt-10 italic">سبد خرید خالی است</div>
+      </div>
+
+      <div class="mt-auto pt-6 border-t font-bold">
+        <div class="flex items-center justify-between mb-4">
+          <span id="cart-drawer-total" class="text-xl font-black text-gray-900">0 تومان</span>
+          <span class="text-gray-500">مجموع کل:</span>
+        </div>
+        <a href="checkout.html" id="cart-checkout-btn"
+          class="block text-center w-full bg-yellow-400 hover:bg-yellow-500 text-gray-900 py-4 rounded-2xl font-black transition shadow-lg shadow-yellow-400/20 active:scale-[0.98]">تکمیل
+          سفارش و پرداخت</a>
       </div>
     </div>
   </aside>
@@ -619,7 +645,7 @@
     </div>
   </div>
 
-    <!-- Chatbot Widget -->
+  <!-- Chatbot Widget -->
   <div id="chatbot-widget" class="fixed bottom-8 left-8 z-[150] font-vazir">
     <!-- Chat Button -->
     <button id="chatbot-btn"
@@ -627,7 +653,7 @@
       <div class="absolute inset-0 rounded-full border-2 border-yellow-400 animate-pulse"></div>
       <i class="fas fa-comment-dots text-2xl group-hover:hidden transition-all text-yellow-400"></i>
       <i class="fas fa-times text-2xl hidden group-hover:block transition-all text-yellow-400"></i>
-      
+
       <!-- Notification Badge -->
       <span class="absolute -top-1 -right-1 flex h-4 w-4">
         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
@@ -638,13 +664,13 @@
     <!-- Chat Window -->
     <div id="chat-window"
       class="absolute bottom-20 left-0 w-[350px] md:w-[380px] bg-white rounded-2xl shadow-2xl overflow-hidden invisible opacity-0 translate-y-10 transition-all duration-300 origin-bottom-left border border-gray-100 flex flex-col max-h-[500px]">
-      
+
       <!-- Chat Header -->
       <div class="bg-gray-900 p-4 flex items-center justify-between">
         <div class="flex items-center gap-3">
           <div class="relative">
             <div class="w-10 h-10 rounded-full border-2 border-yellow-400 bg-white p-0.5 overflow-hidden">
-               <img src="Foto/myPic.JPG" class="w-full h-full object-cover rounded-full">
+              <img src="Foto/myPic.JPG" class="w-full h-full object-cover rounded-full">
             </div>
             <div class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-gray-900 rounded-full"></div>
           </div>
@@ -668,7 +694,8 @@
           <div class="w-8 h-8 rounded-full bg-gray-200 overflow-hidden flex-shrink-0 border border-gray-300">
             <img src="Foto/myPic.JPG" class="w-full h-full object-cover">
           </div>
-          <div class="bg-white p-3 rounded-2xl rounded-br-none shadow-sm text-sm text-gray-700 max-w-[80%] border border-gray-100">
+          <div
+            class="bg-white p-3 rounded-2xl rounded-br-none shadow-sm text-sm text-gray-700 max-w-[80%] border border-gray-100">
             سلام! 👋<br>
             من دستیار هوشمند Tech Deutsch هستم. چطور می‌تونم کمکتون کنم؟
           </div>
@@ -679,8 +706,10 @@
       <div class="p-3 bg-white border-t border-gray-100">
         <form class="flex gap-2 relative">
           <input type="text" placeholder="پیام خود را بنویسید..."
-            class="w-full bg-gray-50 border border-gray-200 rounded-xl py-3 pr-4 pl-12 text-sm focus:outline-none focus:border-yellow-400 focus:bg-white transition-all text-right" disabled>
-          <button type="button" class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-gray-900 text-yellow-400 rounded-lg flex items-center justify-center hover:bg-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+            class="w-full bg-gray-50 border border-gray-200 rounded-xl py-3 pr-4 pl-12 text-sm focus:outline-none focus:border-yellow-400 focus:bg-white transition-all text-right"
+            disabled>
+          <button type="button"
+            class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-gray-900 text-yellow-400 rounded-lg flex items-center justify-center hover:bg-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
             <i class="fas fa-paper-plane text-xs transform -rotate-90"></i>
           </button>
         </form>

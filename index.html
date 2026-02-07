@@ -256,8 +256,8 @@
             class="w-10 h-10 text-gray-500 hover:bg-gray-100 rounded-full flex items-center justify-center transition">
             <i class="fas fa-shopping-cart text-lg"></i>
           </button>
-          <span
-            class="absolute top-1 right-1 bg-yellow-400 text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">۰</span>
+          <span id="cart-count"
+            class="absolute top-1 right-1 bg-yellow-400 text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
         </div>
 
         <!-- Notifications -->
@@ -469,8 +469,10 @@
           </div>
 
           <button
-            class="w-full bg-white text-blue-600 py-3 rounded-lg font-bold hover:bg-yellow-400 hover:text-gray-900 transition">
-            ثبت نام دوره
+            class="add-to-cart-btn w-full bg-white text-blue-600 py-3 rounded-lg font-bold hover:bg-yellow-400 hover:text-gray-900 transition"
+            data-id="course-a1" data-title="دوره مقدماتی A1" data-price="2500000" data-level="سطح A1"
+            data-image="https://ui-avatars.com/api/?name=A+1&background=2563EB&color=fff&size=128">
+            افزودن به سبد خرید
           </button>
         </div>
 
@@ -508,8 +510,10 @@
           </div>
 
           <button
-            class="w-full bg-white text-green-600 py-3 rounded-lg font-bold hover:bg-yellow-400 hover:text-gray-900 transition">
-            ثبت نام دوره
+            class="add-to-cart-btn w-full bg-white text-green-600 py-3 rounded-lg font-bold hover:bg-yellow-400 hover:text-gray-900 transition"
+            data-id="course-a2" data-title="دوره ابتدایی A2" data-price="3200000" data-level="سطح A2"
+            data-image="https://ui-avatars.com/api/?name=A+2&background=16A34A&color=fff&size=128">
+            افزودن به سبد خرید
           </button>
         </div>
 
@@ -550,8 +554,10 @@
           </div>
 
           <button
-            class="w-full bg-white text-orange-600 py-3 rounded-lg font-bold hover:bg-yellow-400 hover:text-gray-900 transition">
-            ثبت نام دوره
+            class="add-to-cart-btn w-full bg-white text-orange-600 py-3 rounded-lg font-bold hover:bg-yellow-400 hover:text-gray-900 transition"
+            data-id="course-b1" data-title="دوره متوسط B1" data-price="4000000" data-level="سطح B1"
+            data-image="https://ui-avatars.com/api/?name=B+1&background=EA580C&color=fff&size=128">
+            افزودن به سبد خرید
           </button>
         </div>
 
@@ -589,8 +595,10 @@
           </div>
 
           <button
-            class="w-full bg-white text-purple-600 py-3 rounded-lg font-bold hover:bg-yellow-400 hover:text-gray-900 transition">
-            ثبت نام دوره
+            class="add-to-cart-btn w-full bg-white text-purple-600 py-3 rounded-lg font-bold hover:bg-yellow-400 hover:text-gray-900 transition"
+            data-id="course-b2" data-title="دوره پیشرفته B2" data-price="5500000" data-level="سطح B2"
+            data-image="https://ui-avatars.com/api/?name=B+2&background=9333EA&color=fff&size=128">
+            افزودن به سبد خرید
           </button>
         </div>
 
@@ -1120,40 +1128,57 @@
         </div>
       </div>
 
-      <div class="flex-1 overflow-y-auto">
-        <!-- Cart Items -->
-        <div class="space-y-4">
-          <div class="flex gap-4 p-3 bg-gray-50 rounded-2xl group relative overflow-hidden">
-            <div class="w-20 h-20 rounded-xl overflow-hidden flex-shrink-0">
-              <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=200"
-                class="w-full h-full object-cover">
-            </div>
-            <div class="flex-1">
-              <h5 class="font-bold text-sm text-gray-800">آموزش آلمانی سطح A1</h5>
-              <p class="text-xs text-gray-500 mt-1">مدرس: مدرس سایت</p>
-              <div class="flex items-center justify-between mt-2">
-                <span class="text-red-600 font-black">۴۹۰,۰۰۰ تومان</span>
-                <button class="text-gray-400 hover:text-red-500 transition"><i
-                    class="fas fa-trash-alt text-xs"></i></button>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div id="cart-drawer-items" class="flex-1 overflow-y-auto space-y-4">
+        <!-- Items injected by JS -->
+        <div class="text-center text-gray-400 mt-10 italic">سبد خرید خالی است</div>
       </div>
 
       <div class="mt-auto pt-6 border-t font-bold">
         <div class="flex items-center justify-between mb-4">
-          <span class="text-xl font-black text-gray-900">۴۹۰,۰۰۰ تومان</span>
+          <span id="cart-drawer-total" class="text-xl font-black text-gray-900">0 تومان</span>
           <span class="text-gray-500">مجموع کل:</span>
         </div>
-        <button
-          class="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-900 py-4 rounded-2xl font-black transition shadow-lg shadow-yellow-400/20 active:scale-[0.98]">تکمیل
-          سفارش و پرداخت</button>
+        <a href="checkout.html" id="cart-checkout-btn"
+          class="block text-center w-full bg-yellow-400 hover:bg-yellow-500 text-gray-900 py-4 rounded-2xl font-black transition shadow-lg shadow-yellow-400/20 active:scale-[0.98]">تکمیل
+          سفارش و پرداخت</a>
       </div>
     </div>
   </aside>
 
-  <!-- Auth Modal -->
+
+  <!-- Cart Drawer -->
+  <div id="cart-overlay" class="fixed inset-0 bg-black/50 z-[150] hidden backdrop-blur-sm transition-opacity opacity-0">
+  </div>
+  <aside id="cart-drawer"
+    class="fixed top-0 left-0 h-full w-80 md:w-96 bg-white z-[151] shadow-2xl transform -translate-x-full transition-transform duration-300">
+    <div class="p-6 flex flex-col h-full text-right">
+      <div class="flex items-center justify-between mb-8">
+        <button id="cart-close"
+          class="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-full transition">
+          <i class="fas fa-times text-xl"></i>
+        </button>
+        <div class="flex items-center gap-2">
+          <span class="font-black text-lg">سبد خرید</span>
+          <i class="fas fa-shopping-basket text-yellow-500"></i>
+        </div>
+      </div>
+
+      <div id="cart-drawer-items" class="flex-1 overflow-y-auto space-y-4">
+        <!-- Items injected by JS -->
+        <div class="text-center text-gray-400 mt-10 italic">سبد خرید خالی است</div>
+      </div>
+
+      <div class="mt-auto pt-6 border-t font-bold">
+        <div class="flex items-center justify-between mb-4">
+          <span id="cart-drawer-total" class="text-xl font-black text-gray-900">0 تومان</span>
+          <span class="text-gray-500">مجموع کل:</span>
+        </div>
+        <a href="checkout.html" id="cart-checkout-btn"
+          class="block text-center w-full bg-yellow-400 hover:bg-yellow-500 text-gray-900 py-4 rounded-2xl font-black transition shadow-lg shadow-yellow-400/20 active:scale-[0.98]">تکمیل
+          سفارش و پرداخت</a>
+      </div>
+    </div>
+  </aside>
   <div id="auth-modal" class="fixed inset-0 z-[200] hidden items-center justify-center p-4">
     <div id="auth-overlay" class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity opacity-0"></div>
     <div id="auth-content"
