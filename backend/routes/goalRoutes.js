@@ -18,5 +18,7 @@ router.route("/:id").put(updateGoals).delete(deleteGoals);
 
 // router.delete("/:id", deleteGoals);
 
+//connecting controller functions to routes
+
 module.exports = router;
  

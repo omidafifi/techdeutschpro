@@ -9,6 +9,7 @@ const getGoals = (req, res) => {
 //route Post /api/goals
 //access
 const setGoals = (req, res) => {
+  console.log(req.body);
   res.status(200).json({ message: "Set goal" });
 };
 
@@ -26,4 +27,3 @@ const deleteGoals = (req, res) => {
   res.status(200).json({ message: "Delete goals" });
 };
 module.exports = { getGoals, setGoals, updateGoals, deleteGoals };
- 
