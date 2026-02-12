@@ -2,10 +2,10 @@
   "name": "techdeutchpro-backend",
   "version": "1.0.0",
   "description": "Backend server for the techdeutchpro project",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node backend/app.js",
-    "server": "nodemon backend/app.js"
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js"
   },
   "keywords": [],
   "author": "",

@@ -15,7 +15,7 @@ const setGoals = (req, res) => {
 
 // desc Update goals
 //route Put /api/goals/:id
-//access
+//access 
 const updateGoals = (req, res) => {
   res.status(200).json({ message: "Update goals" });
 };
