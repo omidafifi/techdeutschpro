@@ -1,14 +1,14 @@
 // desc Get goals
 //route Get /api/goals
 //access private
-const getGoals = (req, res) => {
+const getGoals = async (req, res) => {
   res.status(200).json({ message: "Get goals" });
 };
 
 // desc set goal
 //route Post /api/goals
 //access private
-const setGoals = (req, res) => {
+const setGoals = async (req, res) => {
   if (!req.body.text) {
     res.status(400);
     throw new Error("Please add a text field");
@@ -19,14 +19,14 @@ const setGoals = (req, res) => {
 // desc Update goals
 //route Put /api/goals/:id
 //access private
-const updateGoals = (req, res) => {
+const updateGoals = async (req, res) => {
   res.status(200).json({ message: "Update goals" });
 };
 
 // desc Delete goals
 //route Delete /api/goals/:id
 //access private
-const deleteGoals = (req, res) => {
+const deleteGoals = async (req, res) => {
   res.status(200).json({ message: "Delete goals" });
 };
 module.exports = { getGoals, setGoals, updateGoals, deleteGoals };
