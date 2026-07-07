@@ -221,9 +221,71 @@ function closeAuth() {
   document.body.style.overflow = "";
 }
 
-if (loginBtn) loginBtn.addEventListener("click", openAuth);
+// نمایش نام کاربر لاگین‌شده روی دکمه ورود
+function updateAuthUI() {
+  if (!loginBtn || typeof getCurrentUser !== "function") return;
+  const user = getCurrentUser();
+  if (user && user.name) {
+    loginBtn.innerHTML = `<i class="fas fa-user-check ml-1"></i> ${user.name}`;
+  }
+}
+
+function handleLoginBtnClick() {
+  if (typeof isLoggedIn === "function" && isLoggedIn()) {
+    if (confirm("می‌خواهید از حساب خود خارج شوید؟")) {
+      logoutUser();
+      window.location.reload();
+    }
+    return;
+  }
+  openAuth();
+}
+
+if (loginBtn) loginBtn.addEventListener("click", handleLoginBtnClick);
 if (authClose) authClose.addEventListener("click", closeAuth);
 if (authOverlay) authOverlay.addEventListener("click", closeAuth);
+updateAuthUI();
+
+// اتصال فرم ورود/ثبت‌نام مودال به API واقعی
+const authForm = document.getElementById("auth-form");
+if (authForm && typeof loginUser === "function") {
+  authForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const identifier = authForm.querySelector('input[type="text"]').value.trim();
+    const password = authForm.querySelector('input[type="password"]').value;
+
+    if (!identifier || !password) {
+      alert("لطفاً ایمیل/شماره همراه و رمز عبور را وارد کنید.");
+      return;
+    }
+
+    try {
+      const user = await loginUser({ identifier, password });
+      alert(`خوش آمدید ${user.name} 🎉`);
+      closeAuth();
+      updateAuthUI();
+    } catch (err) {
+      if (
+        confirm(
+          "ورود ناموفق بود: " +
+            err.message +
+            "\nآیا می‌خواهید با همین مشخصات ثبت‌نام کنید؟"
+        )
+      ) {
+        const name = prompt("نام و نام خانوادگی خود را وارد کنید:");
+        if (!name) return;
+        try {
+          const user = await registerUser({ name, identifier, password });
+          alert(`ثبت‌نام با موفقیت انجام شد! خوش آمدید ${user.name} 🎉`);
+          closeAuth();
+          updateAuthUI();
+        } catch (err2) {
+          alert(err2.message);
+        }
+      }
+    }
+  });
+}
 
 // Countdown logic
 function startCountdown() {

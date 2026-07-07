@@ -208,7 +208,7 @@
                                 <h4 class="font-bold text-gray-800 mb-4">روش پرداخت</h4>
                                 <div class="grid md:grid-cols-2 gap-4">
                                     <label class="cursor-pointer">
-                                        <input type="radio" name="payment" class="peer sr-only" checked>
+                                        <input type="radio" name="payment" value="online" class="peer sr-only" checked>
                                         <div
                                             class="p-4 border-2 border-gray-200 rounded-xl peer-checked:border-green-500 peer-checked:bg-green-50 transition flex items-center justify-between">
                                             <span class="font-bold text-gray-700">پرداخت آنلاین</span>
@@ -217,7 +217,7 @@
                                         </div>
                                     </label>
                                     <label class="cursor-pointer">
-                                        <input type="radio" name="payment" class="peer sr-only">
+                                        <input type="radio" name="payment" value="card-to-card" class="peer sr-only">
                                         <div
                                             class="p-4 border-2 border-gray-200 rounded-xl peer-checked:border-green-500 peer-checked:bg-green-50 transition flex items-center justify-between">
                                             <span class="font-bold text-gray-700">کارت به کارت</span>
@@ -270,7 +270,7 @@
                         <li><a href="index.html#features" class="text-gray-400 hover:text-white transition">ویژگی‌ها</a>
                         </li>
                         <li><a href="index.html#testimonials" class="text-gray-400 hover:text-white transition">نظرات
-                                دانشجویان</a></li>
+                                دا��شجویان</a></li>
                         <li><a href="blog.html" class="text-gray-400 hover:text-white transition">وبلاگ</a></li>
                     </ul>
                 </div>
@@ -395,7 +395,7 @@
             <!-- Chat Input -->
             <div class="p-3 bg-white border-t border-gray-100">
                 <form class="flex gap-2 relative">
-                    <input type="text" placeholder="پیام خود را بنویسید..."
+                    <input type="text" placeholder="پیام خود را ب��ویسید..."
                         class="w-full bg-gray-50 border border-gray-200 rounded-xl py-3 pr-4 pl-12 text-sm focus:outline-none focus:border-yellow-400 focus:bg-white transition-all text-right"
                         disabled>
                     <button type="button"
@@ -408,7 +408,8 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="api.js"></script>
+  <script src="script.js"></script>
     <script>
         // Inline script for checkout page specifically to render items
         document.addEventListener('DOMContentLoaded', () => {
@@ -458,19 +459,36 @@
             loadCheckout();
 
             if (checkoutForm) {
-                checkoutForm.addEventListener('submit', (e) => {
+                checkoutForm.addEventListener('submit', async (e) => {
                     e.preventDefault();
-                    // Mock Payment Process
+                    const cart = JSON.parse(localStorage.getItem('techDeutschCart')) || [];
+                    if (cart.length === 0) {
+                        alert('سبد خرید شما خالی است.');
+                        return;
+                    }
+
                     const btn = checkoutForm.querySelector('button[type="submit"]');
                     const originalText = btn.innerHTML;
                     btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> در حال پردازش...';
                     btn.disabled = true;
 
-                    setTimeout(() => {
-                        alert('پرداخت با موفقیت انجام شد! (نمایشی)');
+                    try {
+                        await submitOrder({
+                            items: cart,
+                            fullName: checkoutForm.querySelector('input[type="text"]').value.trim(),
+                            phone: checkoutForm.querySelector('input[type="tel"]').value.trim(),
+                            email: checkoutForm.querySelector('input[type="email"]').value.trim(),
+                            note: checkoutForm.querySelector('textarea') ? checkoutForm.querySelector('textarea').value.trim() : '',
+                            paymentMethod: (checkoutForm.querySelector('input[name="payment"]:checked') || {}).value || 'online',
+                        });
                         localStorage.removeItem('techDeutschCart');
+                        alert('سفارش شما با موفقیت ثبت شد! به زودی با شما تماس می‌گیریم.');
                         window.location.href = 'index.html';
-                    }, 2000);
+                    } catch (err) {
+                        alert('خطا در ثبت سفارش: ' + err.message);
+                        btn.innerHTML = originalText;
+                        btn.disabled = false;
+                    }
                 });
             }
         });
