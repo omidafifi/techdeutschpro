@@ -1,3 +1,6 @@
+// Practice module from the Node.js course — kept as-is so your
+// /api/goals exercises keep working alongside the real API.
+
 // desc Get goals
 //route Get /api/goals
 //access private

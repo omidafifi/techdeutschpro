@@ -10,14 +10,4 @@ const {
 router.route("/").get(getGoals).post(setGoals);
 router.route("/:id").put(updateGoals).delete(deleteGoals);
 
-// router.get("/", getGoals);
-
-// router.post("/", setGoals);
-
-// router.put("/:id", updateGoals);
-
-// router.delete("/:id", deleteGoals);
-
-//connecting controller functions to routes
-
 module.exports = router;

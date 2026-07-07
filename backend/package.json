@@ -1,21 +1,24 @@
 {
-  "name": "techdeutchpro-backend",
+  "name": "techdeutschpro-backend",
   "version": "1.0.0",
-  "description": "Backend server for the techdeutchpro project",
+  "description": "Backend server for the Tech Deutsch Pro project",
   "main": "server.js",
   "scripts": {
     "start": "node backend/server.js",
-    "server": "nodemon backend/server.js"
+    "server": "nodemon backend/server.js",
+    "seed": "node backend/seeder.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Omid Afifi",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
     "cors": "^2.8.6",
     "dotenv": "^17.2.4",
     "express": "^5.2.1",
     "express-async-handler": "^1.2.0",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^9.1.6"
   },
   "devDependencies": {
