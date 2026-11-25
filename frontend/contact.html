@@ -724,31 +724,24 @@
     const form = document.getElementById('contactForm');
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const inputs = form.querySelectorAll('input, textarea');
-      const submitBtn = form.querySelector('button[type="submit"]');
-      const originalText = submitBtn ? submitBtn.textContent : 'ارسال';
-
-      const payload = {
-        name: inputs[0]?.value.trim(),
-        contact: inputs[1]?.value.trim(),
-        message: inputs[2]?.value.trim(),
-      };
-
+      const inputs = form.querySelectorAll('input');
+      const btn = form.querySelector('button[type="submit"]');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = 'در حال ارسال...';
+      btn.disabled = true;
       try {
-        if (submitBtn) {
-          submitBtn.disabled = true;
-          submitBtn.textContent = 'در حال ارسال...';
-        }
-        const res = await window.TDP_API.sendContact(payload);
+        const res = await sendContactMessage({
+          name: inputs[0].value.trim(),
+          contact: inputs[1].value.trim(),
+          message: form.querySelector('textarea').value.trim(),
+        });
         alert(res.message || 'پیام شما با موفقیت ارسال شد! به زودی با شما تماس می‌گیریم.');
         form.reset();
       } catch (err) {
-        alert(err.message || 'خطا در ارسال پیام. لطفاً دوباره تلاش کنید.');
+        alert('خطا در ارسال پیام: ' + err.message);
       } finally {
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.textContent = originalText;
-        }
+        btn.innerHTML = originalText;
+        btn.disabled = false;
       }
     });
   </script>

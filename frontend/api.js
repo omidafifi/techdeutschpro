@@ -1,131 +1,228 @@
-// Tech Deutsch Pro — Frontend API Client
-// Automatically uses the same origin when served from Express (http://localhost:3000),
-// and falls back to http://localhost:3000 when opened directly via file:// or Live Server.
-(function (global) {
-  const isHttpSameOrigin =
-    global.location &&
-    global.location.protocol.startsWith("http") &&
-    global.location.port === "3000";
+// ============================================================
+// Tech Deutsch Pro — Frontend API Client (Unified)
+// Exposes both `window.TDP_API` and global helper functions.
+// ============================================================
 
-  const API_BASE =
-    global.TDP_API_BASE ||
-    (isHttpSameOrigin ? "/api" : "http://localhost:3000/api");
+const API_BASE =
+  window.TDP_API_BASE ||
+  (window.location &&
+  window.location.protocol.startsWith("http") &&
+  window.location.port === "3000"
+    ? "/api"
+    : "http://localhost:3000/api");
 
-  const TOKEN_KEY = "tdp_auth_token";
-  const USER_KEY = "tdp_auth_user";
+const TDP_TOKEN_KEY = "tdpToken";
+const TDP_USER_KEY = "tdpUser";
 
-  const getToken = () => localStorage.getItem(TOKEN_KEY) || "";
-  const getUser = () => {
-    try {
-      return JSON.parse(localStorage.getItem(USER_KEY) || "null");
-    } catch {
-      return null;
-    }
-  };
+function getToken() {
+  return localStorage.getItem(TDP_TOKEN_KEY) || "";
+}
 
-  const setSession = (userObj) => {
-    if (userObj && userObj.token) {
-      localStorage.setItem(TOKEN_KEY, userObj.token);
-    }
-    if (userObj) {
-      const { token, ...profile } = userObj;
-      localStorage.setItem(USER_KEY, JSON.stringify(profile));
-    }
-  };
+function getCurrentUser() {
+  const raw = localStorage.getItem(TDP_USER_KEY);
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
+}
 
-  const clearSession = () => {
-    localStorage.removeItem(TOKEN_KEY);
-    localStorage.removeItem(USER_KEY);
-  };
+function isLoggedIn() {
+  return Boolean(getToken());
+}
 
-  async function request(endpoint, options = {}) {
-    const headers = {
-      "Content-Type": "application/json",
-      ...(options.headers || {}),
-    };
+function saveAuth(data) {
+  if (data && data.token) {
+    localStorage.setItem(TDP_TOKEN_KEY, data.token);
+  }
+  if (data) {
+    localStorage.setItem(
+      TDP_USER_KEY,
+      JSON.stringify({
+        _id: data._id,
+        name: data.name,
+        email: data.email || null,
+        phone: data.phone || null,
+        role: data.role || "user",
+      })
+    );
+  }
+}
 
+function logoutUser() {
+  localStorage.removeItem(TDP_TOKEN_KEY);
+  localStorage.removeItem(TDP_USER_KEY);
+}
+
+async function apiRequest(path, { method = "GET", body, auth = true } = {}) {
+  const headers = { "Content-Type": "application/json" };
+
+  if (auth) {
     const token = getToken();
-    if (token) {
-      headers.Authorization = `Bearer ${token}`;
-    }
-
-    const res = await fetch(`${API_BASE}${endpoint}`, {
-      ...options,
-      headers,
-    });
-
-    const data = await res.json().catch(() => ({}));
-    if (!res.ok) {
-      const error = new Error(data.message || `خطا در ارتباط با سرور (${res.status})`);
-      error.status = res.status;
-      error.data = data;
-      throw error;
-    }
-
-    return data;
+    if (token) headers.Authorization = `Bearer ${token}`;
   }
 
-  global.TDP_API = {
-    baseUrl: API_BASE,
-    getToken,
-    getUser,
-    setSession,
-    clearSession,
-    request,
+  const res = await fetch(`${API_BASE}${path}`, {
+    method,
+    headers,
+    body: body !== undefined ? JSON.stringify(body) : undefined,
+  });
 
-    // Auth
-    register: (payload) =>
-      request("/auth/register", { method: "POST", body: JSON.stringify(payload) }),
-    login: (payload) =>
-      request("/auth/login", { method: "POST", body: JSON.stringify(payload) }),
-    getMe: () => request("/auth/me"),
-    getMyCourses: () => request("/auth/my-courses"),
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    const error = new Error(data.message || `خطا در ارتباط با سرور (${res.status})`);
+    error.status = res.status;
+    error.data = data;
+    throw error;
+  }
 
-    // Courses
-    getCourses: (params = "") => request(`/courses${params ? `?${params}` : ""}`),
-    getCourse: (idOrSlug) => request(`/courses/${encodeURIComponent(idOrSlug)}`),
+  return data;
+}
 
-    // Orders & Coupons
-    validateCoupon: (code, subtotal) =>
-      request("/coupons/validate", {
-        method: "POST",
-        body: JSON.stringify({ code, subtotal }),
-      }),
-    createOrder: (payload) =>
-      request("/orders", { method: "POST", body: JSON.stringify(payload) }),
-    payOrder: (orderId, payload = {}) =>
-      request(`/orders/${encodeURIComponent(orderId)}/pay`, {
-        method: "POST",
-        body: JSON.stringify(payload),
-      }),
-    getMyOrders: () => request("/orders/my"),
+// ---------- Auth ----------
+async function registerUser({ name, identifier, password }) {
+  const data = await apiRequest("/auth/register", {
+    method: "POST",
+    body: { name, identifier, password },
+    auth: false,
+  });
+  saveAuth(data);
+  return data;
+}
 
-    // Contact & Newsletter
-    sendContact: (payload) =>
-      request("/contact", { method: "POST", body: JSON.stringify(payload) }),
-    subscribeNewsletter: (email) =>
-      request("/newsletter/subscribe", {
-        method: "POST",
-        body: JSON.stringify({ email }),
-      }),
+async function loginUser({ identifier, password }) {
+  const data = await apiRequest("/auth/login", {
+    method: "POST",
+    body: { identifier, password },
+    auth: false,
+  });
+  saveAuth(data);
+  return data;
+}
 
-    // Blog, Resources, Testimonials
-    getPosts: (params = "") => request(`/posts${params ? `?${params}` : ""}`),
-    getResources: () => request("/resources"),
-    trackResourceDownload: (id) =>
-      request(`/resources/${encodeURIComponent(id)}/download`, { method: "POST" }),
-    getTestimonials: () => request("/testimonials"),
-    createTestimonial: (payload) =>
-      request("/testimonials", { method: "POST", body: JSON.stringify(payload) }),
+// ---------- Courses ----------
+async function fetchCourses(options = {}) {
+  const params = new URLSearchParams();
+  if (options.level) params.set("level", options.level);
+  if (options.free) params.set("free", "true");
+  if (options.q) params.set("q", options.q);
+  const qs = params.toString();
+  return apiRequest(`/courses${qs ? `?${qs}` : ""}`);
+}
 
-    // Search, Chat, Notifications
-    search: (q) => request(`/search?q=${encodeURIComponent(q)}`),
-    sendChat: (message, sessionId) =>
-      request("/chat", {
-        method: "POST",
-        body: JSON.stringify({ message, sessionId }),
-      }),
-    getNotifications: () => request("/notifications"),
-    clearNotifications: () => request("/notifications/clear", { method: "PUT" }),
-  };
-})(window);
+async function fetchCourse(idOrSlug) {
+  return apiRequest(`/courses/${encodeURIComponent(idOrSlug)}`);
+}
+
+// ---------- Contact ----------
+async function sendContactMessage({ name, contact, message, subject }) {
+  return apiRequest("/contact", {
+    method: "POST",
+    body: { name, contact, message, subject },
+    auth: false,
+  });
+}
+
+// ---------- Orders & Coupons ----------
+async function validateCoupon(code, subtotal) {
+  return apiRequest("/coupons/validate", {
+    method: "POST",
+    body: { code, subtotal },
+    auth: false,
+  });
+}
+
+async function submitOrder({
+  items,
+  fullName,
+  phone,
+  email,
+  note,
+  paymentMethod,
+  couponCode,
+}) {
+  return apiRequest("/orders", {
+    method: "POST",
+    body: {
+      items,
+      payer: { fullName, phone, email },
+      note: note || "",
+      paymentMethod: paymentMethod || "online",
+      couponCode: couponCode || undefined,
+    },
+    auth: isLoggedIn(),
+  });
+}
+
+async function payOrder(orderId, payload = {}) {
+  return apiRequest(`/orders/${encodeURIComponent(orderId)}/pay`, {
+    method: "POST",
+    body: payload,
+    auth: isLoggedIn(),
+  });
+}
+
+async function fetchMyOrders() {
+  return apiRequest("/orders/my", { auth: true });
+}
+
+// Namespaced API object
+window.TDP_API = {
+  baseUrl: API_BASE,
+  getToken,
+  getUser: getCurrentUser,
+  setSession: saveAuth,
+  clearSession: logoutUser,
+  request: (endpoint, options = {}) =>
+    apiRequest(endpoint, {
+      method: options.method || "GET",
+      body: options.body ? JSON.parse(options.body) : undefined,
+      auth: true,
+    }),
+
+  register: registerUser,
+  login: loginUser,
+  logout: logoutUser,
+  getMe: () => apiRequest("/auth/me", { auth: true }),
+  getMyCourses: () => apiRequest("/auth/my-courses", { auth: true }),
+
+  getCourses: (qs = "") => apiRequest(`/courses${qs ? `?${qs}` : ""}`),
+  getCourse: fetchCourse,
+
+  validateCoupon,
+  createOrder: (payload) =>
+    apiRequest("/orders", { method: "POST", body: payload, auth: isLoggedIn() }),
+  payOrder,
+  getMyOrders: fetchMyOrders,
+
+  sendContact: sendContactMessage,
+  subscribeNewsletter: (email) =>
+    apiRequest("/newsletter/subscribe", {
+      method: "POST",
+      body: { email },
+      auth: false,
+    }),
+
+  getPosts: (qs = "") => apiRequest(`/posts${qs ? `?${qs}` : ""}`),
+  getResources: () => apiRequest("/resources"),
+  trackResourceDownload: (id) =>
+    apiRequest(`/resources/${encodeURIComponent(id)}/download`, {
+      method: "POST",
+      auth: false,
+    }),
+  getTestimonials: () => apiRequest("/testimonials"),
+  createTestimonial: (payload) =>
+    apiRequest("/testimonials", { method: "POST", body: payload }),
+
+  search: (q) => apiRequest(`/search?q=${encodeURIComponent(q)}`),
+  sendChat: (message, sessionId) =>
+    apiRequest("/chat", {
+      method: "POST",
+      body: { message, sessionId },
+      auth: isLoggedIn(),
+    }),
+  getNotifications: () => apiRequest("/notifications", { auth: isLoggedIn() }),
+  clearNotifications: () =>
+    apiRequest("/notifications/clear", { method: "PUT", auth: true }),
+};

@@ -277,7 +277,7 @@
                         <li><a href="index.html#features" class="text-gray-400 hover:text-white transition">ویژگی‌ها</a>
                         </li>
                         <li><a href="index.html#testimonials" class="text-gray-400 hover:text-white transition">نظرات
-                                دانشجویان</a></li>
+                                دا��شجویان</a></li>
                         <li><a href="blog.html" class="text-gray-400 hover:text-white transition">وبلاگ</a></li>
                     </ul>
                 </div>
@@ -402,7 +402,7 @@
             <!-- Chat Input -->
             <div class="p-3 bg-white border-t border-gray-100">
                 <form class="flex gap-2 relative">
-                    <input type="text" placeholder="پیام خود را بنویسید..."
+                    <input type="text" placeholder="پیام خود را ب��ویسید..."
                         class="w-full bg-gray-50 border border-gray-200 rounded-xl py-3 pr-4 pl-12 text-sm focus:outline-none focus:border-yellow-400 focus:bg-white transition-all text-right"
                         disabled>
                     <button type="button"
@@ -518,7 +518,10 @@
                 checkoutForm.addEventListener('submit', async (e) => {
                     e.preventDefault();
                     const cart = JSON.parse(localStorage.getItem('techDeutschCart')) || [];
-                    if (cart.length === 0) return;
+                    if (cart.length === 0) {
+                        alert('سبد خرید شما خالی است.');
+                        return;
+                    }
 
                     const btn = checkoutForm.querySelector('button[type="submit"]');
                     const originalText = btn.innerHTML;
@@ -529,8 +532,8 @@
                         const fullName = checkoutForm.querySelector('input[type="text"]').value.trim();
                         const phone = checkoutForm.querySelector('input[type="tel"]').value.trim();
                         const email = checkoutForm.querySelector('input[type="email"]').value.trim();
-                        const note = checkoutForm.querySelector('textarea').value.trim();
-                        const paymentMethod = checkoutForm.querySelector('input[name="payment"]:checked')?.value || 'online';
+                        const note = checkoutForm.querySelector('textarea') ? checkoutForm.querySelector('textarea').value.trim() : '';
+                        const paymentMethod = (checkoutForm.querySelector('input[name="payment"]:checked') || {}).value || 'online';
 
                         const order = await window.TDP_API.createOrder({
                             items: cart,
@@ -550,7 +553,7 @@
                         localStorage.removeItem('techDeutschCart');
                         window.location.href = 'index.html';
                     } catch (err) {
-                        alert(err.message || 'خطا در ثبت سفارش. لطفاً اطلاعات را بررسی کنید.');
+                        alert('خطا در ثبت سفارش: ' + err.message);
                         btn.innerHTML = originalText;
                         btn.disabled = false;
                     }

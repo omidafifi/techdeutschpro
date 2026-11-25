@@ -221,9 +221,71 @@ function closeAuth() {
   document.body.style.overflow = "";
 }
 
-if (loginBtn) loginBtn.addEventListener("click", openAuth);
+// نمایش نام کاربر لاگین‌شده روی دکمه ورود
+function updateAuthUI() {
+  if (!loginBtn || typeof getCurrentUser !== "function") return;
+  const user = getCurrentUser();
+  if (user && user.name) {
+    loginBtn.innerHTML = `<i class="fas fa-user-check ml-1"></i> ${user.name}`;
+  }
+}
+
+function handleLoginBtnClick() {
+  if (typeof isLoggedIn === "function" && isLoggedIn()) {
+    if (confirm("می‌خواهید از حساب خود خارج شوید؟")) {
+      logoutUser();
+      window.location.reload();
+    }
+    return;
+  }
+  openAuth();
+}
+
+if (loginBtn) loginBtn.addEventListener("click", handleLoginBtnClick);
 if (authClose) authClose.addEventListener("click", closeAuth);
 if (authOverlay) authOverlay.addEventListener("click", closeAuth);
+updateAuthUI();
+
+// اتصال فرم ورود/ثبت‌نام مودال به API واقعی
+const authForm = document.getElementById("auth-form");
+if (authForm && typeof loginUser === "function") {
+  authForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const identifier = authForm.querySelector('input[type="text"]').value.trim();
+    const password = authForm.querySelector('input[type="password"]').value;
+
+    if (!identifier || !password) {
+      alert("لطفاً ایمیل/شماره همراه و رمز عبور را وارد کنید.");
+      return;
+    }
+
+    try {
+      const user = await loginUser({ identifier, password });
+      alert(`خوش آمدید ${user.name} 🎉`);
+      closeAuth();
+      updateAuthUI();
+    } catch (err) {
+      if (
+        confirm(
+          "ورود ناموفق بود: " +
+            err.message +
+            "\nآیا می‌خواهید با همین مشخصات ثبت‌نام کنید؟"
+        )
+      ) {
+        const name = prompt("نام و نام خانوادگی خود را وارد کنید:");
+        if (!name) return;
+        try {
+          const user = await registerUser({ name, identifier, password });
+          alert(`ثبت‌نام با موفقیت انجام شد! خوش آمدید ${user.name} 🎉`);
+          closeAuth();
+          updateAuthUI();
+        } catch (err2) {
+          alert(err2.message);
+        }
+      }
+    }
+  });
+}
 
 // Countdown logic
 function startCountdown() {
@@ -424,7 +486,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       const headers = { "Content-Type": "application/json" };
-      const token = localStorage.getItem("tdp_auth_token");
+      const token = localStorage.getItem("tdpToken");
       if (token) headers.Authorization = `Bearer ${token}`;
 
       const res = await fetch(`${apiBase}/chat`, {
@@ -470,7 +532,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// Backend API Integrations: Auth Modal, Live Search, Notifications, Newsletter
+// Backend API Integrations: Live Search & Newsletter
 document.addEventListener("DOMContentLoaded", () => {
   const apiBase =
     (window.TDP_API && window.TDP_API.baseUrl) ||
@@ -481,7 +543,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "Content-Type": "application/json",
       ...(options.headers || {}),
     };
-    const token = localStorage.getItem("tdp_auth_token");
+    const token = localStorage.getItem("tdpToken");
     if (token) headers.Authorization = `Bearer ${token}`;
 
     const res = await fetch(`${apiBase}${endpoint}`, { ...options, headers });
@@ -490,121 +552,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return data;
   }
 
-  // 1. Auth UI & Login/Register Handler
-  const loginButton = document.getElementById("login-btn");
-  const authModalEl = document.getElementById("auth-modal");
-
-  function refreshAuthButton() {
-    if (!loginButton) return;
-    let user = null;
-    try {
-      user = JSON.parse(localStorage.getItem("tdp_auth_user") || "null");
-    } catch {
-      user = null;
-    }
-
-    if (user && user.name) {
-      loginButton.innerHTML = `<i class="fas fa-user-check"></i> ${user.name} <span class="text-xs opacity-70">(خروج)</span>`;
-      loginButton.dataset.loggedIn = "true";
-    } else {
-      loginButton.innerHTML = 'شروع کنید <i class="fas fa-user-plus"></i>';
-      loginButton.dataset.loggedIn = "false";
-    }
-  }
-
-  refreshAuthButton();
-
-  if (loginButton) {
-    loginButton.addEventListener(
-      "click",
-      (e) => {
-        if (loginButton.dataset.loggedIn === "true") {
-          e.stopImmediatePropagation();
-          if (confirm("آیا می‌خواهید از حساب کاربری خود خارج شوید؟")) {
-            localStorage.removeItem("tdp_auth_token");
-            localStorage.removeItem("tdp_auth_user");
-            refreshAuthButton();
-          }
-        }
-      },
-      true
-    );
-  }
-
-  if (authModalEl) {
-    const authForm = authModalEl.querySelector("form");
-    const toggleLink = authModalEl.querySelector('a[href="#"].text-red-600');
-    let isRegisterMode = false;
-
-    if (authForm) {
-      // Inject optional Name field (shown only in Register mode)
-      const nameGroup = document.createElement("div");
-      nameGroup.id = "auth-name-group";
-      nameGroup.className = "hidden";
-      nameGroup.innerHTML = `
-        <label class="block text-sm font-bold text-gray-700 mb-2 mr-1 text-right">نام و نام خانوادگی</label>
-        <input type="text" id="auth-name-input"
-          class="w-full text-right bg-gray-50 border border-gray-100 rounded-xl py-3 px-4 focus:ring-2 focus:ring-yellow-400 focus:bg-white outline-none transition-all">
-      `;
-      authForm.prepend(nameGroup);
-
-      const errorBox = document.createElement("p");
-      errorBox.id = "auth-error-msg";
-      errorBox.className = "text-xs text-red-600 font-bold text-right hidden";
-      authForm.appendChild(errorBox);
-
-      if (toggleLink) {
-        toggleLink.addEventListener("click", (e) => {
-          e.preventDefault();
-          isRegisterMode = !isRegisterMode;
-          nameGroup.classList.toggle("hidden", !isRegisterMode);
-          const submitBtn = authForm.querySelector('button[type="submit"]');
-          if (submitBtn) {
-            submitBtn.textContent = isRegisterMode
-              ? "ایجاد حساب کاربری"
-              : "ورود به حساب کاربری";
-          }
-          toggleLink.textContent = isRegisterMode ? "وارد شوید" : "ثبت‌نام کنید";
-          errorBox.classList.add("hidden");
-        });
-      }
-
-      authForm.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        errorBox.classList.add("hidden");
-
-        const textInputs = authForm.querySelectorAll('input[type="text"]');
-        const passwordInput = authForm.querySelector('input[type="password"]');
-        const nameVal = document.getElementById("auth-name-input")?.value.trim();
-        const identifierVal = textInputs[textInputs.length - 1]?.value.trim();
-        const passwordVal = passwordInput?.value;
-
-        try {
-          const endpoint = isRegisterMode ? "/auth/register" : "/auth/login";
-          const payload = isRegisterMode
-            ? { name: nameVal, identifier: identifierVal, password: passwordVal }
-            : { identifier: identifierVal, password: passwordVal };
-
-          const data = await apiFetch(endpoint, {
-            method: "POST",
-            body: JSON.stringify(payload),
-          });
-
-          if (data.token) localStorage.setItem("tdp_auth_token", data.token);
-          const { token, ...profile } = data;
-          localStorage.setItem("tdp_auth_user", JSON.stringify(profile));
-          refreshAuthButton();
-          if (typeof closeAuth === "function") closeAuth();
-          authForm.reset();
-        } catch (err) {
-          errorBox.textContent = err.message;
-          errorBox.classList.remove("hidden");
-        }
-      });
-    }
-  }
-
-  // 2. Live Search Modal Handler
+  // Live Search Modal Handler
   const searchModalEl = document.getElementById("search-modal");
   if (searchModalEl) {
     const searchInput = searchModalEl.querySelector('input[type="text"]');
