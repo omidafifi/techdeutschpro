@@ -349,24 +349,34 @@ backToTopBtn.addEventListener("click", () => {
     behavior: "smooth",
   });
 });
-// Chatbot Logic
+// Chatbot Logic (Connected to /api/chat with graceful fallback)
 document.addEventListener("DOMContentLoaded", () => {
   const chatbotBtn = document.getElementById("chatbot-btn");
   const chatWindow = document.getElementById("chat-window");
   const chatClose = document.getElementById("chat-close");
   const chatMessages = document.getElementById("chat-messages");
   const chatForm = chatWindow ? chatWindow.querySelector("form") : null;
-  const chatInput = document.getElementById("chat-input");
+  const chatInput =
+    document.getElementById("chat-input") ||
+    (chatForm ? chatForm.querySelector('input[type="text"]') : null);
+  const chatSubmitBtn = chatForm ? chatForm.querySelector("button") : null;
+
+  // Enable chat input and submit button across all pages
+  if (chatInput) chatInput.disabled = false;
+  if (chatSubmitBtn) {
+    chatSubmitBtn.disabled = false;
+    chatSubmitBtn.type = "submit";
+  }
+
+  let chatSessionId = localStorage.getItem("tdp_chat_session") || "";
 
   if (chatbotBtn && chatWindow) {
-    // Toggle Chat
     chatbotBtn.addEventListener("click", () => {
       chatWindow.classList.toggle("invisible");
       chatWindow.classList.toggle("opacity-0");
       chatWindow.classList.toggle("translate-y-10");
     });
 
-    // Close Chat
     if (chatClose) {
       chatClose.addEventListener("click", () => {
         chatWindow.classList.add("invisible", "opacity-0", "translate-y-10");
@@ -374,7 +384,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Chatbot Message Handling
   function addMessage(message, isUser = false) {
     if (!chatMessages) return;
 
@@ -393,7 +402,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const textDiv = document.createElement("div");
-    textDiv.className = `p-3 rounded-2xl shadow-sm text-sm max-w-[80%] border ${isUser ? "bg-blue-500 text-white rounded-br-none" : "bg-white text-gray-700 rounded-bl-none border-gray-100"}`;
+    textDiv.className = `p-3 rounded-2xl shadow-sm text-sm max-w-[80%] border whitespace-pre-line ${isUser ? "bg-blue-500 text-white rounded-br-none" : "bg-white text-gray-700 rounded-bl-none border-gray-100"}`;
     textDiv.textContent = message;
 
     if (isUser) {
@@ -408,19 +417,44 @@ document.addEventListener("DOMContentLoaded", () => {
     chatMessages.scrollTop = chatMessages.scrollHeight;
   }
 
-  function simulateResponse(userMessage) {
-    setTimeout(() => {
-      let response = "متشکرم از پیام شما! ";
-      if (userMessage.toLowerCase().includes("سلام")) {
-        response = "سلام! چطور می‌تونم کمکتون کنم؟";
-      } else if (userMessage.toLowerCase().includes("دوره")) {
-        response =
-          "برای اطلاعات بیشتر درباره دوره‌ها، به بخش دوره‌های آموزشی مراجعه کنید.";
-      } else {
-        response = "سوال خوبیه! لطفاً جزئیات بیشتری ارائه دهید تا بهتر کمک کنم.";
+  async function requestBotResponse(userMessage) {
+    const apiBase =
+      (window.TDP_API && window.TDP_API.baseUrl) ||
+      (window.location.port === "3000" ? "/api" : "http://localhost:3000/api");
+
+    try {
+      const headers = { "Content-Type": "application/json" };
+      const token = localStorage.getItem("tdp_auth_token");
+      if (token) headers.Authorization = `Bearer ${token}`;
+
+      const res = await fetch(`${apiBase}/chat`, {
+        method: "POST",
+        headers,
+        body: JSON.stringify({
+          message: userMessage,
+          sessionId: chatSessionId || undefined,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok && data.reply) {
+        if (data.sessionId) {
+          chatSessionId = data.sessionId;
+          localStorage.setItem("tdp_chat_session", chatSessionId);
+        }
+        addMessage(data.reply);
+        return;
       }
-      addMessage(response);
-    }, 1000);
+    } catch {
+      // Fallback below if server is offline
+    }
+
+    let fallback = "ممنون از پیام شما! لطفاً برای مشاوره از بخش تماس با ما اقدام کنید.";
+    if (userMessage.includes("سلام")) {
+      fallback = "سلام! چطور می‌تونم کمکتون کنم؟";
+    } else if (userMessage.includes("دوره")) {
+      fallback = "برای اطلاعات بیشتر درباره دوره‌ها، به بخش دوره‌های آموزشی مراجعه کنید.";
+    }
+    addMessage(fallback);
   }
 
   if (chatForm && chatInput) {
@@ -430,10 +464,226 @@ document.addEventListener("DOMContentLoaded", () => {
       if (message) {
         addMessage(message, true);
         chatInput.value = "";
-        simulateResponse(message);
+        requestBotResponse(message);
       }
     });
   }
+});
+
+// Backend API Integrations: Auth Modal, Live Search, Notifications, Newsletter
+document.addEventListener("DOMContentLoaded", () => {
+  const apiBase =
+    (window.TDP_API && window.TDP_API.baseUrl) ||
+    (window.location.port === "3000" ? "/api" : "http://localhost:3000/api");
+
+  async function apiFetch(endpoint, options = {}) {
+    const headers = {
+      "Content-Type": "application/json",
+      ...(options.headers || {}),
+    };
+    const token = localStorage.getItem("tdp_auth_token");
+    if (token) headers.Authorization = `Bearer ${token}`;
+
+    const res = await fetch(`${apiBase}${endpoint}`, { ...options, headers });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.message || "خطا در ارتباط با سرور");
+    return data;
+  }
+
+  // 1. Auth UI & Login/Register Handler
+  const loginButton = document.getElementById("login-btn");
+  const authModalEl = document.getElementById("auth-modal");
+
+  function refreshAuthButton() {
+    if (!loginButton) return;
+    let user = null;
+    try {
+      user = JSON.parse(localStorage.getItem("tdp_auth_user") || "null");
+    } catch {
+      user = null;
+    }
+
+    if (user && user.name) {
+      loginButton.innerHTML = `<i class="fas fa-user-check"></i> ${user.name} <span class="text-xs opacity-70">(خروج)</span>`;
+      loginButton.dataset.loggedIn = "true";
+    } else {
+      loginButton.innerHTML = 'شروع کنید <i class="fas fa-user-plus"></i>';
+      loginButton.dataset.loggedIn = "false";
+    }
+  }
+
+  refreshAuthButton();
+
+  if (loginButton) {
+    loginButton.addEventListener(
+      "click",
+      (e) => {
+        if (loginButton.dataset.loggedIn === "true") {
+          e.stopImmediatePropagation();
+          if (confirm("آیا می‌خواهید از حساب کاربری خود خارج شوید؟")) {
+            localStorage.removeItem("tdp_auth_token");
+            localStorage.removeItem("tdp_auth_user");
+            refreshAuthButton();
+          }
+        }
+      },
+      true
+    );
+  }
+
+  if (authModalEl) {
+    const authForm = authModalEl.querySelector("form");
+    const toggleLink = authModalEl.querySelector('a[href="#"].text-red-600');
+    let isRegisterMode = false;
+
+    if (authForm) {
+      // Inject optional Name field (shown only in Register mode)
+      const nameGroup = document.createElement("div");
+      nameGroup.id = "auth-name-group";
+      nameGroup.className = "hidden";
+      nameGroup.innerHTML = `
+        <label class="block text-sm font-bold text-gray-700 mb-2 mr-1 text-right">نام و نام خانوادگی</label>
+        <input type="text" id="auth-name-input"
+          class="w-full text-right bg-gray-50 border border-gray-100 rounded-xl py-3 px-4 focus:ring-2 focus:ring-yellow-400 focus:bg-white outline-none transition-all">
+      `;
+      authForm.prepend(nameGroup);
+
+      const errorBox = document.createElement("p");
+      errorBox.id = "auth-error-msg";
+      errorBox.className = "text-xs text-red-600 font-bold text-right hidden";
+      authForm.appendChild(errorBox);
+
+      if (toggleLink) {
+        toggleLink.addEventListener("click", (e) => {
+          e.preventDefault();
+          isRegisterMode = !isRegisterMode;
+          nameGroup.classList.toggle("hidden", !isRegisterMode);
+          const submitBtn = authForm.querySelector('button[type="submit"]');
+          if (submitBtn) {
+            submitBtn.textContent = isRegisterMode
+              ? "ایجاد حساب کاربری"
+              : "ورود به حساب کاربری";
+          }
+          toggleLink.textContent = isRegisterMode ? "وارد شوید" : "ثبت‌نام کنید";
+          errorBox.classList.add("hidden");
+        });
+      }
+
+      authForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        errorBox.classList.add("hidden");
+
+        const textInputs = authForm.querySelectorAll('input[type="text"]');
+        const passwordInput = authForm.querySelector('input[type="password"]');
+        const nameVal = document.getElementById("auth-name-input")?.value.trim();
+        const identifierVal = textInputs[textInputs.length - 1]?.value.trim();
+        const passwordVal = passwordInput?.value;
+
+        try {
+          const endpoint = isRegisterMode ? "/auth/register" : "/auth/login";
+          const payload = isRegisterMode
+            ? { name: nameVal, identifier: identifierVal, password: passwordVal }
+            : { identifier: identifierVal, password: passwordVal };
+
+          const data = await apiFetch(endpoint, {
+            method: "POST",
+            body: JSON.stringify(payload),
+          });
+
+          if (data.token) localStorage.setItem("tdp_auth_token", data.token);
+          const { token, ...profile } = data;
+          localStorage.setItem("tdp_auth_user", JSON.stringify(profile));
+          refreshAuthButton();
+          if (typeof closeAuth === "function") closeAuth();
+          authForm.reset();
+        } catch (err) {
+          errorBox.textContent = err.message;
+          errorBox.classList.remove("hidden");
+        }
+      });
+    }
+  }
+
+  // 2. Live Search Modal Handler
+  const searchModalEl = document.getElementById("search-modal");
+  if (searchModalEl) {
+    const searchInput = searchModalEl.querySelector('input[type="text"]');
+    const searchContentEl = document.getElementById("search-content");
+    if (searchInput && searchContentEl) {
+      let resultsBox = document.getElementById("live-search-results");
+      if (!resultsBox) {
+        resultsBox = document.createElement("div");
+        resultsBox.id = "live-search-results";
+        resultsBox.className = "mt-4 max-h-72 overflow-y-auto space-y-2 text-right hidden";
+        searchContentEl.querySelector(".p-6")?.appendChild(resultsBox);
+      }
+
+      let searchTimer;
+      searchInput.addEventListener("input", () => {
+        clearTimeout(searchTimer);
+        const q = searchInput.value.trim();
+        if (!q) {
+          resultsBox.classList.add("hidden");
+          resultsBox.innerHTML = "";
+          return;
+        }
+        searchTimer = setTimeout(async () => {
+          try {
+            const data = await apiFetch(`/search?q=${encodeURIComponent(q)}`);
+            if (data.totalResults === 0) {
+              resultsBox.innerHTML =
+                '<p class="text-sm text-gray-400 p-3 text-center">نتیجه‌ای یافت نشد.</p>';
+            } else {
+              const items = [];
+              (data.courses || []).forEach((c) =>
+                items.push(
+                  `<a href="category-courses.html" class="block p-3 rounded-xl bg-gray-50 hover:bg-yellow-50 transition"><span class="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded ml-2">دوره</span><span class="font-bold text-gray-800">${c.title}</span></a>`
+                )
+              );
+              (data.posts || []).forEach((p) =>
+                items.push(
+                  `<a href="blog.html" class="block p-3 rounded-xl bg-gray-50 hover:bg-yellow-50 transition"><span class="text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded ml-2">وبلاگ</span><span class="font-bold text-gray-800">${p.title}</span></a>`
+                )
+              );
+              (data.resources || []).forEach((r) =>
+                items.push(
+                  `<a href="category-resources.html" class="block p-3 rounded-xl bg-gray-50 hover:bg-yellow-50 transition"><span class="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded ml-2">منبع</span><span class="font-bold text-gray-800">${r.title}</span></a>`
+                )
+              );
+              resultsBox.innerHTML = items.join("");
+            }
+            resultsBox.classList.remove("hidden");
+          } catch {
+            // Silently ignore if backend is offline
+          }
+        }, 300);
+      });
+    }
+  }
+
+  // 3. Newsletter Sidebar Box (e.g. on category-articles.html)
+  document.querySelectorAll('input[placeholder*="ایمیل خود را وارد کنید"]').forEach((emailInput) => {
+    const container = emailInput.parentElement;
+    const submitBtn = container ? container.querySelector("button") : null;
+    if (submitBtn && !submitBtn.dataset.newsletterBound) {
+      submitBtn.dataset.newsletterBound = "true";
+      submitBtn.addEventListener("click", async (e) => {
+        e.preventDefault();
+        const email = emailInput.value.trim();
+        if (!email) return alert("لطفاً ایمیل خود را وارد کنید.");
+        try {
+          const res = await apiFetch("/newsletter/subscribe", {
+            method: "POST",
+            body: JSON.stringify({ email }),
+          });
+          alert(res.message || "عضویت با موفقیت انجام شد!");
+          emailInput.value = "";
+        } catch (err) {
+          alert(err.message);
+        }
+      });
+    }
+  });
 });
 
 // Number Counter Animation

@@ -1,33 +1,33 @@
-const path = require("path");
-const express = require("express");
-const cors = require("cors");
-const dotenv = require("dotenv").config();
+const mongoose = require("mongoose");
+const env = require("./config/env");
 const connectDB = require("./config/db");
-const { notFound, errorHandler } = require("./middleware/errorMiddleware");
+const createApp = require("./app");
 
-const port = process.env.PORT || 3000;
+const startServer = async () => {
+  await connectDB();
 
-connectDB();
+  const app = createApp();
+  const server = app.listen(env.port, () => {
+    console.log(
+      `Tech Deutsch Pro server running in ${env.nodeEnv} mode on http://localhost:${env.port}`
+    );
+    console.log(`API docs available at http://localhost:${env.port}/api/docs`);
+  });
 
-const app = express();
+  const shutdown = async (signal) => {
+    console.log(`\n${signal} received. Closing HTTP server and MongoDB connection...`);
+    server.closeAllConnections?.();
+    server.close(async () => {
+      await mongoose.connection.close();
+      process.exit(0);
+    });
+  };
 
-// Middleware
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+  process.on("SIGINT", () => shutdown("SIGINT"));
+  process.on("SIGTERM", () => shutdown("SIGTERM"));
+};
 
-// API routes
-app.use("/api/auth", require("./routes/authRoutes"));
-app.use("/api/courses", require("./routes/courseRoutes"));
-app.use("/api/orders", require("./routes/orderRoutes"));
-app.use("/api/contact", require("./routes/contactRoutes"));
-app.use("/api/goals", require("./routes/goalRoutes"));
-
-// Serve the frontend statically so the whole site runs from one server
-app.use(express.static(path.join(__dirname, "..", "frontend")));
-
-// Error handlers (must be last)
-app.use(notFound);
-app.use(errorHandler);
-
-app.listen(port, () => console.log(`Server is running on port ${port}`));
+startServer().catch((err) => {
+  console.error("Failed to start server:", err.message);
+  process.exit(1);
+});

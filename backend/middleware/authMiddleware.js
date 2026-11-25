@@ -1,45 +1,78 @@
 const jwt = require("jsonwebtoken");
-const asyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
+const env = require("../config/env");
 
-// Protect routes: requires "Authorization: Bearer <token>" header
-const protect = asyncHandler(async (req, res, next) => {
-  let token;
-
+const extractToken = (req) => {
   if (
     req.headers.authorization &&
-    req.headers.authorization.startsWith("Bearer")
+    req.headers.authorization.startsWith("Bearer ")
   ) {
-    try {
-      token = req.headers.authorization.split(" ")[1];
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    return req.headers.authorization.split(" ")[1];
+  }
+  return null;
+};
 
-      // Attach user (without password) to the request
-      req.user = await User.findById(decoded.id).select("-password");
+// Protect routes: requires a valid "Authorization: Bearer <token>" header
+const protect = async (req, res, next) => {
+  const token = extractToken(req);
 
-      if (!req.user) {
-        res.status(401);
-        throw new Error("User not found");
-      }
-
-      return next();
-    } catch (error) {
-      res.status(401);
-      throw new Error("Not authorized, token failed");
-    }
+  if (!token) {
+    res.status(401);
+    throw new Error("دسترسی غیرمجاز: توکن احراز هویت ارسال نشده است");
   }
 
-  res.status(401);
-  throw new Error("Not authorized, no token");
-});
+  try {
+    const decoded = jwt.verify(token, env.jwtSecret);
+    const user = await User.findById(decoded.id).select("-password");
 
-// Admin-only routes
+    if (!user) {
+      res.status(401);
+      throw new Error("کاربر یافت نشد");
+    }
+
+    if (user.isActive === false) {
+      res.status(403);
+      throw new Error("حساب کاربری غیرفعال شده است");
+    }
+
+    req.user = user;
+    next();
+  } catch (error) {
+    if (res.statusCode === 200) res.status(401);
+    throw new Error(
+      error.name === "TokenExpiredError"
+        ? "نشست کاربری منقضی شده است، لطفاً مجدداً وارد شوید"
+        : error.message || "توکن نامعتبر است"
+    );
+  }
+};
+
+// Optional auth: attaches req.user when a valid Bearer token is present, otherwise continues as guest
+const optionalProtect = async (req, res, next) => {
+  const token = extractToken(req);
+  if (!token) {
+    req.user = null;
+    return next();
+  }
+
+  try {
+    const decoded = jwt.verify(token, env.jwtSecret);
+    const user = await User.findById(decoded.id).select("-password");
+    req.user = user && user.isActive !== false ? user : null;
+  } catch {
+    req.user = null;
+  }
+
+  next();
+};
+
+// Admin-only routes (must run after protect)
 const admin = (req, res, next) => {
   if (req.user && req.user.role === "admin") {
     return next();
   }
   res.status(403);
-  throw new Error("Not authorized as admin");
+  throw new Error("دسترسی فقط برای مدیران مجاز است");
 };
 
-module.exports = { protect, admin };
+module.exports = { protect, optionalProtect, admin };

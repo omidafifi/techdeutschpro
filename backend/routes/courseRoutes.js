@@ -7,13 +7,23 @@ const {
   updateCourse,
   deleteCourse,
 } = require("../controller/courseController");
-const { protect, admin } = require("../middleware/authMiddleware");
+const {
+  protect,
+  optionalProtect,
+  admin,
+} = require("../middleware/authMiddleware");
+const { validateObjectIdParam } = require("../middleware/validateMiddleware");
 
-router.route("/").get(getCourses).post(protect, admin, createCourse);
+router
+  .route("/")
+  .get(optionalProtect, getCourses)
+  .post(protect, admin, createCourse);
+
 router.get("/:idOrSlug", getCourse);
+
 router
   .route("/:id")
-  .put(protect, admin, updateCourse)
-  .delete(protect, admin, deleteCourse);
+  .put(protect, admin, validateObjectIdParam("id"), updateCourse)
+  .delete(protect, admin, validateObjectIdParam("id"), deleteCourse);
 
 module.exports = router;

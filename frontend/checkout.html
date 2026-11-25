@@ -143,13 +143,20 @@
                         </div>
 
                         <div class="border-t border-gray-100 pt-4 space-y-2">
+                            <div class="flex gap-2 mb-3">
+                                <input type="text" id="coupon-input" placeholder="کد تخفیف (مثلاً SUMMER20)"
+                                    class="flex-1 bg-gray-50 border border-gray-200 rounded-xl py-2 px-3 text-sm focus:ring-2 focus:ring-yellow-400 outline-none uppercase" dir="ltr">
+                                <button type="button" id="apply-coupon-btn"
+                                    class="bg-gray-900 hover:bg-black text-white px-4 py-2 rounded-xl text-sm font-bold transition">اعمال</button>
+                            </div>
+                            <p id="coupon-feedback" class="text-xs hidden"></p>
                             <div class="flex justify-between text-gray-600">
                                 <span>جمع جزء:</span>
                                 <span id="checkout-subtotal">0 تومان</span>
                             </div>
                             <div class="flex justify-between text-green-600">
                                 <span>تخفیف:</span>
-                                <span>0 تومان</span>
+                                <span id="checkout-discount">0 تومان</span>
                             </div>
                             <div
                                 class="flex justify-between text-xl font-black text-gray-900 mt-4 pt-4 border-t border-gray-100">
@@ -208,7 +215,7 @@
                                 <h4 class="font-bold text-gray-800 mb-4">روش پرداخت</h4>
                                 <div class="grid md:grid-cols-2 gap-4">
                                     <label class="cursor-pointer">
-                                        <input type="radio" name="payment" class="peer sr-only" checked>
+                                        <input type="radio" name="payment" value="online" class="peer sr-only" checked>
                                         <div
                                             class="p-4 border-2 border-gray-200 rounded-xl peer-checked:border-green-500 peer-checked:bg-green-50 transition flex items-center justify-between">
                                             <span class="font-bold text-gray-700">پرداخت آنلاین</span>
@@ -217,7 +224,7 @@
                                         </div>
                                     </label>
                                     <label class="cursor-pointer">
-                                        <input type="radio" name="payment" class="peer sr-only">
+                                        <input type="radio" name="payment" value="card-to-card" class="peer sr-only">
                                         <div
                                             class="p-4 border-2 border-gray-200 rounded-xl peer-checked:border-green-500 peer-checked:bg-green-50 transition flex items-center justify-between">
                                             <span class="font-bold text-gray-700">کارت به کارت</span>
@@ -408,17 +415,34 @@
         </div>
     </div>
 
+    <script src="api.js"></script>
     <script src="script.js"></script>
     <script>
-        // Inline script for checkout page specifically to render items
+        // Checkout page logic connected to Express Backend API
         document.addEventListener('DOMContentLoaded', () => {
             const checkoutItems = document.getElementById('checkout-items');
             const checkoutSubtotal = document.getElementById('checkout-subtotal');
+            const checkoutDiscount = document.getElementById('checkout-discount');
             const checkoutTotal = document.getElementById('checkout-total');
             const checkoutForm = document.getElementById('checkout-form');
+            const couponInput = document.getElementById('coupon-input');
+            const applyCouponBtn = document.getElementById('apply-coupon-btn');
+            const couponFeedback = document.getElementById('coupon-feedback');
+
+            let currentSubtotal = 0;
+            let appliedCouponCode = null;
+            let appliedDiscount = 0;
+
+            function updateTotals() {
+                const finalTotal = Math.max(0, currentSubtotal - appliedDiscount);
+                checkoutSubtotal.textContent = currentSubtotal.toLocaleString() + ' تومان';
+                if (checkoutDiscount) {
+                    checkoutDiscount.textContent = appliedDiscount.toLocaleString() + ' تومان';
+                }
+                checkoutTotal.textContent = finalTotal.toLocaleString() + ' تومان';
+            }
 
             function loadCheckout() {
-                // Read cart from localStorage (assuming script.js uses 'cart' key)
                 const cart = JSON.parse(localStorage.getItem('techDeutschCart')) || [];
 
                 if (cart.length === 0) {
@@ -426,8 +450,9 @@
                     if (checkoutForm) {
                         checkoutForm.innerHTML = '<div class="text-center py-12 text-gray-500">برای پرداخت ابتدا باید دوره‌ای را انتخاب کنید.</div>';
                     }
-                    checkoutSubtotal.textContent = '0 تومان';
-                    checkoutTotal.textContent = '0 تومان';
+                    currentSubtotal = 0;
+                    appliedDiscount = 0;
+                    updateTotals();
                     return;
                 }
 
@@ -435,7 +460,7 @@
                 let html = '';
 
                 cart.forEach(item => {
-                    total += item.price;
+                    total += Number(item.price) || 0;
                     html += `
             <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                <div class="flex items-center gap-3">
@@ -445,32 +470,90 @@
                    <span class="text-xs text-gray-500">${item.level || 'دوره آموزشی'}</span>
                  </div>
                </div>
-               <span class="font-bold text-gray-700 text-sm">${item.price.toLocaleString()}</span>
+               <span class="font-bold text-gray-700 text-sm">${Number(item.price).toLocaleString()}</span>
             </div>
           `;
                 });
 
                 checkoutItems.innerHTML = html;
-                checkoutSubtotal.textContent = total.toLocaleString() + ' تومان';
-                checkoutTotal.textContent = total.toLocaleString() + ' تومان';
+                currentSubtotal = total;
+                updateTotals();
+
+                // Prefill logged-in user details if available
+                const user = window.TDP_API && window.TDP_API.getUser();
+                if (user && checkoutForm) {
+                    const nameInput = checkoutForm.querySelector('input[type="text"]');
+                    const phoneInput = checkoutForm.querySelector('input[type="tel"]');
+                    const emailInput = checkoutForm.querySelector('input[type="email"]');
+                    if (nameInput && user.name) nameInput.value = user.name;
+                    if (phoneInput && user.phone) phoneInput.value = user.phone;
+                    if (emailInput && user.email) emailInput.value = user.email;
+                }
             }
 
             loadCheckout();
 
+            if (applyCouponBtn && couponInput) {
+                applyCouponBtn.addEventListener('click', async () => {
+                    const code = couponInput.value.trim();
+                    if (!code) return;
+                    try {
+                        const result = await window.TDP_API.validateCoupon(code, currentSubtotal);
+                        appliedCouponCode = result.code;
+                        appliedDiscount = result.discountAmount;
+                        updateTotals();
+                        couponFeedback.textContent = `کد ${result.code} با ${result.discountPercent}% تخفیف اعمال شد!`;
+                        couponFeedback.className = 'text-xs text-green-600 font-bold mb-2';
+                    } catch (err) {
+                        appliedCouponCode = null;
+                        appliedDiscount = 0;
+                        updateTotals();
+                        couponFeedback.textContent = err.message;
+                        couponFeedback.className = 'text-xs text-red-600 font-bold mb-2';
+                    }
+                });
+            }
+
             if (checkoutForm) {
-                checkoutForm.addEventListener('submit', (e) => {
+                checkoutForm.addEventListener('submit', async (e) => {
                     e.preventDefault();
-                    // Mock Payment Process
+                    const cart = JSON.parse(localStorage.getItem('techDeutschCart')) || [];
+                    if (cart.length === 0) return;
+
                     const btn = checkoutForm.querySelector('button[type="submit"]');
                     const originalText = btn.innerHTML;
-                    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> در حال پردازش...';
+                    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> در حال ثبت و پردازش سفارش...';
                     btn.disabled = true;
 
-                    setTimeout(() => {
-                        alert('پرداخت با موفقیت انجام شد! (نمایشی)');
+                    try {
+                        const fullName = checkoutForm.querySelector('input[type="text"]').value.trim();
+                        const phone = checkoutForm.querySelector('input[type="tel"]').value.trim();
+                        const email = checkoutForm.querySelector('input[type="email"]').value.trim();
+                        const note = checkoutForm.querySelector('textarea').value.trim();
+                        const paymentMethod = checkoutForm.querySelector('input[name="payment"]:checked')?.value || 'online';
+
+                        const order = await window.TDP_API.createOrder({
+                            items: cart,
+                            payer: { fullName, phone, email },
+                            note,
+                            paymentMethod,
+                            couponCode: appliedCouponCode,
+                        });
+
+                        if (paymentMethod === 'online') {
+                            const paymentRes = await window.TDP_API.payOrder(order._id);
+                            alert(`پرداخت موفق! شماره سفارش: ${paymentRes.order.orderNumber}\nکد پیگیری: ${paymentRes.order.paymentRef}`);
+                        } else {
+                            alert(`سفارش شما با شماره ${order.orderNumber} ثبت شد! لطفاً پس از واریز کارت به کارت، رسید را به پشتیبانی ارسال کنید.`);
+                        }
+
                         localStorage.removeItem('techDeutschCart');
                         window.location.href = 'index.html';
-                    }, 2000);
+                    } catch (err) {
+                        alert(err.message || 'خطا در ثبت سفارش. لطفاً اطلاعات را بررسی کنید.');
+                        btn.innerHTML = originalText;
+                        btn.disabled = false;
+                    }
                 });
             }
         });

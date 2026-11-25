@@ -4,23 +4,38 @@ const contactSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, "Please add your name"],
+      required: [true, "لطفاً نام خود را وارد کنید"],
       trim: true,
     },
-    // The form accepts "email or phone" in one field
+    // Accepts email or phone in one field
     contact: {
       type: String,
-      required: [true, "Please add an email or phone number"],
+      required: [true, "لطفاً ایمیل یا شماره تلفن را وارد کنید"],
+      trim: true,
+    },
+    subject: {
+      type: String,
+      default: "پیام عمومی / مشاوره",
       trim: true,
     },
     message: {
       type: String,
-      required: [true, "Please add a message"],
-      maxlength: [2000, "Message is too long"],
+      required: [true, "لطفاً متن پیام خود را وارد کنید"],
+      maxlength: [2000, "پیام نمی‌تواند بیشتر از ۲۰۰۰ کاراکتر باشد"],
+      trim: true,
     },
     isRead: {
       type: Boolean,
       default: false,
+    },
+    adminReply: {
+      type: String,
+      default: "",
+      trim: true,
+    },
+    repliedAt: {
+      type: Date,
+      default: null,
     },
   },
   { timestamps: true }

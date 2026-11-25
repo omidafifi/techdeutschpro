@@ -718,13 +718,38 @@
     </div>
   </div>
 
+  <script src="api.js"></script>
   <script src="script.js"></script>
   <script>
     const form = document.getElementById('contactForm');
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      alert('پیام شما با موفقیت ارسال شد! به زودی با شما تماس می‌گیریم.');
-      form.reset();
+      const inputs = form.querySelectorAll('input, textarea');
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalText = submitBtn ? submitBtn.textContent : 'ارسال';
+
+      const payload = {
+        name: inputs[0]?.value.trim(),
+        contact: inputs[1]?.value.trim(),
+        message: inputs[2]?.value.trim(),
+      };
+
+      try {
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'در حال ارسال...';
+        }
+        const res = await window.TDP_API.sendContact(payload);
+        alert(res.message || 'پیام شما با موفقیت ارسال شد! به زودی با شما تماس می‌گیریم.');
+        form.reset();
+      } catch (err) {
+        alert(err.message || 'خطا در ارسال پیام. لطفاً دوباره تلاش کنید.');
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
+        }
+      }
     });
   </script>
 
